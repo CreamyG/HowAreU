@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenuActivity"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/purptemptg1"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="411dp"
+            android:layout_height="173dp"
+            android:background="@drawable/dark1a"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteY="5dp">
+
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="352dp"
+                android:layout_height="296dp"
+                android:layout_marginEnd="92dp"
+                android:layout_marginBottom="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:srcCompat="@drawable/light1a" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="141dp"
+                android:layout_height="115dp"
+                android:layout_marginBottom="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.027"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/lg_removebg_preview" />
+
+            <TextView
+                android:id="@+id/messageTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hey, "
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/black"
+                android:textColorLink="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.352"
+                app:layout_constraintStart_toStartOf="@+id/imageView2"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.39" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mia"
+                android:textColor="@color/black"
+                android:textColorHighlight="@color/black"
+                android:textColorLink="@color/white"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@+id/messageTextView"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/messageTextView"
+                app:layout_constraintTop_toTopOf="@+id/messageTextView"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How are U today?"
+                android:textColorHighlight="@color/black"
+                android:textColorHint="@color/black"
+                android:textColorLink="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold|italic"
+                app:layout_constraintBottom_toBottomOf="@+id/imageView3"
+                app:layout_constraintEnd_toEndOf="@+id/imageView3"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/messageTextView"
+                app:layout_constraintTop_toBottomOf="@+id/messageTextView"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/moodscale"
+            android:layout_width="95dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/light2b"
+            android:text="Mood Scale"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+            app:layout_constraintVertical_bias="0.151"
+            tools:ignore="TextSizeCheck" />
+
+        <Button
+            android:id="@+id/journal"
+            android:layout_width="95dp"
+            android:layout_height="100dp"
+            android:background="@drawable/light2b"
+            android:text="Mood Journal"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/moodscale"
+            app:layout_constraintEnd_toStartOf="@+id/wheel"
+            app:layout_constraintHorizontal_bias="0.489"
+            app:layout_constraintStart_toEndOf="@+id/moodscale"
+            app:layout_constraintTop_toTopOf="@+id/moodscale"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="TextSizeCheck" />
+
+        <Button
+            android:id="@+id/music"
+            android:layout_width="95dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/light2b"
+            android:text="Soothing Sounds"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/quotes"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/quotes"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/quotes"
+            android:layout_width="95dp"
+            android:layout_height="100dp"
+            android:background="@drawable/light2b"
+            android:text="Inspirational Quotes"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/breathing"
+            app:layout_constraintEnd_toStartOf="@+id/music"
+            app:layout_constraintHorizontal_bias="0.344"
+            app:layout_constraintStart_toEndOf="@+id/breathing"
+            app:layout_constraintTop_toTopOf="@+id/breathing"
+            app:layout_constraintVertical_bias="1.0"
+            tools:ignore="TextSizeCheck" />
+
+        <Button
+            android:id="@+id/wheel"
+            android:layout_width="95dp"
+            android:layout_height="150dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/light2b"
+            android:text="Activity Wheel"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="@+id/journal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/journal"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/breathing"
+            android:layout_width="95dp"
+            android:layout_height="150dp"
+            android:layout_marginStart="16dp"
+            android:background="@drawable/light2b"
+            android:text="Breathing Exercise"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/moodscale"
+            app:layout_constraintVertical_bias="0.275"
+            tools:ignore="TextSizeCheck,TextSizeCheck" />
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="402dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="68dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quotes"
+            app:srcCompat="@drawable/dark1a" />
+
+        <ImageView
+            android:id="@+id/calicon"
+            android:layout_width="100dp"
+            android:layout_height="75dp"
+            android:layout_marginStart="85dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/evalicon"
+            app:layout_constraintHorizontal_bias="0.078"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/calendar" />
+
+        <ImageView
+            android:id="@+id/evalicon"
+            android:layout_width="100dp"
+            android:layout_height="75dp"
+            app:layout_constraintBottom_toBottomOf="@+id/calicon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.733"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/evaluation"
+            tools:ignore="ImageContrastCheck" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:ignore="MissingConstraints" />
+
+</LinearLayout>

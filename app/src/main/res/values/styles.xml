@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="CustomActionBarStyle" parent="@style/Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/cardview_dark_background </item>
+    </style>
+
+    <style name="AppThemeNoAction" parent="Theme.AppCompat.Light.NoActionBar">
+    </style>
+
+</resources>

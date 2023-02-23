@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "846505784104",
+    "project_id": "howareu-ecb34",
+    "storage_bucket": "howareu-ecb34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:846505784104:android:57fbcf88ab269ba526d61d",
+        "android_client_info": {
+          "package_name": "com.example.howareu"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "846505784104-hetqfo7dppigetpi2ik43k7o05fgjrn2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBH8czJVDHjXQ3uMI2yy7E0An23OYS4n5Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "846505784104-hetqfo7dppigetpi2ik43k7o05fgjrn2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
