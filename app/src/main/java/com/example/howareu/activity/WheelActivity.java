@@ -1,14 +1,16 @@
-package com.example.howareu;
+package com.example.howareu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MoodJournalActivity extends AppCompatActivity {
+import com.example.howareu.R;
+
+public class WheelActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mood_journal);
+        setContentView(R.layout.activity_wheel);
     }
 }

@@ -12,43 +12,43 @@
         android:theme="@style/AppThemeNoAction"
         tools:targetApi="31" >
         <activity
-            android:name=".Evaluation"
+            android:name=".activity.Evaluation"
             android:exported="false" />
         <activity
-            android:name=".Calendar"
+            android:name=".activity.Calendar"
             android:exported="false" />
         <activity
-            android:name=".mmtryActivity"
+            android:name=".activity.mmtryActivity"
             android:exported="false" />
         <activity
-            android:name=".BreathingActivity"
+            android:name=".activity.BreathingActivity"
             android:exported="false" />
         <activity
-            android:name=".WheelActivity"
+            android:name=".activity.WheelActivity"
             android:exported="false" />
         <activity
-            android:name=".InspirationalQuotesActivity"
+            android:name=".activity.InspirationalQuotesActivity"
             android:exported="false" />
         <activity
-            android:name=".SoothingSoundsActivity"
+            android:name=".activity.SoothingSoundsActivity"
             android:exported="false" />
         <activity
-            android:name=".MoodJournalActivity"
+            android:name=".activity.MoodJournalActivity"
             android:exported="false" />
         <activity
-            android:name=".MainMenuActivity"
+            android:name=".activity.MainMenuActivity"
             android:exported="false" />
         <activity
-            android:name=".MoodScaleActivity"
+            android:name=".activity.MoodScaleActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistrationFormActivity"
+            android:name=".activity.RegistrationFormActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

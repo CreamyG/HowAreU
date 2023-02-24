@@ -1,11 +1,12 @@
-package com.example.howareu;
+package com.example.howareu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.View;
 import android.widget.TextView;
+
+import com.example.howareu.R;
 
 public class BreathingActivity extends AppCompatActivity {
 

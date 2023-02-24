@@ -1,8 +1,12 @@
-package com.example.howareu;
+package com.example.howareu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,16 +14,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.howareu.R;
+import com.example.howareu.databases.repository.UserRepository;
+import com.example.howareu.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class RegistrationFormActivity extends AppCompatActivity {
 
-    private EditText mPasswordEditText;
+
     private EditText mEmailEditText;
+    private EditText mUsernameEditText;
+    private EditText mPasswordEditText;
     private EditText mCPasswordEditText;
+
     private FirebaseAuth mAuth;
     private Button mSignUpButton;
+    private UserRepository userDb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +41,8 @@ public class RegistrationFormActivity extends AppCompatActivity {
 
         mEmailEditText = findViewById(R.id.et_email);
 
+        mUsernameEditText= findViewById(R.id.et_username);
+
         mPasswordEditText = findViewById(R.id.et_password);
 
 
@@ -38,10 +51,14 @@ public class RegistrationFormActivity extends AppCompatActivity {
         mSignUpButton = findViewById(R.id.btn_sign_up);
 
 
+        userDb = new UserRepository(getApplication());
+
+
     }
 
     public void register(View view){
         String email = mEmailEditText.getText().toString();
+        String username = mUsernameEditText.getText().toString();
         String password = mPasswordEditText.getText().toString();
         String cPassword = mCPasswordEditText.getText().toString();
 
@@ -55,7 +72,25 @@ public class RegistrationFormActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Firebase", "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+                            new AsyncTask<Void, Void, Void>() {
+                                @Override
+                                protected Void doInBackground(Void... voids) {
+                                    User userModel = new User(null,email,username);
+                                    userDb.addUser(userModel,isNetworkConnected());
+                                    // Update UI with results on the main thread
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            updateUI(user);
+                                        }
+                                    });
+                                    return null;
+                                }
+                            }.execute();
+
+
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Firebase", "createUserWithEmail:failure", task.getException());
@@ -110,5 +145,12 @@ public class RegistrationFormActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager)
+                getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 }

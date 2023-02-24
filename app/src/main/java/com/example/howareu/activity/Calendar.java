@@ -1,8 +1,10 @@
-package com.example.howareu;
+package com.example.howareu.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.howareu.R;
 
 public class Calendar extends AppCompatActivity {
 
