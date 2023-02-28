@@ -17,8 +17,6 @@ import com.example.howareu.databases.repository.UserRepository;
 import com.example.howareu.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.Calendar;
-
 public class MainMenuActivity extends AppCompatActivity {
     private TextView nameTextView;
     private UserRepository userRep;
@@ -32,9 +30,9 @@ public class MainMenuActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main_menu);
         setName();
-        Button msButton = findViewById(R.id.moodscale);
+        ImageView msImageView = findViewById(R.id.moodscale);
 
-        msButton.setOnClickListener(view -> {
+        msImageView.setOnClickListener(view -> {
 
     Intent intent = new Intent(MainMenuActivity.this, MoodScaleActivity.class);
     startActivity(intent);
@@ -42,48 +40,53 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
 
-    Button mjButton = findViewById(R.id.journal);
-    mjButton.setOnClickListener(view -> {
+        ImageView mjImageView = findViewById(R.id.journal);
+        mjImageView.setOnClickListener(view -> {
         Intent intent = new Intent(MainMenuActivity.this, MoodJournalActivity.class);
         startActivity(intent);
     });
 
 
-        Button ssButton = findViewById(R.id.music);
-        ssButton.setOnClickListener(view -> {
+        ImageView ssImageView = findViewById(R.id.music);
+        ssImageView.setOnClickListener(view -> {
             Intent intent = new Intent(MainMenuActivity.this, SoothingSoundsActivity.class);
             startActivity(intent);
         });
 
 
-        Button iqButton = findViewById(R.id.quotes);
-        iqButton.setOnClickListener(view -> {
+        ImageView iqImageView = findViewById(R.id.quotes);
+        iqImageView.setOnClickListener(view -> {
             Intent intent = new Intent(MainMenuActivity.this, InspirationalQuotesActivity.class);
             startActivity(intent);
         });
 
 
-        Button waButton = findViewById(R.id.wheel);
-        waButton.setOnClickListener(view -> {
+        ImageView awImageView = findViewById(R.id.wheel);
+        awImageView.setOnClickListener(view -> {
             Intent intent = new Intent(MainMenuActivity.this, WheelActivity.class);
             startActivity(intent);
         });
 
 
-        Button beButton = findViewById(R.id.breathing);
-        beButton.setOnClickListener(view -> {
+        ImageView beImageView = findViewById(R.id.breathing);
+        beImageView.setOnClickListener(view -> {
             Intent intent = new Intent(MainMenuActivity.this, BreathingActivity.class);
             startActivity(intent);
         });
 
-        ImageView calImageView = findViewById(R.id.calicon);
-        calImageView.setOnClickListener(view -> {
-            Intent intent = new Intent(MainMenuActivity.this, Calendar.class);
+        ImageView homeImageView = findViewById(R.id.home);
+        homeImageView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenuActivity.this, MainMenuActivity.class);
             startActivity(intent);
         });
 
-        ImageView evalImageView = findViewById(R.id.evalicon);
-        evalImageView.setOnClickListener(view -> {
+        ImageView calendarImageView = findViewById(R.id.calendar);
+        calendarImageView.setOnClickListener(view -> {
+            Intent intent = new Intent(MainMenuActivity.this, Calendar.class);
+            startActivity(intent);
+
+        ImageView hisImageView = findViewById(R.id.history);
+        hisImageView.setOnClickListener(view1 -> {
             Intent intent = new Intent(MainMenuActivity.this, Evaluation.class);
             startActivity(intent);
         });
