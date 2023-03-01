@@ -5,85 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.MainMenuActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/bg">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#00000000">
+        <include layout="@layout/actionbar_main_menu"></include>
+    </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg"
         tools:layout_editor_absoluteX="0dp"
         tools:layout_editor_absoluteY="0dp">
 
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="93dp"
-            android:layout_height="72dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.048"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.023"
-            app:srcCompat="@drawable/lg_1" />
-
-        <TextView
-            android:id="@+id/messageTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Hey, "
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/black"
-            android:textColorLink="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.316"
-            app:layout_constraintStart_toStartOf="@+id/imageView2"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.041" />
-
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:text="Mia"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/black"
-            android:textColorLink="@color/white"
-            android:textSize="22sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/messageTextView"
-            app:layout_constraintStart_toEndOf="@+id/messageTextView"
-            app:layout_constraintTop_toTopOf="@+id/messageTextView"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="How are U today?"
-            android:textColorHighlight="@color/black"
-            android:textColorHint="@color/black"
-            android:textColorLink="@color/white"
-            android:textSize="15sp"
-            android:textStyle="bold|italic"
-            app:layout_constraintStart_toStartOf="@+id/messageTextView"
-            app:layout_constraintTop_toBottomOf="@+id/messageTextView" />
-
-        <ImageView
-            android:id="@+id/imageView3"
-            android:layout_width="43dp"
-            android:layout_height="45dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.956"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.042"
-            app:srcCompat="@drawable/hamburger" />
 
         <ImageView
             android:id="@+id/imageView4"
@@ -101,7 +40,7 @@
             android:id="@+id/moodscale"
             android:layout_width="150dp"
             android:layout_height="170dp"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="28dp"
             app:layout_constraintEnd_toStartOf="@+id/journal"
             app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
@@ -112,7 +51,7 @@
             android:id="@+id/journal"
             android:layout_width="150dp"
             android:layout_height="170dp"
-            android:layout_marginTop="128dp"
+            android:layout_marginTop="28dp"
             android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
