@@ -84,6 +84,7 @@ public class MainMenuActivity extends AppCompatActivity {
         calendarImageView.setOnClickListener(view -> {
             Intent intent = new Intent(MainMenuActivity.this, Calendar.class);
             startActivity(intent);
+        });
 
         ImageView hisImageView = findViewById(R.id.history);
         hisImageView.setOnClickListener(view1 -> {

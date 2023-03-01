@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/purptemptg1"
+    android:background="#B7A28F"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".activity.LoginActivity">
@@ -23,18 +23,20 @@
         android:textColorLink="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.063" />
 
     <EditText
         android:id="@+id/email_edit_text"
         android:layout_width="357dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:inputType="text"
         android:padding="16dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
@@ -64,6 +66,7 @@
         android:layout_marginTop="20dp"
         android:inputType="textPassword"
         android:padding="16dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,10 +75,10 @@
 
     <Button
         android:id="@+id/login_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="162dp"
+        android:layout_height="49dp"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/purple_200"
+        android:background="@color/cardview_shadow_start_color"
         android:text="Let's Begin"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,8 +125,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.137"
-        app:srcCompat="@drawable/lg_removebg_preview" />
+        app:layout_constraintVertical_bias="0.145"
+        app:srcCompat="@drawable/lg_1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
