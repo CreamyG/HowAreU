@@ -4,10 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.example.howareu.R;
 import com.example.howareu.databases.repository.UserRepository;
@@ -17,6 +23,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private TextView nameTextView;
     private UserRepository userRep;
     private FirebaseAuth mAuth;
+    private Toolbar toolbar;
 
 
     @SuppressLint("WrongViewCast")
@@ -25,6 +32,12 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main_menu);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("");
+
         setName();
         ImageView msImageView = findViewById(R.id.moodscale);
 
@@ -88,6 +101,34 @@ public class MainMenuActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+    }
+    //For main menu lagout
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        new MenuInflater(this).inflate(R.menu.toolbar_main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        FirebaseAuth auth= FirebaseAuth.getInstance();
+        int id = item.getItemId();
+        switch (id){
+            case R.id.setting:
+                Toast.makeText(this, "Still no Setting Activity", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.about_us:
+                Toast.makeText(this, "Still no About Us Activity", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.lagout:
+                auth.signOut();
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            default:
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void setName(){
