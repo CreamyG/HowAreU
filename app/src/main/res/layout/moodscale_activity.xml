@@ -10,285 +10,123 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/purptemptg1"
+        android:background="@drawable/bg"
         tools:layout_editor_absoluteX="-108dp"
         tools:layout_editor_absoluteY="0dp">
 
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="104dp"
-            android:layout_height="111dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.025"
-            app:srcCompat="@drawable/lg_removebg_preview" />
-
         <TextView
-            android:id="@+id/messageTextView"
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hey, "
+            android:text="How are U "
             android:textColor="@color/black"
             android:textColorHighlight="@color/black"
-            android:textColorLink="@color/white"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.331"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.057" />
-
-        <TextView
-            android:id="@+id/nameTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="John Doe"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/black"
-            android:textColorLink="@color/white"
-            android:textSize="35sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/messageTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/messageTextView"
-            app:layout_constraintTop_toTopOf="@+id/messageTextView"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/asses"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Asses yourself now!"
-            android:textColorHighlight="@color/black"
-            android:textColorHint="@color/black"
             android:textColorLink="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold|italic"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.476"
+            app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/messageTextView"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.403" />
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="355dp"
-            android:layout_height="551dp"
-            android:layout_margin="20px"
-            android:layout_marginTop="1dp"
-            android:background="@drawable/purpg2"
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="feeling today? "
+            android:textColor="@color/black"
+            android:textColorHighlight="@color/black"
+            android:textColorLink="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.494"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/asses"
-            app:layout_constraintVertical_bias="0.46">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.441" />
 
+        <ImageView
+            android:id="@+id/imageView13"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/happy"
+            tools:layout_editor_absoluteX="277dp"
+            tools:layout_editor_absoluteY="217dp" />
 
-            <!-- syntax for HorizontalScrollView -->
-            <TextView
-                android:id="@+id/quest"
-                android:layout_width="295dp"
-                android:layout_height="68dp"
-                android:layout_marginTop="13dp"
-                android:layout_marginBottom="416dp"
-                android:text="How are U feeling today?"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/black"
-                android:textColorLink="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.511"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.375" />
+        <ImageView
+            android:id="@+id/imageView14"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/sad"
+            tools:layout_editor_absoluteX="277dp"
+            tools:layout_editor_absoluteY="111dp" />
 
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="357dp"
-                android:layout_height="127dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/quest"
-                app:layout_constraintVertical_bias="0.143"
-                app:srcCompat="@drawable/whiteborder" />
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/angry"
+            tools:layout_editor_absoluteX="277dp"
+            tools:layout_editor_absoluteY="323dp" />
 
-            <HorizontalScrollView
-                android:id="@+id/horizontalScrollView"
-                android:layout_width="370dp"
-                android:layout_height="114dp"
-                android:foregroundGravity="center_vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/imageView8"
-                app:layout_constraintTop_toTopOf="@+id/imageView8"
-                tools:ignore="MissingConstraints"
-                tools:layout_editor_absoluteX="0dp">
+        <ImageView
+            android:id="@+id/imageView16"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/crying"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="427dp" />
 
-                <!-- child view -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:foregroundGravity="center"
-                    android:gravity="center"
-                    android:orientation="horizontal">
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/disappointed"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="427dp" />
 
-                    <!-- LinearLayout children -->
+        <ImageView
+            android:id="@+id/imageView18"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/inlove"
+            tools:layout_editor_absoluteX="282dp"
+            tools:layout_editor_absoluteY="427dp" />
 
-                    <TextView
-                        android:id="@+id/one"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="10"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
+        <ImageView
+            android:id="@+id/imageView19"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/scared"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="111dp" />
 
-                    <TextView
-                        android:id="@+id/two"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="20"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/teary"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="111dp" />
 
-                    <TextView
-                        android:id="@+id/three"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="30"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
+        <ImageView
+            android:id="@+id/imageView21"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/tired"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="217dp" />
 
-                    <TextView
-                        android:id="@+id/four"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="40"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/five"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="50"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/six"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="60"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/seven"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="70"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/eight"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="80"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/nine"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="90"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
-
-                    <TextView
-                        android:id="@+id/ten"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:padding="15dp"
-                        android:text="100"
-                        android:textColor="#0F9D58"
-                        android:textSize="40sp" />
-
-                </LinearLayout>
-            </HorizontalScrollView>
-
-            <TextView
-                android:id="@+id/textView5"
-                android:layout_width="295dp"
-                android:layout_height="68dp"
-                android:text="Your mood today is:"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textColorHighlight="@color/black"
-                android:textColorLink="@color/white"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.511"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView8"
-                app:layout_constraintVertical_bias="0.132" />
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/round_gradient"
-                tools:layout_editor_absoluteX="27dp"
-                tools:layout_editor_absoluteY="337dp"
-                tools:ignore="MissingConstraints" />
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="123dp"
-                android:layout_height="117dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.102"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView5"
-                app:layout_constraintVertical_bias="0.297"
-                app:srcCompat="@drawable/dark1a" />
-
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/imageView22"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/cool"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="323dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

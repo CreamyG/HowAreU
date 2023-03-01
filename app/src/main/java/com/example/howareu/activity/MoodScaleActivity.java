@@ -13,5 +13,6 @@ public class MoodScaleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.moodscale_activity);
 
+
     }
 }

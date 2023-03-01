@@ -4,17 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.howareu.R;
-import com.example.howareu.databases.dao.UserDao;
 import com.example.howareu.databases.repository.UserRepository;
-import com.example.howareu.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainMenuActivity extends AppCompatActivity {
