@@ -14,8 +14,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
 
 import com.example.howareu.R;
+import com.example.howareu.activity.fragments.Calendar;
+import com.example.howareu.activity.fragments.Histroy;
+import com.example.howareu.activity.fragments.Recommender;
 import com.example.howareu.databases.repository.UserRepository;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -24,6 +28,11 @@ public class MainMenuActivity extends AppCompatActivity {
     private UserRepository userRep;
     private FirebaseAuth mAuth;
     private Toolbar toolbar;
+    private Fragment fragmentRecommender;
+    private Fragment fragmenCalendar;
+    private Fragment fragmentHistory;
+
+
 
 
     @SuppressLint("WrongViewCast")
@@ -38,67 +47,34 @@ public class MainMenuActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
 
+        fragmentRecommender = new Recommender();
+
+        fragmenCalendar = new Calendar();
+
+        fragmentHistory = new Histroy();
+
         setName();
-        ImageView msImageView = findViewById(R.id.moodscale);
 
-        msImageView.setOnClickListener(view -> {
-
-    Intent intent = new Intent(MainMenuActivity.this, MoodScaleActivity.class);
-    startActivity(intent);
-
-        });
-
-
-        ImageView mjImageView = findViewById(R.id.journal);
-        mjImageView.setOnClickListener(view -> {
-        Intent intent = new Intent(MainMenuActivity.this, MoodJournalActivity.class);
-        startActivity(intent);
-    });
-
-
-        ImageView ssImageView = findViewById(R.id.music);
-        ssImageView.setOnClickListener(view -> {
-            Intent intent = new Intent(MainMenuActivity.this, SoothingSoundsActivity.class);
-            startActivity(intent);
-        });
-
-
-        ImageView iqImageView = findViewById(R.id.quotes);
-        iqImageView.setOnClickListener(view -> {
-            Intent intent = new Intent(MainMenuActivity.this, InspirationalQuotesActivity.class);
-            startActivity(intent);
-        });
-
-
-        ImageView awImageView = findViewById(R.id.wheel);
-        awImageView.setOnClickListener(view -> {
-            Intent intent = new Intent(MainMenuActivity.this, WheelActivity.class);
-            startActivity(intent);
-        });
-
-
-        ImageView beImageView = findViewById(R.id.breathing);
-        beImageView.setOnClickListener(view -> {
-            Intent intent = new Intent(MainMenuActivity.this, BreathingActivity.class);
-            startActivity(intent);
-        });
 
         ImageView homeImageView = findViewById(R.id.home);
         homeImageView.setOnClickListener(view -> {
-            Intent intent = new Intent(MainMenuActivity.this, MainMenuActivity.class);
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragmentRecommender)
+                    .commit();
         });
 
         ImageView calendarImageView = findViewById(R.id.calendar);
         calendarImageView.setOnClickListener(view -> {
-            Intent intent = new Intent(MainMenuActivity.this, Calendar.class);
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragmenCalendar)
+                    .commit();
         });
 
         ImageView hisImageView = findViewById(R.id.history);
         hisImageView.setOnClickListener(view1 -> {
-            Intent intent = new Intent(MainMenuActivity.this, Evaluation.class);
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, fragmentHistory)
+                    .commit();
         });
 
     }
