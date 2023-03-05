@@ -15,9 +15,6 @@
             android:name=".activity.Evaluation"
             android:exported="false" />
         <activity
-            android:name=".activity.Calendar"
-            android:exported="false" />
-        <activity
             android:name=".activity.mmtryActivity"
             android:exported="false" />
         <activity

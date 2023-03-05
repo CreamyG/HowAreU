@@ -50,122 +50,114 @@
             app:layout_constraintVertical_bias="0.083" />
 
         <ImageView
-            android:id="@+id/imageView13"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/happyMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:layout_marginStart="195dp"
+            android:layout_marginTop="52dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.252"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.246"
-            app:srcCompat="@drawable/happy" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tiredMood"
+            app:layout_constraintTop_toBottomOf="@+id/sadMood"
+            app:srcCompat="@drawable/happy"
+            android:onClick="onButtonSelect"/>
 
         <ImageView
-            android:id="@+id/imageView14"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:id="@+id/sadMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.906"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.222"
-            app:srcCompat="@drawable/sad" />
+            app:layout_constraintVertical_bias="0.094"
+            app:srcCompat="@drawable/sad"
+            android:onClick="onButtonSelect"/>
 
         <ImageView
-            android:id="@+id/imageView15"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.791"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.222"
-            app:srcCompat="@drawable/angry" />
+            android:id="@+id/angryMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/angry"
+            tools:layout_editor_absoluteX="277dp"
+            tools:layout_editor_absoluteY="323dp"
+            android:onClick="onButtonSelect"/>
 
         <ImageView
-            android:id="@+id/imageView16"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.295"
+            android:id="@+id/cryingMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
             app:srcCompat="@drawable/crying"
-            tools:layout_editor_absoluteX="4dp" />
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="427dp"
+            android:onClick="onButtonSelect"/>
 
         <ImageView
-            android:id="@+id/imageView17"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.011"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.446"
-            app:srcCompat="@drawable/disappointed" />
+            android:id="@+id/disappointedMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/disappointed"
+            tools:layout_editor_absoluteX="155dp"
+            tools:layout_editor_absoluteY="427dp"
+            android:onClick="onButtonSelect"/>
 
         <ImageView
-            android:id="@+id/imageView18"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.997"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.446"
-            app:srcCompat="@drawable/inlove" />
+            android:id="@+id/inloveMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:onClick="onButtonSelect"
+            app:srcCompat="@drawable/inlove"
+            tools:layout_editor_absoluteX="282dp"
+            tools:layout_editor_absoluteY="427dp" />
 
         <ImageView
-            android:id="@+id/imageView19"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:id="@+id/scaredMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:onClick="onButtonSelect"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.051"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.295"
+            app:layout_constraintVertical_bias="0.095"
             app:srcCompat="@drawable/scared" />
 
         <ImageView
-            android:id="@+id/imageView20"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:id="@+id/tearyMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            android:onClick="onButtonSelect"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.249"
+            app:layout_constraintHorizontal_bias="0.491"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.582"
+            app:layout_constraintVertical_bias="0.119"
             app:srcCompat="@drawable/teary" />
 
         <ImageView
-            android:id="@+id/imageView21"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:id="@+id/tiredMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.051"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.665"
-            app:srcCompat="@drawable/tired" />
+            app:layout_constraintVertical_bias="0.286"
+            app:srcCompat="@drawable/tired"
+            android:onClick="onButtonSelect"/>
 
         <ImageView
-            android:id="@+id/imageView22"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.791"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.647"
-            app:srcCompat="@drawable/cool" />
+            android:id="@+id/coolMood"
+            android:layout_width="100dp"
+            android:layout_height="85dp"
+            app:srcCompat="@drawable/cool"
+            tools:layout_editor_absoluteX="31dp"
+            tools:layout_editor_absoluteY="323dp"
+            android:onClick="onButtonSelect"/>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
