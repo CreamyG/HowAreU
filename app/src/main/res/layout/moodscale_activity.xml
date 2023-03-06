@@ -27,10 +27,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.495"
+            app:layout_constraintHorizontal_bias="0.121"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.022" />
+            app:layout_constraintVertical_bias="0.228" />
 
         <TextView
             android:id="@+id/textView6"
@@ -42,122 +42,142 @@
             android:textColorLink="@color/white"
             android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.431"
+            app:layout_constraintHorizontal_bias="0.535"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.083" />
+            app:layout_constraintTop_toTopOf="@+id/textView5"
+            app:layout_constraintVertical_bias="0.0" />
 
         <ImageView
             android:id="@+id/happyMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            android:layout_marginStart="195dp"
-            android:layout_marginTop="52dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onButtonSelect"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/tiredMood"
-            app:layout_constraintTop_toBottomOf="@+id/sadMood"
-            app:srcCompat="@drawable/happy"
-            android:onClick="onButtonSelect"/>
+            app:layout_constraintHorizontal_bias="0.363"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.322"
+            app:srcCompat="@drawable/happy" />
 
         <ImageView
             android:id="@+id/sadMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onButtonSelect"
+            app:layout_constraintBottom_toBottomOf="@+id/happyMood"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.906"
+            app:layout_constraintHorizontal_bias="0.595"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.094"
-            app:srcCompat="@drawable/sad"
-            android:onClick="onButtonSelect"/>
+            app:layout_constraintTop_toTopOf="@+id/happyMood"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/sad" />
 
         <ImageView
             android:id="@+id/angryMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            app:srcCompat="@drawable/angry"
-            tools:layout_editor_absoluteX="277dp"
-            tools:layout_editor_absoluteY="323dp"
-            android:onClick="onButtonSelect"/>
-
-        <ImageView
-            android:id="@+id/cryingMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            app:srcCompat="@drawable/crying"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="427dp"
-            android:onClick="onButtonSelect"/>
-
-        <ImageView
-            android:id="@+id/disappointedMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            app:srcCompat="@drawable/disappointed"
-            tools:layout_editor_absoluteX="155dp"
-            tools:layout_editor_absoluteY="427dp"
-            android:onClick="onButtonSelect"/>
-
-        <ImageView
-            android:id="@+id/inloveMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            android:onClick="onButtonSelect"
-            app:srcCompat="@drawable/inlove"
-            tools:layout_editor_absoluteX="282dp"
-            tools:layout_editor_absoluteY="427dp" />
-
-        <ImageView
-            android:id="@+id/scaredMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:onClick="onButtonSelect"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintHorizontal_bias="0.160"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.095"
+            app:layout_constraintVertical_bias="0.379"
+            app:srcCompat="@drawable/angry" />
+
+        <ImageView
+            android:id="@+id/cryingMood"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onButtonSelect"
+            app:layout_constraintBottom_toBottomOf="@+id/angryMood"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.800"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/angryMood"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/crying" />
+
+        <ImageView
+            android:id="@+id/disappointedMood"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onButtonSelect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.090"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.499"
+            app:srcCompat="@drawable/disappointed" />
+
+        <ImageView
+            android:id="@+id/inloveMood"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onButtonSelect"
+            app:layout_constraintBottom_toBottomOf="@+id/disappointedMood"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.900"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/disappointedMood"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/inlove" />
+
+        <ImageView
+            android:id="@+id/scaredMood"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onButtonSelect"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.158"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.624"
             app:srcCompat="@drawable/scared" />
 
         <ImageView
             android:id="@+id/tearyMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:onClick="onButtonSelect"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/scaredMood"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.491"
+            app:layout_constraintHorizontal_bias="0.8"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.119"
+            app:layout_constraintTop_toTopOf="@+id/scaredMood"
+            app:layout_constraintVertical_bias="0.0"
             app:srcCompat="@drawable/teary" />
 
         <ImageView
             android:id="@+id/tiredMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onButtonSelect"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.051"
+            app:layout_constraintHorizontal_bias="0.363"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.286"
-            app:srcCompat="@drawable/tired"
-            android:onClick="onButtonSelect"/>
+            app:layout_constraintVertical_bias="0.688"
+            app:srcCompat="@drawable/tired" />
 
         <ImageView
             android:id="@+id/coolMood"
-            android:layout_width="100dp"
-            android:layout_height="85dp"
-            app:srcCompat="@drawable/cool"
-            tools:layout_editor_absoluteX="31dp"
-            tools:layout_editor_absoluteY="323dp"
-            android:onClick="onButtonSelect"/>
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:onClick="onButtonSelect"
+            app:layout_constraintBottom_toBottomOf="@+id/tiredMood"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.595"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/tiredMood"
+            app:layout_constraintVertical_bias="0.0"
+            app:srcCompat="@drawable/cool" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
