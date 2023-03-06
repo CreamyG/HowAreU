@@ -6,44 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainMenuActivity"
     android:orientation="vertical"
-    android:background="@drawable/bg">
+
+    android:background="@drawable/lightformain">
+
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#00000000">
+        android:layout_height="86dp"
+        android:background="#00000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
         <include layout="@layout/actionbar_main_menu"></include>
     </androidx.appcompat.widget.Toolbar>
-
 
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
-        android:layout_height="555dp"
-        android:layout_weight="1"/>
+        android:layout_height="572dp"
+        android:layout_marginBottom="16dp"
+        android:layout_weight="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="83dp"
-        android:background="@drawable/whiteborder"
-        >
+        android:layout_height="65dp"
+        android:background="@drawable/whiteborder">
 
         <ImageView
             android:id="@+id/calendar"
-            android:layout_width="65dp"
-            android:layout_height="75dp"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
             android:layout_marginStart="56dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.627"
             app:srcCompat="@drawable/calendar" />
 
         <ImageView
             android:id="@+id/home"
-            android:layout_width="65dp"
-            android:layout_height="75dp"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -52,16 +59,16 @@
 
         <ImageView
             android:id="@+id/history"
-            android:layout_width="78dp"
-            android:layout_height="74dp"
+            android:layout_width="30dp"
+            android:layout_height="40dp"
             android:layout_marginStart="63dp"
             android:layout_marginEnd="32dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.753"
             app:layout_constraintStart_toEndOf="@+id/home"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintVertical_bias="0.627"
             app:srcCompat="@drawable/history" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

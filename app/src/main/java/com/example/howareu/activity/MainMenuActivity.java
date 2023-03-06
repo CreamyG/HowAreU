@@ -31,7 +31,7 @@ public class MainMenuActivity extends AppCompatActivity {
     private Fragment fragmentRecommender;
     private Fragment fragmenCalendar;
     private Fragment fragmentHistory;
-
+    private byte[] byteArray;
 
 
 
@@ -41,6 +41,8 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main_menu);
+        byteArray = getIntent().getByteArrayExtra("myBitmap");
+
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -57,6 +59,15 @@ public class MainMenuActivity extends AppCompatActivity {
 
 
         ImageView homeImageView = findViewById(R.id.home);
+        Bundle args = new Bundle();
+        args.putByteArray("byteArray",byteArray);
+        fragmentRecommender.setArguments(args);
+
+
+
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, fragmentRecommender)
+                .commit();
         homeImageView.setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, fragmentRecommender)

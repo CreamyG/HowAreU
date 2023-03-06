@@ -10,7 +10,6 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.howareu.MoodCauseActivity;
 import com.example.howareu.R;
 
 import java.io.ByteArrayOutputStream;
@@ -34,6 +33,38 @@ public class MoodScaleActivity extends AppCompatActivity {
                 break;
             case R.id.sadMood:
                 image = findViewById(R.id.sadMood);
+                goToMoodCause();
+                break;
+            case R.id.angryMood:
+                image = findViewById(R.id.angryMood);
+                goToMoodCause();
+                break;
+            case R.id.cryingMood:
+                image = findViewById(R.id.cryingMood);
+                goToMoodCause();
+                break;
+            case R.id.disappointedMood:
+                image = findViewById(R.id.disappointedMood);
+                goToMoodCause();
+                break;
+            case R.id.calmMood:
+                image = findViewById(R.id.calmMood);
+                goToMoodCause();
+                break;
+            case R.id.scaredMood:
+                image = findViewById(R.id.scaredMood);
+                goToMoodCause();
+                break;
+            case R.id.tearyMood:
+                image = findViewById(R.id.tearyMood);
+                goToMoodCause();
+                break;
+            case R.id.tiredMood:
+                image = findViewById(R.id.tiredMood);
+                goToMoodCause();
+                break;
+            case R.id.coolMood:
+                image = findViewById(R.id.coolMood);
                 goToMoodCause();
                 break;
             default:
