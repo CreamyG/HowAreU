@@ -10,11 +10,15 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.howareu.MoodCauseActivity;
 import com.example.howareu.R;
+
+import java.io.ByteArrayOutputStream;
 
 public class MoodScaleActivity extends AppCompatActivity {
     ImageView image;
-    Bitmap imageBitmap;
+    Bitmap bitmap;
+    Drawable drawable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,13 +29,12 @@ public class MoodScaleActivity extends AppCompatActivity {
         switch (view.getId()){
             case R.id.happyMood:
                 image = findViewById(R.id.happyMood);
-                drawableToBitmap(image.getDrawable());
-                // updateUI();
+                goToMoodCause();
+
                 break;
             case R.id.sadMood:
                 image = findViewById(R.id.sadMood);
-                drawableToBitmap(image.getDrawable());
-                // updateUI();
+                goToMoodCause();
                 break;
             default:
                 //do nothing
@@ -41,15 +44,26 @@ public class MoodScaleActivity extends AppCompatActivity {
 
 
     }
+    public void goToMoodCause(){
+        drawable = image.getDrawable();
+        bitmap = ((BitmapDrawable) drawable).getBitmap();
+        updateUI();
+    }
+
     public void updateUI(){
-        Intent intent = new Intent(MoodScaleActivity.this, Evaluation.class);
-        intent.putExtra("key",imageBitmap);
+        Intent intent = new Intent(MoodScaleActivity.this, MoodCauseActivity.class);
+        intent.putExtra("myBitmap",drawableToBitmap());
         startActivity(intent);
     }
 
-    public  void drawableToBitmap(Drawable drawable){
-        imageBitmap= ((BitmapDrawable) drawable).getBitmap();
 
+
+    public  byte[] drawableToBitmap(){
+        // Convert the Bitmap to a byte array
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
     }
 
 
