@@ -11,6 +11,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoAction"
         tools:targetApi="31">
+
+        <activity
+            android:name=".MoodCauseActivity"
+            android:exported="false" />
+
         <activity
             android:name=".activity.Evaluation"
             android:exported="false" />
