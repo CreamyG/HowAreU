@@ -14,7 +14,7 @@ public class User {
     @ColumnInfo(name = "username")
     private String username;
 
-    public User(String id, String email, String username) {
+    public User(@NonNull String id, String email, String username) {
         this.id = id;
         this.email = email;
         this.username = username;

@@ -17,10 +17,14 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import com.example.howareu.R;
-import com.example.howareu.activity.fragments.Calendar;
-import com.example.howareu.activity.fragments.Histroy;
-import com.example.howareu.activity.fragments.Recommender;
+import com.example.howareu.activity.fragments.HomeFragment;
+import com.example.howareu.activity.fragments.JournalHistoryFragment;
+import com.example.howareu.activity.fragments.StatisticsFragment;
+import com.example.howareu.constant.Integers;
+import com.example.howareu.constant.Strings;
+import com.example.howareu.databases.repository.MoodRepository;
 import com.example.howareu.databases.repository.UserRepository;
+import com.example.howareu.model.Mood;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainMenuActivity extends AppCompatActivity {
@@ -28,11 +32,15 @@ public class MainMenuActivity extends AppCompatActivity {
     private UserRepository userRep;
     private FirebaseAuth mAuth;
     private Toolbar toolbar;
-    private Fragment fragmentRecommender;
-    private Fragment fragmenCalendar;
-    private Fragment fragmentHistory;
+
     private byte[] byteArray;
 
+
+    //March 15 Added
+    private MoodRepository moodDb;
+    private Fragment fragmentHome;
+    private Fragment fragmentStat;
+    private Fragment fragmentJournal;
 
 
     @SuppressLint("WrongViewCast")
@@ -42,6 +50,22 @@ public class MainMenuActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         setContentView(R.layout.activity_main_menu);
         byteArray = getIntent().getByteArrayExtra("myBitmap");
+        moodDb = new MoodRepository(getApplication());
+        new AsyncTask<Void, Void, Boolean>() {
+            @Override
+            protected Boolean doInBackground(Void... voids) {
+                if(moodDb.isMoodTableEmpty()) {
+                    setMoodDb();
+                }
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Boolean result) {
+                // Do something with the result
+            }
+        }.execute();
+
 
 
         toolbar = findViewById(R.id.toolbar);
@@ -49,42 +73,44 @@ public class MainMenuActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("");
 
-        fragmentRecommender = new Recommender();
 
-        fragmenCalendar = new Calendar();
+        fragmentHome = new HomeFragment();
+        fragmentStat = new StatisticsFragment();
+        fragmentJournal = new JournalHistoryFragment();
 
-        fragmentHistory = new Histroy();
 
-        setName();
+        //setName();
 
 
         ImageView homeImageView = findViewById(R.id.home);
         Bundle args = new Bundle();
-        args.putByteArray("byteArray",byteArray);
-        fragmentRecommender.setArguments(args);
+
+        //Transfer Image(For future use if ever to transfer Data)
+        //args.putByteArray("byteArray",byteArray);
+        //fragmentHome.setArguments(args);
 
 
 
         getSupportFragmentManager().beginTransaction()
-                .replace(R.id.fragment_container, fragmentRecommender)
+                .replace(R.id.fragment_container, fragmentHome)
                 .commit();
         homeImageView.setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragmentRecommender)
+                    .replace(R.id.fragment_container, fragmentHome)
                     .commit();
         });
 
-        ImageView calendarImageView = findViewById(R.id.calendar);
-        calendarImageView.setOnClickListener(view -> {
+        ImageView statisticImageView = findViewById(R.id.statistics);
+        statisticImageView.setOnClickListener(view -> {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragmenCalendar)
+                    .replace(R.id.fragment_container, fragmentStat)
                     .commit();
         });
 
-        ImageView hisImageView = findViewById(R.id.history);
-        hisImageView.setOnClickListener(view1 -> {
+        ImageView journalImageView = findViewById(R.id.journalHistory);
+        journalImageView.setOnClickListener(view1 -> {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, fragmentHistory)
+                    .replace(R.id.fragment_container, fragmentJournal)
                     .commit();
         });
 
@@ -139,6 +165,35 @@ public class MainMenuActivity extends AppCompatActivity {
                         else{
                             nameTextView.setText("Name ERror");
                         }
+                    }
+                });
+                return null;
+            }
+        }.execute();
+    }
+
+    public void setMoodDb(){
+        Mood moodVerySad = new Mood(Integers.MOOD_VERY_SAD, Strings.MOOD_VERY_SAD, Integers.MOOD_PERCENT_VERY_SAD);
+        Mood moodSad = new Mood(Integers.MOOD_SAD, Strings.MOOD_SAD, Integers.MOOD_PERCENT_SAD);
+        Mood moodNeutral = new Mood(Integers.MOOD_NEUTRAL, Strings.MOOD_NEUTRAL, Integers.MOOD_PERCENT_NEUTRAL);
+        Mood moodHappy = new Mood(Integers.MOOD_HAPPY, Strings.MOOD_HAPPY, Integers.MOOD_PERCENT_HAPPY);
+        Mood moodVeryHappy = new Mood(Integers.MOOD_VERY_HAPPY, Strings.MOOD_VERY_HAPPY, Integers.MOOD_PERCENT_VERY_HAPPY);
+
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                moodDb.insertMood(moodVerySad);
+                moodDb.insertMood(moodSad);
+                moodDb.insertMood(moodNeutral);
+                moodDb.insertMood(moodHappy);
+                moodDb.insertMood(moodVeryHappy);
+
+                // Update UI with results on the main thread
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
                     }
                 });
                 return null;

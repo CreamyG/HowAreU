@@ -12,17 +12,20 @@ import com.example.howareu.model.User;
 
 @Database(entities = {User.class}, version = 1)
 public abstract class UserDatabase extends RoomDatabase {
-    private static UserDatabase instance;
+    private static UserDatabase DatabaseInstance;
 
     public abstract UserDao userDao();
 
     public static synchronized UserDatabase getInstance(Application context) {
-        if (instance == null) {
-            instance = Room.databaseBuilder(context.getApplicationContext(),
-                            UserDatabase.class, "user_database")
-                    .fallbackToDestructiveMigration()
-                    .build();
+        if (DatabaseInstance == null) {
+            DatabaseInstance =
+                    Room.databaseBuilder(
+                            context.getApplicationContext(),
+                            UserDatabase.class,
+                     "user_database")
+                            .fallbackToDestructiveMigration()
+                            .build();
         }
-        return instance;
+        return DatabaseInstance;
     }
 }
