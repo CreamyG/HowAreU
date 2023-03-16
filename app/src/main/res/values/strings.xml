@@ -4,4 +4,8 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
+    <!-- Home Fragment -->
+    <string name="home_to_do_list">To do:</string>
+    <string name="home_activity">Activity:</string>
+    <string name="home_journal">Journal(optional):</string>
 </resources>
