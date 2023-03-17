@@ -28,12 +28,10 @@ public class ActivityRepository {
     public int geMoodId(int activityId){
         return activityDao.getMoodID(activityId);
     }
-    public String getActivityname(int activityId){
-        return activityDao.getActivityName(activityId);
-    }
+    public String getActivityname(int activityId){return activityDao.getActivityName(activityId);}
     public Date getDate(int activityId){
         return activityDao.getActivityDate(activityId);
     }
-    public  LiveData<List<Activity>> getAllActivity(){return activityDao.getAllMood();
+    public  LiveData<List<Activity>> getAllActivity(){return activityDao.getAllActivity();
     }
 }

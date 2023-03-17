@@ -26,7 +26,7 @@ public interface ActivityDao {
     void delete(Activity activity);
 
     @Query("SELECT * FROM activities")
-    LiveData<List<Activity>> getAllMood();
+    LiveData<List<Activity>> getAllActivity();
 
     @Query("SELECT mood_id FROM activities WHERE id = :activityId")
     int getMoodID(int activityId);

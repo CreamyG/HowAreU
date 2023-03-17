@@ -21,4 +21,7 @@ public abstract class Strings {
     public static final String TODO_RATE_SAVE = "todoRateSave";
 
 
+    public static final String JOURNAL_SAVE = "journalSave";
+
+    public static final String JOURNAL_PRIVACY = "journalPrivacy";
 }

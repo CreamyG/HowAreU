@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,7 +28,9 @@ import com.example.howareu.constant.Arrays;
 import com.example.howareu.constant.Integers;
 import com.example.howareu.constant.Strings;
 import com.example.howareu.databases.repository.ActivityRepository;
+import com.example.howareu.databases.repository.JournalRepository;
 import com.example.howareu.model.Activity;
+import com.example.howareu.model.Journal;
 import com.example.howareu.model.SimpleActivityModel;
 import com.example.howareu.model.SimpleTodoModel;
 import com.google.gson.Gson;
@@ -47,6 +50,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         HomeTodoAdapter.OnTodoMoodRateClickListener,View.OnClickListener,HomeActivityAdapter.OnTextChangeListener {
     RecyclerView activityRecycler;
     RecyclerView todoRecycler;
+    EditText journalInput;
     Button btnAddActivity;
     Button btnSave;
     Button btnSad, btnVerySad, btnNeutral, btnHappy, btnVeryHappy,btnExit;
@@ -60,6 +64,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     List<SimpleActivityModel> simpleActivityModel = new ArrayList<>();
     List<SimpleTodoModel> simpleTodoModel = new ArrayList<>();
 
+    Switch isPrivate;
     Gson gson = new Gson();
 
 
@@ -69,6 +74,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     private long currentTime;
 
     private ActivityRepository activityDb;
+    private JournalRepository journalDb;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -91,30 +97,14 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
         mPrefs = getActivity().getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
         activityAdapter= new HomeActivityAdapter(simpleActivityModel,this.getContext(),this,this, this);
         todoAdapter= new HomeTodoAdapter(simpleTodoModel,this.getContext(),this);
 
-
-
-
-
-
-
         activityDb = new ActivityRepository(application);
-
-        if (getArguments() != null) {
-        }
-
-
+        journalDb = new JournalRepository(application);
         lastClickTime = mPrefs.getLong(Strings.LAST_CLICK_TIME, 0);
-
         currentTime = System.currentTimeMillis();
-
-
-
-
     }
 
     @Override
@@ -128,12 +118,15 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         todoRecycler = view.findViewById(R.id.todo_recycler);
         btnAddActivity = view.findViewById(R.id.btnAddActivity);
         btnSave = view.findViewById(R.id.btnSave);
-
+        journalInput = view.findViewById(R.id.journalInput);
+        isPrivate = view.findViewById(R.id.isPrivate);
         activityRecycler.setAdapter(activityAdapter);
         activityRecycler.setLayoutManager(new LinearLayoutManager(context));
 
         todoRecycler.setAdapter(todoAdapter);
         todoRecycler.setLayoutManager(new LinearLayoutManager(context));
+
+
 
         //Add Activity
         btnAddActivity.setOnClickListener(new View.OnClickListener() {
@@ -201,9 +194,11 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                     //Success no empty Form
                     currentTime = System.currentTimeMillis();
                     saveActivitiesToDb();
+                    saveJournalToDb();
                     mPrefs.edit().putLong(Strings.LAST_CLICK_TIME, currentTime).apply();
-                    disableButtonandForms();
-
+                    mPrefs.edit().putString(Strings.JOURNAL_SAVE, journalInput.getText().toString()).apply();
+                    mPrefs.edit().putBoolean(Strings.JOURNAL_PRIVACY, isPrivate.isChecked()).apply();
+                    disableEverything();
                     savePopUp();
 
                 }
@@ -219,24 +214,14 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
 
     }
-    public void disableButtonandForms(){
-        btnAddActivity.setEnabled(false);
-        btnSave.setEnabled(false);
-
-        for(SimpleActivityModel x:simpleActivityModel){
-            x.setEnabled(false);
-        }
-        for(SimpleTodoModel x:simpleTodoModel){
-            x.setEnabled(false);
-        }
-        activityAdapter.notifyDataSetChanged();
-        todoAdapter.notifyDataSetChanged();
-
-    }
     public void populateForm(){
         if(checkIfAlreadyDone()){
             activityAdapter.notifyDataSetChanged();
             todoAdapter.notifyDataSetChanged();
+            String journalText = mPrefs.getString(Strings.JOURNAL_SAVE, "");
+            journalInput.setText(journalText);
+            Boolean isChecked = mPrefs.getBoolean(Strings.JOURNAL_PRIVACY, false);
+            isPrivate.setChecked(isChecked);
         }
         else{
             simpleActivityModel.add(new SimpleActivityModel("",0,true));
@@ -255,6 +240,71 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(x),0,true));
             }
         }
+    }
+
+    public void disableEverything(){
+        disableButtonandForms();
+
+        for(SimpleActivityModel x:simpleActivityModel){
+            x.setEnabled(false);
+        }
+        for(SimpleTodoModel x:simpleTodoModel){
+            x.setEnabled(false);
+        }
+        activityAdapter.notifyDataSetChanged();
+        todoAdapter.notifyDataSetChanged();
+
+    }
+    public void disableButtonandForms(){
+        btnAddActivity.setEnabled(false);
+        btnSave.setEnabled(false);
+        journalInput.setEnabled(false);
+        isPrivate.setEnabled(false);
+    }
+
+    public boolean checkIfAlreadyDone(){
+        boolean alreadyDone= false;
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(currentTime);
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTimeInMillis(lastClickTime);
+        if (!isSameDay(cal, cal2)) {
+            // enable the button click if it's not the same day
+            btnSave.setEnabled(true);
+            btnAddActivity.setEnabled(true);
+            journalInput.setEnabled(true);
+            isPrivate.setEnabled(true);
+            alreadyDone=false;
+        } else {
+            getSavedData();
+            disableButtonandForms();
+            alreadyDone = true;
+            // disable the button click if it's the same day
+        }
+        return alreadyDone;
+
+
+    }
+
+    public void saveJournalToDb(){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                String journalText = journalInput.getText().toString();
+                Boolean isJournalPrivate = isPrivate.isChecked();
+                journalDb.insertJournal(new Journal(journalText, isJournalPrivate));
+
+                // Update UI with results on the main thread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+                return null;
+            }
+        }.execute();
+
     }
 
 
@@ -507,28 +557,6 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     }
 
 
-    public boolean checkIfAlreadyDone(){
-        boolean alreadyDone= false;
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(currentTime);
-        Calendar cal2 = Calendar.getInstance();
-        cal2.setTimeInMillis(lastClickTime);
-        if (!isSameDay(cal, cal2)) {
-            // enable the button click if it's not the same day
-            btnSave.setEnabled(true);
-            btnAddActivity.setEnabled(true);
-            alreadyDone=false;
-        } else {
-            getSavedData();
-            btnSave.setEnabled(false);
-            btnAddActivity.setEnabled(false);
-            alreadyDone = true;
-            // disable the button click if it's the same day
-        }
-       return alreadyDone;
-
-
-    }
 
     public void getSavedData(){
         String jsonActivityName =mPrefs.getString(Strings.ACTIVITY_NAME_SAVE, "");

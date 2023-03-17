@@ -102,18 +102,37 @@
             android:orientation="vertical"
             android:background="@drawable/whiteborder"
             >
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/home_journal"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                />
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                >
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/home_journal"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    />
+
+                <Switch
+                    android:id="@+id/isPrivate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Private"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+
+            </LinearLayout>
+
 
             <EditText
-                android:id="@+id/edit_text"
+                android:id="@+id/journalInput"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="top|start"
