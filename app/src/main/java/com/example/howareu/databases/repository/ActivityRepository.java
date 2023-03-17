@@ -11,6 +11,7 @@ import com.example.howareu.databases.dao.MoodDao;
 import com.example.howareu.model.Activity;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,12 +24,15 @@ public class ActivityRepository {
     }
 
 
-    public void insertMood(Activity activity){activityDao.insert(activity);}
-    public int getMoodId(int activityId){
+    public void insertActivity(Activity activity){activityDao.insert(activity);}
+    public int geMoodId(int activityId){
         return activityDao.getMoodID(activityId);
     }
-    public String getMoodName(int activityId){
+    public String getActivityname(int activityId){
         return activityDao.getActivityName(activityId);
+    }
+    public Date getDate(int activityId){
+        return activityDao.getActivityDate(activityId);
     }
     public  LiveData<List<Activity>> getAllActivity(){return activityDao.getAllMood();
     }

@@ -3,10 +3,12 @@ package com.example.howareu.model;
 public class SimpleActivityModel {
     public String activityName;
     public int moodrate;
+    public boolean isEnabled;
 
-    public SimpleActivityModel(String activityName, int moodrate) {
+    public SimpleActivityModel(String activityName, int moodrate, boolean isEnabled) {
         this.activityName = activityName;
         this.moodrate = moodrate;
+        this.isEnabled = isEnabled;
     }
 
     public String getActivityName() {
@@ -23,5 +25,13 @@ public class SimpleActivityModel {
 
     public void setMoodrate(int moodrate) {
         this.moodrate = moodrate;
+    }
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 }

@@ -11,6 +11,7 @@ import androidx.room.Update;
 import com.example.howareu.model.Activity;
 
 
+import java.util.Date;
 import java.util.List;
 
 @Dao
@@ -32,6 +33,9 @@ public interface ActivityDao {
 
     @Query("SELECT content FROM activities WHERE id = :activityId")
     String getActivityName(int activityId);
+
+    @Query("SELECT date FROM activities WHERE id = :activityId")
+    Date getActivityDate(int activityId);
 
 
 

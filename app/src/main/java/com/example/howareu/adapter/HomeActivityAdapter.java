@@ -54,13 +54,56 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
         holder.editTextActivityRate.setClickable(false);
         holder.editTextActivity.setText(simpleActivityModel.get(position).getActivityName());
         holder.editTextActivityRate.setText(simpleActivityModel.get(position).getMoodrate()+"");
-        int x= holder.getAdapterPosition();
+        if(holder.editTextActivity.getText().toString().isEmpty()){
+            holder.btnRateMoodActivity.setEnabled(false);
+        }
+        if(simpleActivityModel.get(position).isEnabled()){
+            holder.editTextActivityRate.setEnabled(true);
+            holder.editTextActivity.setEnabled(true);
+            holder.btnRateMoodActivity.setEnabled(true);
+            holder.btnDeleteMoodActivity.setEnabled(true);
+        }
+        else{
+            holder.editTextActivityRate.setEnabled(false);
+            holder.editTextActivity.setEnabled(false);
+            holder.btnRateMoodActivity.setEnabled(false);
+            holder.btnDeleteMoodActivity.setEnabled(false);
+        }
+
+        int adapterPosition= holder.getAdapterPosition();
+
+
+
+        holder.editTextActivity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+                    if(holder.editTextActivity.getText().toString().isEmpty()){
+                        holder.btnRateMoodActivity.setEnabled(false);
+                    }
+                    else{
+                        holder.btnRateMoodActivity.setEnabled(true);
+                    }
+
+
+            }
+        });
+
         holder.editTextActivity.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus){
-
-                    onTextChangeListener.onTextChanged(holder.editTextActivity.getText().toString(), x);
+                    onTextChangeListener.onTextChanged(holder.editTextActivity.getText().toString(), adapterPosition);
                 }
             }
         });

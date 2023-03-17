@@ -10,7 +10,7 @@ import java.util.Date;
 
 @Entity(tableName = "activities")
 public class Activity {
-    @PrimaryKey @NonNull
+    @PrimaryKey(autoGenerate = true)
     private int id;
     @ColumnInfo(name = "date")
     private Date date;
@@ -19,8 +19,7 @@ public class Activity {
     @ColumnInfo(name = "mood_id")
     private int mood_id;
 
-    public Activity(int id, Date date, String content, int mood_id) {
-        this.id = id;
+    public Activity(String content, int mood_id) {
         this.date =  date == null ? new Date() : date;
         this.content = content;
         this.mood_id = mood_id;

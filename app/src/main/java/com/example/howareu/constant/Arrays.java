@@ -11,13 +11,13 @@ public abstract class Arrays {
         return activitiesArrayList;
     }
 
-    public ArrayList<String> todoArrayList() {
+    public static final ArrayList<String> todoArrayList() {
         ArrayList<String> todoArrayList = new ArrayList<String>();
         todoArrayList.add("Jog");
         todoArrayList.add("Cook");
         todoArrayList.add("Eat");
         todoArrayList.add("Sleep");
-        todoArrayList.add("Sleep");
+        todoArrayList.add("Bike");
         return todoArrayList;
     }
 

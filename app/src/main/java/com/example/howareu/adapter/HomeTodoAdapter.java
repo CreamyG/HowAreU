@@ -48,6 +48,18 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
         holder.editTextToDo.setText(simpleTodoModel.get(position).getTodoName());
         holder.editTextToDoRate.setText(simpleTodoModel.get(position).getMoodrate()+"");
 
+        if(simpleTodoModel.get(position).isEnabled()){
+            holder.editTextToDo.setEnabled(true);
+            holder.editTextToDoRate.setEnabled(true);
+            holder.btnRateMoodTodo.setEnabled(true);
+        }
+        else{
+            holder.editTextToDo.setEnabled(false);
+            holder.editTextToDoRate.setEnabled(false);
+            holder.btnRateMoodTodo.setEnabled(false);
+        }
+
+
         holder.btnRateMoodTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
