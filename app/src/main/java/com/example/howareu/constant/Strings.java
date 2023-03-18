@@ -24,4 +24,17 @@ public abstract class Strings {
     public static final String JOURNAL_SAVE = "journalSave";
 
     public static final String JOURNAL_PRIVACY = "journalPrivacy";
+
+
+    //MOOD NAME LABEL
+    public static String MOOD_LABEL_VERY_SAD = "Very Sad";
+    public static String MOOD_LABEL_SAD = "Sad";
+    public static String MOOD_LABEL_NEUTRAL = "Neutral";
+    public static String MOOD_LABEL_HAPPY = "Happy";
+    public static String MOOD_LABEL_VERY_HAPPY = "Very Sad";
+
+
+
+
+
 }

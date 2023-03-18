@@ -9,4 +9,15 @@
     <color name="white">#FFFFFFFF</color>
     <color name="beige">#B7A28F</color>
 
+
+    <color name="color_one">#fb7268</color>
+    <color name="color_white">#ededf2</color>
+    <color name="color_two">#E3E0E0</color>
+
+    <color name="very_sad">#10398E</color>
+    <color name="sad">#26B3FF</color>
+    <color name="neutral">#99CFBC</color>
+    <color name="happy">#9AEF50</color>
+    <color name="very_happy">#F6CA29</color>
+
 </resources>

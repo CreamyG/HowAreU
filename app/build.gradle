@@ -3,6 +3,7 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
+
 android {
     namespace 'com.example.howareu'
     compileSdk 33
@@ -50,4 +51,9 @@ dependencies {
     implementation 'androidx.room:room-ktx:2.4.0'
     annotationProcessor 'androidx.room:room-compiler:2.4.0'
     implementation 'com.google.code.gson:gson:2.8.8'
+
+    implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
 }

@@ -8,4 +8,19 @@
     <string name="home_to_do_list">To do:</string>
     <string name="home_activity">Activity:</string>
     <string name="home_journal">Journal(optional):</string>
+
+
+    <string name="very_sad">Very Sad</string>
+    <string name="sad">Sad</string>
+    <string name="neutral">Neutral</string>
+    <string name="happy">Happy</string>
+    <string name="very_happy">Very Happy</string>
+
+
+    <string name="stats_mood_count">Mood Count:</string>
+    <string name="stats_mood_count_percentage">Mood Count(Percentage):</string>
+    <string name="stats_mood_summary">Mood Summary:</string>
+
+
+
 </resources>
