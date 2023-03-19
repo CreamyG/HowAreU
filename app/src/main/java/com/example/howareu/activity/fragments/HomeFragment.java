@@ -43,6 +43,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 import java.util.Set;
 
@@ -55,7 +56,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     Button btnSave;
     Button btnSad, btnVerySad, btnNeutral, btnHappy, btnVeryHappy,btnExit;
     Button btnConfirm;
-    TextView MoodTotalForTheDay;
+    TextView MoodTotalForTheDay, textMonth,textDate;
 
     HomeActivityAdapter activityAdapter;
     HomeTodoAdapter todoAdapter;
@@ -122,6 +123,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         isPrivate = view.findViewById(R.id.isPrivate);
         activityRecycler.setAdapter(activityAdapter);
         activityRecycler.setLayoutManager(new LinearLayoutManager(context));
+
+        textMonth = view.findViewById(R.id.textMonth);
+        textDate = view.findViewById(R.id.textDate);
 
         todoRecycler.setAdapter(todoAdapter);
         todoRecycler.setLayoutManager(new LinearLayoutManager(context));
@@ -210,10 +214,23 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         });
 
         populateForm();
+        setDateForTopPart();
         return view;
 
 
     }
+
+    private void setDateForTopPart() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(currentTime);
+        // Get the month name
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+        String monthName = monthFormat.format(cal.getTime());
+
+        textMonth.setText(monthName);
+        textDate.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
+    }
+
     public void populateForm(){
 
 

@@ -25,9 +25,31 @@
             android:id="@+id/topPart"
             android:layout_width="411dp"
             android:layout_height="235dp"
-            android:background="@drawable/plant"
-           >
+            android:background="@drawable/plant">
 
+            <TextView
+                android:id="@+id/textMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="44dp"
+                android:layout_marginTop="104dp"
+                android:text="March"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="31"
+                android:textSize="25sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/textMonth"
+                app:layout_constraintStart_toStartOf="@+id/textMonth"
+                app:layout_constraintTop_toBottomOf="@+id/textMonth" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
         <LinearLayout
