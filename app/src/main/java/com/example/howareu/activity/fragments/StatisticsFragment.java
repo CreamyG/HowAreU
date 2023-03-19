@@ -145,7 +145,7 @@ public class StatisticsFragment extends Fragment {
         SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
         String monthName = monthFormat.format(cal2.getTime());
         // Set the month label text
-        monthLabel.setText(monthName);
+        monthLabel.setText(monthName+" "+ cal2.get(Calendar.YEAR));
         // Create a HashMap to store badge IDs for specific dates
         HashMap<Date, Integer> badgeMap = new HashMap<>();
         badgeMap.put(dates.get(3), R.drawable.happy); // Add a badge to the fourth date

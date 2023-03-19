@@ -22,13 +22,13 @@ public abstract class Arrays {
     }
     public static final ArrayList<String> daysInWeek() {
         ArrayList<String> daysInWeek = new ArrayList<String>();
-        daysInWeek.add("Sunday");
-        daysInWeek.add("Monday");
-        daysInWeek.add("Tuesday");
-        daysInWeek.add("Wednesday");
-        daysInWeek.add("Thursday");
-        daysInWeek.add("Friday");
-        daysInWeek.add("Saturday");
+        daysInWeek.add("Su");
+        daysInWeek.add("Mo");
+        daysInWeek.add("Tu");
+        daysInWeek.add("We");
+        daysInWeek.add("Th");
+        daysInWeek.add("Fr");
+        daysInWeek.add("Sa");
         return daysInWeek;
     }
 
