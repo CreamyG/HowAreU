@@ -215,31 +215,37 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     }
     public void populateForm(){
-        if(checkIfAlreadyDone()){
+
+
+        if (checkIfAlreadyDone()) {
             activityAdapter.notifyDataSetChanged();
             todoAdapter.notifyDataSetChanged();
             String journalText = mPrefs.getString(Strings.JOURNAL_SAVE, "");
             journalInput.setText(journalText);
             Boolean isChecked = mPrefs.getBoolean(Strings.JOURNAL_PRIVACY, false);
             isPrivate.setChecked(isChecked);
-        }
-        else{
-            simpleActivityModel.add(new SimpleActivityModel("",0,true));
-            activityAdapter.notifyItemInserted(simpleActivityModel.size()-1);
 
-            List<Integer> randomNumbers = new ArrayList<>();
-            Random random = new Random();
-            while(randomNumbers.size()<3){
-                int numb= random.nextInt(Arrays.todoArrayList().size());
-                if(!randomNumbers.contains(numb)){
-                    randomNumbers.add(numb);
+        } else {
+            if(simpleActivityModel.isEmpty()&&simpleTodoModel.isEmpty()) {
+                simpleActivityModel.add(new SimpleActivityModel("", 0, true));
+                activityAdapter.notifyItemInserted(simpleActivityModel.size() - 1);
+
+                List<Integer> randomNumbers = new ArrayList<>();
+                Random random = new Random();
+                while (randomNumbers.size() < 3) {
+                    int numb = random.nextInt(Arrays.todoArrayList().size());
+                    if (!randomNumbers.contains(numb)) {
+                        randomNumbers.add(numb);
+                    }
+                }
+
+                for (int x : randomNumbers) {
+                    simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(x), 0, true));
                 }
             }
 
-            for(int x:randomNumbers){
-                simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(x),0,true));
-            }
         }
+
     }
 
     public void disableEverything(){
@@ -276,7 +282,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             isPrivate.setEnabled(true);
             alreadyDone=false;
         } else {
-            getSavedData();
+            if(simpleActivityModel.isEmpty()&&simpleTodoModel.isEmpty()) {
+                getSavedData();
+            }
             disableButtonandForms();
             alreadyDone = true;
             // disable the button click if it's the same day
@@ -348,12 +356,10 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
                 switch(v.getId()){
                     case R.id.btnExit:
-                        System.out.println("cant exit");
                         dialog.dismiss();
                         break;
                     case R.id.btnSad:
                         if(isActivity){
-                            System.out.println("cant sad----------------------------------");
                             simpleActivityModel.get(position).setMoodrate(Integers.MOOD_PERCENT_SAD);
                             activityAdapter.notifyDataSetChanged();
                         }
