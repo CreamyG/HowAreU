@@ -22,18 +22,23 @@ import com.example.howareu.constant.Strings;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 
 public class StatisticsFragment extends Fragment {
 
     PieChart pieChart;
-    TextView textVerySad, textSad, textNeutral, textHappy,textVeryHappy;
+    TextView textVerySad, textSad, textNeutral, textHappy,textVeryHappy, monthLabel;
     Context context;
     Application application;
+    private GridView mGridView;
+    private CalendarAdapter mAdapter;
     public StatisticsFragment() {
         // Required empty public constructor
     }
@@ -105,28 +110,50 @@ public class StatisticsFragment extends Fragment {
 
         pieChart.startAnimation();
 
-        // Get current month and year
-        Calendar calendar = Calendar.getInstance();
-        int currentMonth = calendar.get(Calendar.MONTH);
-        int currentYear = calendar.get(Calendar.YEAR);
 
-         // Set calendar to first day of the month
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
 
-         // Calculate number of days in the month
-        int numDaysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        // Create datelist containing the dates of the current month
-        List<Date> dateList = new ArrayList<>();
-        for (int i = 0; i < numDaysInMonth; i++) {
-            dateList.add(calendar.getTime());
-            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        mGridView = view.findViewById(R.id.calendarGrid);
+        monthLabel = view.findViewById(R.id.month_label);
+        // Create a list of dates to be displayed in the calendar
+        ArrayList<Date> dates = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        int monthBeginning = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        cal.add(Calendar.DAY_OF_MONTH, -monthBeginning);
+        while (dates.size() < 42) {
+            String x = String.valueOf(cal.getTime());
+
+            if(dates.size()>7){
+                if(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)).equals("1")){
+                    while (dates.size() < 42) {
+                        dates.add(null);
+                    }
+                }
+            }
+
+            dates.add(cal.getTime());
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+
         }
 
 
-        GridView gridView = view.findViewById(R.id.calendarGrid);
-        CalendarAdapter adapter = new CalendarAdapter(context, dateList);
-        gridView.setAdapter(adapter);
+        // Get the month name
+        Calendar cal2 = Calendar.getInstance();
+        cal2.setTimeInMillis(System.currentTimeMillis());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+        String monthName = monthFormat.format(cal2.getTime());
+        // Set the month label text
+        monthLabel.setText(monthName);
+        // Create a HashMap to store badge IDs for specific dates
+        HashMap<Date, Integer> badgeMap = new HashMap<>();
+        badgeMap.put(dates.get(3), R.drawable.happy); // Add a badge to the fourth date
+        badgeMap.put(dates.get(10), R.drawable.sad); // Add a badge to the eleventh date
+
+        // Create a new CalendarAdapter and set it to the GridView
+        mAdapter = new CalendarAdapter(context, dates, badgeMap);
+        mGridView.setAdapter(mAdapter);
 
 
 

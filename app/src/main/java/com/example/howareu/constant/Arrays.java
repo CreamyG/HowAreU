@@ -20,5 +20,16 @@ public abstract class Arrays {
         todoArrayList.add("Bike");
         return todoArrayList;
     }
+    public static final ArrayList<String> daysInWeek() {
+        ArrayList<String> daysInWeek = new ArrayList<String>();
+        daysInWeek.add("Sunday");
+        daysInWeek.add("Monday");
+        daysInWeek.add("Tuesday");
+        daysInWeek.add("Wednesday");
+        daysInWeek.add("Thursday");
+        daysInWeek.add("Friday");
+        daysInWeek.add("Saturday");
+        return daysInWeek;
+    }
 
 }

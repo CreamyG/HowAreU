@@ -415,10 +415,11 @@
             android:id="@+id/calendarCardView">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
                 <TextView
+
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/stats_mood_summary"
@@ -427,11 +428,25 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="20dp"/>
 
+                <TextView
+                    android:id="@+id/month_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textSize="23sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="20dp"/>
+
                 <GridView
                     android:id="@+id/calendarGrid"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:numColumns="7"/>
+                    android:layout_height="600dp"
+                    android:numColumns="7"
+                    android:stretchMode="columnWidth"
+                    android:gravity="center"
+                    android:horizontalSpacing="5dp"
+                    android:verticalSpacing="1dp"/>
 
             </LinearLayout>
 
