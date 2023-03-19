@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.howareu.databases.ActivityDatabase;
+import com.example.howareu.databases.HowAreYouDatabase;
 import com.example.howareu.databases.MoodDatabase;
 import com.example.howareu.databases.dao.ActivityDao;
 import com.example.howareu.databases.dao.MoodDao;
@@ -19,7 +20,7 @@ public class ActivityRepository {
     private ActivityDao activityDao;
 
     public ActivityRepository(Application application) {
-        ActivityDatabase database = ActivityDatabase.getInstance(application);
+        HowAreYouDatabase database = HowAreYouDatabase.getInstance(application);
         activityDao = database.activityDao();
     }
 

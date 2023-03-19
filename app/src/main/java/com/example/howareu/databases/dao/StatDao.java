@@ -48,7 +48,7 @@ public interface StatDao {
     int getMoodMonthAvg(String month,String year);
 
 
-    @Query("SELECT date,mood_id, mood.name FROM stat JOIN mood on stat.mood_id = mood.id WHERE strftime('%m', date) = :month")
-    LiveData<List<StatDateAndMoodId>>  getMoodIdAndDate(String month);
+    @Query("SELECT date,mood_id, mood.name FROM stat JOIN mood on stat.mood_id = mood.id WHERE strftime('%m', datetime(date/1000, 'unixepoch')) = :month  AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  ASC")
+    LiveData<List<StatDateAndMoodId>>  getMoodIdAndDate(String month,String year);
 
 }

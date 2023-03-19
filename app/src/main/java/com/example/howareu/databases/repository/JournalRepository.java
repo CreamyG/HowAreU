@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.howareu.databases.ActivityDatabase;
+import com.example.howareu.databases.HowAreYouDatabase;
 import com.example.howareu.databases.JournalDatabase;
 import com.example.howareu.databases.dao.JournalDao;
 import com.example.howareu.model.Activity;
@@ -17,7 +18,7 @@ public class JournalRepository {
     private JournalDao journalDao;
 
     public JournalRepository(Application application) {
-        JournalDatabase database = JournalDatabase.getInstance(application);
+        HowAreYouDatabase database = HowAreYouDatabase.getInstance(application);
         journalDao = database.journalDao();
     }
     public void insertJournal(Journal journal){journalDao.insert(journal);}

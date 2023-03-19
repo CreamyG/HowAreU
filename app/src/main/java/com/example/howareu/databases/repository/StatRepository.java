@@ -4,6 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.howareu.databases.HowAreYouDatabase;
 import com.example.howareu.databases.StatDatabase;
 import com.example.howareu.databases.dao.MoodDao;
 import com.example.howareu.databases.dao.StatDao;
@@ -14,10 +15,9 @@ import java.util.List;
 
 public class StatRepository {
     private StatDao statDao;
-    private MoodDao moodDao;
 
     public StatRepository(Application application) {
-        StatDatabase database = StatDatabase.getInstance(application);
+        HowAreYouDatabase database = HowAreYouDatabase.getInstance(application);
         statDao = database.statDao();
     }
 
@@ -29,6 +29,6 @@ public class StatRepository {
 
     public int getMoodMonthAvg(String month, String year){return statDao.getMoodMonthAvg(month,year);}
 
-    public LiveData<List<StatDateAndMoodId>> getMoodIdAndDate(String month){return statDao.getMoodIdAndDate(month);}
+    public LiveData<List<StatDateAndMoodId>> getMoodIdAndDate(String month,String year){return statDao.getMoodIdAndDate(month,year);}
 
 }

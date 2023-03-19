@@ -17,7 +17,7 @@ public class StatDateAndMoodId {
     @ColumnInfo(name = "mood_id")
     private int mood_id;
     @ColumnInfo(name = "name")
-    private int mood_name;
+    private String mood_name;
 
 
     public Date getDate() {
@@ -36,11 +36,11 @@ public class StatDateAndMoodId {
         this.mood_id = mood_id;
     }
 
-    public int getMood_name() {
+    public String getMood_name() {
         return mood_name;
     }
 
-    public void setMood_name(int mood_name) {
+    public void setMood_name(String mood_name) {
         this.mood_name = mood_name;
     }
 }

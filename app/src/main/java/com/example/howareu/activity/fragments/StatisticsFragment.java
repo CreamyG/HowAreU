@@ -2,12 +2,15 @@ package com.example.howareu.activity.fragments;
 
 import android.app.Application;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 
@@ -48,7 +52,11 @@ public class StatisticsFragment extends Fragment {
 
     String currentMonth;
     String currentYear;
-    ArrayList<StatDateAndMoodId> statDateAndMoodId;
+    LiveData<List<StatDateAndMoodId>> statDateAndMoodId;
+    ArrayList<Date> dateList = new ArrayList<>();
+    ArrayList<Integer> moodIdList = new ArrayList<>();
+    ArrayList<String> moodNameList = new ArrayList<>();
+    HashMap<Date, Integer> badgeMap = new HashMap<>();
     public StatisticsFragment() {
         // Required empty public constructor
     }
@@ -95,50 +103,42 @@ public class StatisticsFragment extends Fragment {
         currentMonth = String.valueOf(cal2.get(Calendar.MONTH)+1);
         currentYear = String.valueOf(cal2.get(Calendar.YEAR));
 
+        getDateAndMoodID();
 
 
         mGridView = view.findViewById(R.id.calendarGrid);
         monthLabel = view.findViewById(R.id.month_label);
         // Create a list of dates to be displayed in the calendar
-        ArrayList<Date> dates = new ArrayList<>();
-        Calendar cal = Calendar.getInstance();
 
-        cal.set(Calendar.DAY_OF_MONTH, 1);
-        int monthBeginning = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        cal.add(Calendar.DAY_OF_MONTH, -monthBeginning);
-        while (dates.size() < 42) {
-            String x = String.valueOf(cal.getTime());
-
-            if(dates.size()>7){
-                if(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)).equals("1")){
-                    while (dates.size() < 42) {
-                        dates.add(null);
-                    }
-                }
-            }
-
-            dates.add(cal.getTime());
-            cal.add(Calendar.DAY_OF_MONTH, 1);
-
-        }
-
-
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
-        String monthName = monthFormat.format(cal2.getTime());
-        // Set the month label text
-        monthLabel.setText(monthName+" "+ cal2.get(Calendar.YEAR));
-        // Create a HashMap to store badge IDs for specific dates
-        HashMap<Date, Integer> badgeMap = new HashMap<>();
-        badgeMap.put(dates.get(3), R.drawable.happy); // Add a badge to the fourth date
-        badgeMap.put(dates.get(10), R.drawable.sad); // Add a badge to the eleventh date
-
-        // Create a new CalendarAdapter and set it to the GridView
-        mAdapter = new CalendarAdapter(context, dates, badgeMap);
-        mGridView.setAdapter(mAdapter);
 
         setPieText();
         setMoodMonth();
+
         return view;
+    }
+
+    public Integer getMoodImage(String moodName){
+        int drawable = 0;
+        switch(moodName){
+            case Strings.MOOD_VERY_SAD:
+                drawable = R.drawable.crying;
+                break;
+            case Strings.MOOD_SAD:
+                drawable = R.drawable.sad;
+                break;
+            case Strings.MOOD_NEUTRAL:
+                drawable = R.drawable.cool;
+                break;
+            case Strings.MOOD_HAPPY:
+                drawable = R.drawable.calm;
+                break;
+            case Strings.MOOD_VERY_HAPPY:
+                drawable = R.drawable.happy;
+                break;
+
+        }
+
+        return drawable;
     }
 
     public void setPieChart(){
@@ -209,22 +209,108 @@ public class StatisticsFragment extends Fragment {
         }.execute();
     }
 
-    public void z(){
+    public void getDateAndMoodID(){
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
+                if(currentMonth.length()==1){
+                    currentMonth = "0"+ currentMonth;
+                }
+
+                statDateAndMoodId = statDb.getMoodIdAndDate(currentMonth,currentYear);
+
+
 
                 // Update UI with results on the main thread
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        if(statDateAndMoodId != null) {
+                            statDateAndMoodId.observe(getViewLifecycleOwner(), new Observer<List<StatDateAndMoodId>>() {
+                                @Override
+                                public void onChanged(List<StatDateAndMoodId> statDateAndMoodIds) {
+                                    List<StatDateAndMoodId> statArrayList = new ArrayList<>(statDateAndMoodIds);
+                                    for (StatDateAndMoodId stat : statArrayList) {
+                                        dateList.add(stat.getDate());
+                                        moodIdList.add(stat.getMood_id());
+                                        moodNameList.add(stat.getMood_name());
 
+                                    }
+                                    createCalendar();
+                                }
+                            });
+                        }
 
                     }
                 });
                 return null;
             }
         }.execute();
+    }
+
+    public void createCalendar(){
+        ArrayList<Date> dates = new ArrayList<>();
+        Calendar cal = Calendar.getInstance();
+
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        int monthBeginning = cal.get(Calendar.DAY_OF_WEEK) - 1;
+        cal.add(Calendar.DAY_OF_MONTH, -monthBeginning);
+        boolean startPlot = false;
+        int emojiCounter = 0;
+        while (dates.size() < 42) {
+
+
+
+            if(dates.size()>7){
+                if(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)).equals("1")){
+                    while (dates.size() < 42) {
+                        dates.add(null);
+                    }
+                }
+            }
+            if(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)).equals("1")){
+                startPlot = true;
+            }
+            dates.add(cal.getTime());
+            cal.add(Calendar.DAY_OF_MONTH, 1);
+
+            if(startPlot) {
+                if (!dateList.isEmpty()) {
+                    if (emojiCounter < dateList.size()) {
+
+                        Calendar calDb = Calendar.getInstance();
+                        calDb.setTime(dateList.get(emojiCounter));
+                        Calendar cal2=Calendar.getInstance();
+                        cal2.setTime(dates.get(dates.size()-1));
+                        int date = calDb.get(Calendar.DAY_OF_MONTH);
+                        int dateloop =  cal2.get(Calendar.DAY_OF_MONTH);
+                        if (dateloop == date) {
+                            badgeMap.put(dates.get(dates.size()-1), getMoodImage(moodNameList.get(emojiCounter)));
+                            emojiCounter++;
+
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+
+
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+        String monthName = monthFormat.format(cal2.getTime());
+        // Set the month label text
+        monthLabel.setText(monthName+" "+ cal2.get(Calendar.YEAR));
+        // Create a HashMap to store badge IDs for specific dates
+
+
+
+        // Add a badge to the fourth date
+
+        // Create a new CalendarAdapter and set it to the GridView
+        mAdapter = new CalendarAdapter(context, dates, badgeMap);
+        mGridView.setAdapter(mAdapter);
     }
 
     public void setMoodMonth(){
