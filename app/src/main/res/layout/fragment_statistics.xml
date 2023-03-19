@@ -476,7 +476,7 @@
                         android:layout_marginBottom="20dp">
 
                         <ImageView
-                            android:id="@+id/stats_mood_summary"
+                            android:id="@+id/mood_month_ave_image"
                             android:layout_width="100dp"
                             android:layout_height="100dp"
                             app:srcCompat="@drawable/happy">
@@ -484,6 +484,7 @@
 
                         </ImageView>
                         <TextView
+                            android:id="@+id/mood_month_ave"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="100%"

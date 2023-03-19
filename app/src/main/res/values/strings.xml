@@ -18,7 +18,7 @@
 
 
     <string name="stats_mood_count">Mood Count:</string>
-    <string name="stats_mood_count_percentage">Mood Count(Percentage):</string>
+    <string name="stats_mood_count_percentage">Mood Count:</string>
     <string name="stats_mood_summary">Mood Summary:</string>
     <string name="stats_mood_summary_m">Mood for the month:</string>
 
