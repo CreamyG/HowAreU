@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent intent = new Intent(LoginActivity.this, MoodScaleActivity.class);
+            Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
             startActivity(intent);
         } else {
             // User is signed out

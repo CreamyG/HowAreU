@@ -12,31 +12,15 @@
         android:theme="@style/AppThemeNoAction"
         tools:targetApi="31">
 
-        <activity
-            android:name=".activity.MoodCauseActivity"
-            android:exported="false" />
 
-        <activity
-            android:name=".activity.Evaluation"
-            android:exported="false" />
-        <activity
-            android:name=".activity.mmtryActivity"
-            android:exported="false" />
         <activity
             android:name=".activity.BreathingActivity"
             android:exported="false" />
-        <activity
-            android:name=".activity.WheelActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activity.InspirationalQuotesActivity"
             android:exported="false" />
-        <activity
-            android:name=".activity.SoothingSoundsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".activity.MoodJournalActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activity.MainMenuActivity"
             android:exported="true">
@@ -46,9 +30,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".activity.MoodScaleActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activity.RegistrationFormActivity"
             android:exported="false" />
