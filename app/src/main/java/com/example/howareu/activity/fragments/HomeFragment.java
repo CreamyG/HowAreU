@@ -9,6 +9,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +20,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.howareu.R;
 import com.example.howareu.adapter.HomeActivityAdapter;
@@ -42,15 +42,12 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.Set;
 
 public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDeleteActivityClickListener, HomeActivityAdapter.OnActivityMoodRateClickListener,
-        HomeTodoAdapter.OnTodoMoodRateClickListener,View.OnClickListener,HomeActivityAdapter.OnTextChangeListener {
+        HomeTodoAdapter.OnTodoMoodRateClickListener,View.OnClickListener,HomeActivityAdapter.OnTextChangeListener{
     RecyclerView activityRecycler;
     RecyclerView todoRecycler;
     EditText journalInput;
@@ -79,15 +76,21 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     private ActivityRepository activityDb;
     private JournalRepository journalDb;
     private StatRepository statDb;
+
+
     public HomeFragment() {
         // Required empty public constructor
     }
+
+
+
 
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         this.context = context;
         this.application = getActivity().getApplication();
+
     }
 
     public static HomeFragment newInstance(String param1, String param2) {
@@ -109,8 +112,14 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         journalDb = new JournalRepository(application);
         statDb = new StatRepository(application);
         lastClickTime = mPrefs.getLong(Strings.LAST_CLICK_TIME, 0);
+
         currentTime = System.currentTimeMillis();
+
+
     }
+
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -152,6 +161,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             public void onDeleteActivityClicked(int position) {
                   simpleActivityModel.remove(position);
                   activityAdapter.notifyItemRemoved(position);
+                  unsavedActivityToPref();
 
             }
         });
@@ -161,19 +171,21 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             @Override
             public void onMoodRateClicked(String name,int position) {
                 rateMoodPopUp(position,true, name);
+            ;
             }
         });
         todoAdapter.setOnTodoMoodRateClickListener(new HomeTodoAdapter.OnTodoMoodRateClickListener() {
             @Override
             public void onTodoMoodRateClicked(int position) {
                 rateMoodPopUp(position,false,null);
+
             }
         });
         activityAdapter.setOnTextChangeListener(new HomeActivityAdapter.OnTextChangeListener() {
             @Override
             public void onTextChanged(String name, int position) {
                 simpleActivityModel.get(position).setActivityName(name);
-
+                unsavedActivityToPref();
             }
         });
 
@@ -218,6 +230,10 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             }
         });
 
+
+
+
+
         populateForm();
         setDateForTopPart();
         return view;
@@ -239,6 +255,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     public void populateForm(){
 
 
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
         if (checkIfAlreadyDone()) {
             activityAdapter.notifyDataSetChanged();
             todoAdapter.notifyDataSetChanged();
@@ -248,22 +265,42 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             isPrivate.setChecked(isChecked);
 
         } else {
-            if(simpleActivityModel.isEmpty()&&simpleTodoModel.isEmpty()) {
-                simpleActivityModel.add(new SimpleActivityModel("", 0, true));
-                activityAdapter.notifyItemInserted(simpleActivityModel.size() - 1);
+            if(simpleActivityModel.isEmpty()){
+                if(!checkUnSavedActivitySPisNull(type)){
 
-                List<Integer> randomNumbers = new ArrayList<>();
-                Random random = new Random();
-                while (randomNumbers.size() < 3) {
-                    int numb = random.nextInt(Arrays.todoArrayList().size());
-                    if (!randomNumbers.contains(numb)) {
-                        randomNumbers.add(numb);
+                    getUnSavedActivity(type,true);
+                }
+                else{
+                    simpleActivityModel.add(new SimpleActivityModel("", 0, true));
+                }
+
+            }
+            activityAdapter.notifyItemInserted(simpleActivityModel.size() - 1);
+
+
+            if(simpleTodoModel.isEmpty()) {
+                if(!checkUnSavedToDoSPisNull(type)){
+
+                    getUnSavedTodo(type,true);
+                    todoAdapter.notifyDataSetChanged();
+                }
+                else{
+                    List<Integer> randomNumbers = new ArrayList<>();
+                    Random random = new Random();
+                    while (randomNumbers.size() < 3) {
+                        int numb = random.nextInt(Arrays.todoArrayList().size());
+                        if (!randomNumbers.contains(numb)) {
+                            randomNumbers.add(numb);
+                        }
                     }
+
+                    for (int x : randomNumbers) {
+                        simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(x), 0, true));
+                    }
+
+                    unsavedToDoToPref();
                 }
 
-                for (int x : randomNumbers) {
-                    simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(x), 0, true));
-                }
             }
 
         }
@@ -316,26 +353,6 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     }
 
-    public void saveJournalToDb(){
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                String journalText = journalInput.getText().toString();
-                Boolean isJournalPrivate = isPrivate.isChecked();
-                journalDb.insertJournal(new Journal(journalText, isJournalPrivate));
-
-                // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-                return null;
-            }
-        }.execute();
-
-    }
 
 
     @Override
@@ -352,9 +369,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     //Pop up for Mood Rating Activity or To do
     public void rateMoodPopUp(int position, boolean isActivity, String name){
-        if(isActivity) {
-            activityAdapter.notifyDataSetChanged();
-        }
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_rate_mood, null);
@@ -371,9 +386,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if(isActivity){
+                    activityAdapter.notifyDataSetChanged();
                     simpleActivityModel.get(position).setActivityName(name);
+                }
+                else{
+                    todoAdapter.notifyDataSetChanged();
                 }
 
                 switch(v.getId()){
@@ -384,10 +402,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                         if(isActivity){
                             simpleActivityModel.get(position).setMoodrate(Integers.MOOD_PERCENT_SAD);
                             activityAdapter.notifyDataSetChanged();
+                            unsavedActivityToPref();
                         }
                         else{
                             simpleTodoModel.get(position).setMoodrate(Integers.MOOD_PERCENT_SAD);
                             todoAdapter.notifyDataSetChanged();
+                            unsavedToDoToPref();
                         }
                         dialog.dismiss();
                         break;
@@ -395,10 +415,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                         if(isActivity){
                             simpleActivityModel.get(position).setMoodrate(Integers.MOOD_PERCENT_VERY_SAD);
                             activityAdapter.notifyDataSetChanged();
+                            unsavedActivityToPref();
                         }
                         else{
                             simpleTodoModel.get(position).setMoodrate(Integers.MOOD_PERCENT_VERY_SAD);
                             todoAdapter.notifyDataSetChanged();
+                            unsavedToDoToPref();
                         }
                         dialog.dismiss();
 
@@ -407,10 +429,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                         if(isActivity){
                             simpleActivityModel.get(position).setMoodrate(Integers.MOOD_PERCENT_NEUTRAL);
                             activityAdapter.notifyDataSetChanged();
+                            unsavedActivityToPref();
                         }
                         else{
                             simpleTodoModel.get(position).setMoodrate(Integers.MOOD_PERCENT_NEUTRAL);
                             todoAdapter.notifyDataSetChanged();
+                            unsavedToDoToPref();
                         }
 
                         dialog.dismiss();
@@ -419,10 +443,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                         if(isActivity){
                             simpleActivityModel.get(position).setMoodrate(Integers.MOOD_PERCENT_HAPPY);
                             activityAdapter.notifyDataSetChanged();
+                            unsavedActivityToPref();
                         }
                         else{
                             simpleTodoModel.get(position).setMoodrate(Integers.MOOD_PERCENT_HAPPY);
                             todoAdapter.notifyDataSetChanged();
+                            unsavedToDoToPref();
                         }
 
                         dialog.dismiss();
@@ -431,10 +457,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                         if(isActivity){
                             simpleActivityModel.get(position).setMoodrate(Integers.MOOD_PERCENT_VERY_HAPPY);
                             activityAdapter.notifyDataSetChanged();
+                            unsavedActivityToPref();
                         }
                         else{
                             simpleTodoModel.get(position).setMoodrate(Integers.MOOD_PERCENT_VERY_HAPPY);
                             todoAdapter.notifyDataSetChanged();
+                            unsavedToDoToPref();
                         }
 
                         dialog.dismiss();
@@ -479,6 +507,221 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             }
         });
 
+    }
+
+
+
+
+
+
+
+
+    public void saveActivitiesToDb(){
+
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                ArrayList<String> activityName = new ArrayList<>();
+                ArrayList<String> activityRate = new ArrayList<>();
+                for(SimpleActivityModel x: simpleActivityModel){
+                    //Save in Database
+                    int moodId = getMoodIdByRate(x.getMoodrate());
+                    Activity activityAdd = new Activity(x.activityName,moodId);
+                    activityDb.insertActivity(activityAdd);
+                    //Save in SharedPref
+                    activityName.add(x.getActivityName());
+                    activityRate.add(String.valueOf(x.getMoodrate()));
+                }
+                ArrayList<String> todoName = new ArrayList<>();
+                ArrayList<String> todoRate = new ArrayList<>();
+                for(SimpleTodoModel x: simpleTodoModel){
+                    //Save in Database
+                    int moodId = getMoodIdByRate(x.getMoodrate());
+                    Activity activityAdd = new Activity(x.todoName,moodId);
+                    activityDb.insertActivity(activityAdd);
+
+                    //Save in SharedPref
+                    todoName.add(x.getTodoName());
+                    todoRate.add(String.valueOf(x.getMoodrate()));
+                }
+
+                String jsonActivityName = gson.toJson(activityName);
+                String jsonActivityRate = gson.toJson(activityRate);
+                String jsonTodoName = gson.toJson(todoName);
+                String jsonTodoRate = gson.toJson(todoRate);
+
+
+                mPrefs.edit().putString(Strings.ACTIVITY_NAME_SAVE, jsonActivityName).apply();
+                mPrefs.edit().putString(Strings.ACTIVITY_RATE_SAVE, jsonActivityRate).apply();
+                mPrefs.edit().putString(Strings.TODO_NAME_SAVE, jsonTodoName).apply();
+                mPrefs.edit().putString(Strings.TODO_RATE_SAVE, jsonTodoRate).apply();
+
+
+
+
+                // Update UI with results on the main thread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mPrefs.edit().putString(Strings.ACTIVITY_NAME_UNSAVED,null).apply();
+                        mPrefs.edit().putString(Strings.ACTIVITY_RATE_UNSAVED, null).apply();
+                        mPrefs.edit().putString(Strings.TODO_NAME_UNSAVED, null).apply();
+                        mPrefs.edit().putString(Strings.TODO_RATE_UNSAVED, null).apply();
+                    }
+                });
+                return null;
+            }
+        }.execute();
+
+    }
+    public void saveStatDb(){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                statDb.insertStat(new Stat(calculateMood(),getMoodIdByCalculatedRate(calculateMood())));
+
+                // Update UI with results on the main thread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+                return null;
+            }
+        }.execute();
+    }
+
+
+    public void unsavedToDoToPref(){
+        ArrayList<String> todoName = new ArrayList<>();
+        ArrayList<String> todoRate = new ArrayList<>();
+        for(SimpleTodoModel x: simpleTodoModel){
+            //Save in SharedPref
+            todoName.add(x.getTodoName());
+            todoRate.add(String.valueOf(x.getMoodrate()));
+        }
+        String jsonTodoName = gson.toJson(todoName);
+        String jsonTodoRate = gson.toJson(todoRate);
+        mPrefs.edit().putString(Strings.TODO_NAME_UNSAVED, jsonTodoName).apply();
+        mPrefs.edit().putString(Strings.TODO_RATE_UNSAVED, jsonTodoRate).apply();
+    }
+
+    public void unsavedActivityToPref(){
+        ArrayList<String> activityName = new ArrayList<>();
+        ArrayList<String> activityRate = new ArrayList<>();
+        for(SimpleActivityModel x: simpleActivityModel){
+
+            //Save in SharedPref
+            activityName.add(x.getActivityName());
+            activityRate.add(String.valueOf(x.getMoodrate()));
+        }
+
+        String jsonActivityName = gson.toJson(activityName);
+        String jsonActivityRate = gson.toJson(activityRate);
+        mPrefs.edit().putString(Strings.ACTIVITY_NAME_UNSAVED, jsonActivityName).apply();
+        mPrefs.edit().putString(Strings.ACTIVITY_RATE_UNSAVED, jsonActivityRate).apply();
+    }
+
+    public void getUnSavedData(){
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        getUnSavedTodo(type,true);
+        getUnSavedActivity(type,true);
+
+    }
+    public void getUnSavedTodo(Type type, Boolean isEnabled){
+        String jsonName =mPrefs.getString(Strings.TODO_NAME_UNSAVED, "");
+        String jsonRate =mPrefs.getString(Strings.TODO_RATE_UNSAVED, "");
+
+        ArrayList<String> savedTodoNameArray = gson.fromJson(jsonName, type);
+        ArrayList<String> savedTodoRateArray = gson.fromJson(jsonRate, type);
+
+
+        for(int x =0; x<savedTodoNameArray.size();x++){
+            String qwe=savedTodoRateArray.get(x);
+            simpleTodoModel.add(new SimpleTodoModel(savedTodoNameArray.get(x),Integer.valueOf(savedTodoRateArray.get(x)),isEnabled));
+        }
+    }
+
+
+    public void getUnSavedActivity(Type type, Boolean isEnabled){
+        String jsonName =mPrefs.getString(Strings.ACTIVITY_NAME_UNSAVED, "");
+        String jsonRate =mPrefs.getString(Strings.ACTIVITY_RATE_UNSAVED, "");
+        ArrayList<String> savedActivityNameArray = gson.fromJson(jsonName, type);
+        ArrayList<String> savedActivityRateArray = gson.fromJson(jsonRate, type);
+        for(int x =0; x<savedActivityNameArray.size();x++){
+            simpleActivityModel.add(new SimpleActivityModel(savedActivityNameArray.get(x),Integer.valueOf(savedActivityRateArray.get(x)),isEnabled));
+        }
+    }
+
+    public void getSavedData(){
+        Type type = new TypeToken<ArrayList<String>>() {}.getType();
+        getSaveActivity(type,false);
+        getSaveTodo(type,false);
+
+    }
+    public void getSaveTodo(Type type, Boolean isEnabled){
+        String jsonName =mPrefs.getString(Strings.TODO_NAME_SAVE, "");
+        String jsonRate =mPrefs.getString(Strings.TODO_RATE_SAVE, "");
+
+        ArrayList<String> savedTodoNameArray = gson.fromJson(jsonName, type);
+        ArrayList<String> savedTodoRateArray = gson.fromJson(jsonRate, type);
+
+
+        for(int x =0; x<savedTodoNameArray.size();x++){
+            String qwe=savedTodoRateArray.get(x);
+            simpleTodoModel.add(new SimpleTodoModel(savedTodoNameArray.get(x),Integer.valueOf(savedTodoRateArray.get(x)),isEnabled));
+        }
+    }
+
+
+    public void getSaveActivity(Type type, Boolean isEnabled){
+        String jsonName =mPrefs.getString(Strings.ACTIVITY_NAME_SAVE, "");
+        String jsonRate =mPrefs.getString(Strings.ACTIVITY_RATE_SAVE, "");
+        ArrayList<String> savedActivityNameArray = gson.fromJson(jsonName, type);
+        ArrayList<String> savedActivityRateArray = gson.fromJson(jsonRate, type);
+        for(int x =0; x<savedActivityNameArray.size();x++){
+            simpleActivityModel.add(new SimpleActivityModel(savedActivityNameArray.get(x),Integer.valueOf(savedActivityRateArray.get(x)),isEnabled));
+        }
+    }
+
+    public boolean checkUnSavedActivitySPisNull(Type type){
+        String json =mPrefs.getString(Strings.ACTIVITY_NAME_UNSAVED, "");
+        ArrayList<String> savedActivityNameArray = gson.fromJson(json, type);
+        boolean isEmpty = false;
+        if(savedActivityNameArray == null){
+            isEmpty = true;
+        }else{
+            if(savedActivityNameArray.isEmpty()){
+                isEmpty = true;
+            }
+        }
+
+        return isEmpty ;
+    }
+    public boolean checkUnSavedToDoSPisNull(Type type){
+        String json =mPrefs.getString(Strings.TODO_NAME_UNSAVED, "");
+        ArrayList<String> savedActivityNameArray = gson.fromJson(json, type);
+        boolean isEmpty = false;
+        if(savedActivityNameArray == null){
+            isEmpty = true;
+        }
+        else{
+            if(savedActivityNameArray.isEmpty()){
+                isEmpty = true;
+            }
+        }
+        return isEmpty ;
+    }
+
+
+    private boolean isSameDay(Calendar cal1, Calendar cal2) {
+
+
+        // compare the year, month, and day of the two timestamps
+        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
+                cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
 
 
@@ -537,129 +780,6 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         return moodId;
     }
-
-
-    @Override
-    public void onTodoMoodRateClicked(int position) {
-
-    }
-
-    @Override
-    public void onMoodRateClicked(String name, int position) {
-
-    }
-
-    @Override
-    public void onTextChanged(String name, int position) {
-
-    }
-
-    public void saveActivitiesToDb(){
-
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                ArrayList<String> activityName = new ArrayList<>();
-                ArrayList<String> activityRate = new ArrayList<>();
-                for(SimpleActivityModel x: simpleActivityModel){
-                    //Save in Database
-                    int moodId = getMoodIdByRate(x.getMoodrate());
-                    Activity activityAdd = new Activity(x.activityName,moodId);
-                    activityDb.insertActivity(activityAdd);
-                    //Save in SharedPref
-                    activityName.add(x.getActivityName());
-                    activityRate.add(String.valueOf(x.getMoodrate()));
-                }
-                ArrayList<String> todoName = new ArrayList<>();
-                ArrayList<String> todoRate = new ArrayList<>();
-                for(SimpleTodoModel x: simpleTodoModel){
-                    //Save in Database
-                    int moodId = getMoodIdByRate(x.getMoodrate());
-                    Activity activityAdd = new Activity(x.todoName,moodId);
-                    activityDb.insertActivity(activityAdd);
-
-                    //Save in SharedPref
-                    todoName.add(x.getTodoName());
-                    todoRate.add(String.valueOf(x.getMoodrate()));
-                }
-
-                String jsonActivityName = gson.toJson(activityName);
-                String jsonActivityRate = gson.toJson(activityRate);
-                String jsonTodoName = gson.toJson(todoName);
-                String jsonTodoRate = gson.toJson(todoRate);
-
-
-                mPrefs.edit().putString(Strings.ACTIVITY_NAME_SAVE, jsonActivityName).apply();
-                mPrefs.edit().putString(Strings.ACTIVITY_RATE_SAVE, jsonActivityRate).apply();
-                mPrefs.edit().putString(Strings.TODO_NAME_SAVE, jsonTodoName).apply();
-                mPrefs.edit().putString(Strings.TODO_RATE_SAVE, jsonTodoRate).apply();
-
-
-
-                // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-                return null;
-            }
-        }.execute();
-
-    }
-    public void saveStatDb(){
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                statDb.insertStat(new Stat(calculateMood(),getMoodIdByCalculatedRate(calculateMood())));
-
-                // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-                return null;
-            }
-        }.execute();
-    }
-
-
-
-    public void getSavedData(){
-        String jsonActivityName =mPrefs.getString(Strings.ACTIVITY_NAME_SAVE, "");
-        String jsonActivityRate =mPrefs.getString(Strings.ACTIVITY_RATE_SAVE, "");
-        String jsonTodoName =mPrefs.getString(Strings.TODO_NAME_SAVE, "");
-        String jsonTodoRate =mPrefs.getString(Strings.TODO_RATE_SAVE, "");
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-
-        ArrayList<String> savedActivityNameArray = gson.fromJson(jsonActivityName, type);
-        ArrayList<String> savedActivityRateArray = gson.fromJson(jsonActivityRate, type);
-        ArrayList<String> savedTodoNameArray = gson.fromJson(jsonTodoName, type);
-        ArrayList<String> savedTodoRateArray = gson.fromJson(jsonTodoRate, type);
-
-        for(int x =0; x<savedActivityNameArray.size();x++){
-            simpleActivityModel.add(new SimpleActivityModel(savedActivityNameArray.get(x),Integer.valueOf(savedActivityRateArray.get(x)),false));
-        }
-        for(int x =0; x<savedTodoNameArray.size();x++){
-            simpleTodoModel.add(new SimpleTodoModel(savedTodoNameArray.get(x),Integer.valueOf(savedTodoRateArray.get(x)),false));
-        }
-    }
-
-
-
-    private boolean isSameDay(Calendar cal1, Calendar cal2) {
-
-
-        // compare the year, month, and day of the two timestamps
-        return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
-                cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
-                cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
-    }
-
-
     public int getMoodIdByRate(int rate){
         int moodId = 0;
         switch(rate){
@@ -685,5 +805,41 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         }
         return moodId;
+    }
+    public void saveJournalToDb(){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                String journalText = journalInput.getText().toString();
+                Boolean isJournalPrivate = isPrivate.isChecked();
+                journalDb.insertJournal(new Journal(journalText, isJournalPrivate));
+
+                // Update UI with results on the main thread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+                return null;
+            }
+        }.execute();
+
+    }
+
+
+
+    @Override
+    public void onTodoMoodRateClicked(int position) {
+
+    }
+    @Override
+    public void onMoodRateClicked(String name, int position) {
+
+    }
+
+    @Override
+    public void onTextChanged(String name, int position) {
+
     }
 }

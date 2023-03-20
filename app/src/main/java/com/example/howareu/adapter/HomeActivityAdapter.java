@@ -54,9 +54,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
         holder.editTextActivityRate.setClickable(false);
         holder.editTextActivity.setText(simpleActivityModel.get(position).getActivityName());
         holder.editTextActivityRate.setText(simpleActivityModel.get(position).getMoodrate()+"");
-        if(holder.editTextActivity.getText().toString().isEmpty()){
-            holder.btnRateMoodActivity.setEnabled(false);
-        }
+
         if(simpleActivityModel.get(position).isEnabled()){
             holder.editTextActivityRate.setEnabled(true);
             holder.editTextActivity.setEnabled(true);
@@ -72,7 +70,9 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
 
         int adapterPosition= holder.getAdapterPosition();
 
-
+        if(holder.editTextActivity.getText().toString().isEmpty()){
+            holder.btnRateMoodActivity.setEnabled(false);
+        }
 
         holder.editTextActivity.addTextChangedListener(new TextWatcher() {
             @Override
@@ -94,6 +94,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
                     else{
                         holder.btnRateMoodActivity.setEnabled(true);
                     }
+                    onTextChangeListener.onTextChanged(holder.editTextActivity.getText().toString(), adapterPosition);
 
 
             }

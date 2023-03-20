@@ -14,11 +14,17 @@ public abstract class Strings {
 
     public static final String PREF_NAME = "MyPrefs";
     public static final String LAST_CLICK_TIME = "lastClickTime";
+    public static final String LAST_LOGIN_TIME = "lastLoginTime";
 
     public static final String ACTIVITY_NAME_SAVE = "activityNameSave";
     public static final String ACTIVITY_RATE_SAVE = "activityRateSave";
     public static final String TODO_NAME_SAVE = "todoNameSave";
     public static final String TODO_RATE_SAVE = "todoRateSave";
+
+    public static final String ACTIVITY_NAME_UNSAVED = "activityNameUnSaved";
+    public static final String ACTIVITY_RATE_UNSAVED = "activityRateUnSaved";
+    public static final String TODO_NAME_UNSAVED = "todoNameUnSaved";
+    public static final String TODO_RATE_UNSAVED = "todoRateUnSaved";
 
 
     public static final String JOURNAL_SAVE = "journalSave";
