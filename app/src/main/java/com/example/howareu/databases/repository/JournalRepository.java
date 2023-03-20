@@ -32,5 +32,8 @@ public class JournalRepository {
     public boolean getPrivacyByDate(Date date){return journalDao.getPrivacyByDate(date);}
     public boolean getPrivacyById(int journalId){return journalDao.getPrivacyById(journalId);}
 
-    public LiveData<List<Journal>> getAllJournal(){return journalDao.getAllJournal();}
+    public LiveData<List<Journal>> getJournalByDate(String month,String year){return journalDao.getJournalByDate(month,year);}
+    public LiveData<List<Journal>> getJournalByDateDesc(String month,String year){return journalDao.getJournalByDateDesc(month,year);}
+    public LiveData<List<Journal>> getJournalBySearch(String month,String year,String search){return journalDao.getJournalBySearch(month,year,search);}
+    public LiveData<List<Journal>> getJournalBySearchDesc(String month,String year,String search){return journalDao.getJournalBySearchDesc(month,year,search);}
 }

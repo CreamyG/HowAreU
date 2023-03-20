@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="125dp"
+    android:layout_height="125dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/JournalCellCardView"
+    android:elevation="10dp"
+    app:cardCornerRadius="10dp"
+    >
+    <LinearLayout
+        android:id="@+id/calendarCellLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="@drawable/whiteborder"
+        android:gravity="center_vertical">
+
+
+        <ImageView
+            android:id="@+id/privacyJournal"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:srcCompat="@drawable/aboutus"
+            android:layout_marginLeft="3dp"/>
+
+        <TextView
+            android:id="@+id/textDateJournalHistory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="March 2, 2023"
+            android:textSize="10sp"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@drawable/whiteborder"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/journalCellText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="10sp"
+            android:text="Today I went to wqeqwe"
+            />
+    </LinearLayout>
+
+
+
+
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -11,16 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppThemeNoAction"
         tools:targetApi="31">
-
-
+        <activity
+            android:name=".activity.ViewJournalActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.BreathingActivity"
             android:exported="false" />
-
         <activity
             android:name=".activity.InspirationalQuotesActivity"
             android:exported="false" />
-
         <activity
             android:name=".activity.MainMenuActivity"
             android:exported="true">
@@ -30,7 +29,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".activity.RegistrationFormActivity"
             android:exported="false" />
@@ -39,9 +37,7 @@
             android:exported="false" />
         <activity
             android:name=".activity.MainActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
     </application>
 
 </manifest>

@@ -9,6 +9,7 @@ import androidx.room.Update;
 
 import com.example.howareu.model.Activity;
 import com.example.howareu.model.Journal;
+import com.example.howareu.model.StatDateAndMoodId;
 
 import java.util.Date;
 import java.util.List;
@@ -42,4 +43,16 @@ public interface JournalDao {
     boolean getPrivacyById(int journalId);
 
 
+    @Query("SELECT * FROM journal WHERE strftime('%m', datetime(date/1000, 'unixepoch')) = :month  AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  ASC")
+    LiveData<List<Journal>>  getJournalByDate(String month, String year);
+
+    @Query("SELECT * FROM journal WHERE strftime('%m', datetime(date/1000, 'unixepoch')) = :month  AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  DESC")
+    LiveData<List<Journal>>  getJournalByDateDesc(String month, String year);
+
+
+    @Query("SELECT * FROM journal WHERE content LIKE '%' || :search || '%' AND strftime('%m', datetime(date/1000, 'unixepoch')) = :month  AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  ASC")
+    LiveData<List<Journal>>  getJournalBySearch(String month, String year,String search);
+
+    @Query("SELECT * FROM journal WHERE content LIKE '%' || :search || '%' AND strftime('%m', datetime(date/1000, 'unixepoch')) = :month  AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  DESC")
+    LiveData<List<Journal>>  getJournalBySearchDesc(String month, String year,String search);
 }

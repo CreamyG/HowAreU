@@ -508,14 +508,6 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         });
 
     }
-
-
-
-
-
-
-
-
     public void saveActivitiesToDb(){
 
         new AsyncTask<Void, Void, Void>() {
