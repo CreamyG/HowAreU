@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.howareu.R;
 import com.example.howareu.adapter.HomeActivityAdapter;
@@ -47,7 +49,7 @@ import java.util.Locale;
 import java.util.Random;
 
 public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDeleteActivityClickListener, HomeActivityAdapter.OnActivityMoodRateClickListener,
-        HomeTodoAdapter.OnTodoMoodRateClickListener,View.OnClickListener,HomeActivityAdapter.OnTextChangeListener{
+        HomeTodoAdapter.OnTodoMoodRateClickListener,View.OnClickListener,HomeActivityAdapter.OnTextChangeListener, HomeTodoAdapter.OnReplaceClickListener {
     RecyclerView activityRecycler;
     RecyclerView todoRecycler;
     EditText journalInput;
@@ -55,6 +57,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     Button btnSave;
     Button btnSad, btnVerySad, btnNeutral, btnHappy, btnVeryHappy,btnExit;
     Button btnConfirm;
+    Button btnAddTodo;
     TextView MoodTotalForTheDay, textMonth,textDate;
 
     HomeActivityAdapter activityAdapter;
@@ -106,7 +109,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         mPrefs = getActivity().getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
         activityAdapter= new HomeActivityAdapter(simpleActivityModel,this.getContext(),this,this, this);
-        todoAdapter= new HomeTodoAdapter(simpleTodoModel,this.getContext(),this);
+        todoAdapter= new HomeTodoAdapter(simpleTodoModel,this.getContext(),this,this);
 
         activityDb = new ActivityRepository(application);
         journalDb = new JournalRepository(application);
@@ -131,6 +134,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         activityRecycler = view.findViewById(R.id.activity_recycler);
         todoRecycler = view.findViewById(R.id.todo_recycler);
         btnAddActivity = view.findViewById(R.id.btnAddActivity);
+        btnAddTodo = view.findViewById(R.id.btnAddTodo);
         btnSave = view.findViewById(R.id.btnSave);
         journalInput = view.findViewById(R.id.journalInput);
         isPrivate = view.findViewById(R.id.isPrivate);
@@ -165,15 +169,47 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             }
         });
+        //AddTodo Activity
+        btnAddTodo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (simpleTodoModel.size()<Arrays.todoArrayList().size()) {
+                    if (isTodoRateAll()) {
+
+                        simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(getRandomToDo()), 0, true));
+                        todoAdapter.notifyItemInserted(simpleTodoModel.size() - 1);
+
+                    }
+
+                }
+                else{
+                    Toast.makeText(context, "Out of To do Activity", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        todoAdapter.setOnReplaceClickListener(new HomeTodoAdapter.OnReplaceClickListener() {
+            @Override
+            public void onReplaceClicked(int position) {
+                if(simpleTodoModel.size()<Arrays.todoArrayList().size()){
+                    simpleTodoModel.get(position).setTodoName(Arrays.todoArrayList().get(getRandomToDo()));
+                    todoAdapter.notifyItemChanged(position);
+                }
+                else{
+                    Toast.makeText(context, "Out of To do Activity", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
 
         //Mood Rate Activity
         activityAdapter.setOnMoodRateClickListener(new HomeActivityAdapter.OnActivityMoodRateClickListener() {
             @Override
             public void onMoodRateClicked(String name,int position) {
                 rateMoodPopUp(position,true, name);
-            ;
+
             }
         });
+        //ToDoMoodRate
         todoAdapter.setOnTodoMoodRateClickListener(new HomeTodoAdapter.OnTodoMoodRateClickListener() {
             @Override
             public void onTodoMoodRateClicked(int position) {
@@ -181,6 +217,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             }
         });
+        //TextChangeListener
         activityAdapter.setOnTextChangeListener(new HomeActivityAdapter.OnTextChangeListener() {
             @Override
             public void onTextChanged(String name, int position) {
@@ -215,7 +252,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                     currentTime = System.currentTimeMillis();
                     saveActivitiesToDb();
                     saveStatDb();
-                    saveJournalToDb();
+                    if(journalInput.getText().toString().trim().equals("")) {
+                        saveJournalToDb();
+                    }
                     mPrefs.edit().putLong(Strings.LAST_CLICK_TIME, currentTime).apply();
                     mPrefs.edit().putString(Strings.JOURNAL_SAVE, journalInput.getText().toString()).apply();
                     mPrefs.edit().putBoolean(Strings.JOURNAL_PRIVACY, isPrivate.isChecked()).apply();
@@ -239,6 +278,31 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         return view;
 
 
+    }
+
+    public int getRandomToDo(){
+        Random random = new Random();
+        List<String> names = new ArrayList<>();
+        for (SimpleTodoModel todo : simpleTodoModel) {
+            names.add(todo.getTodoName());
+        }
+
+        int numb = random.nextInt(Arrays.todoArrayList().size());
+        while (names.contains(Arrays.todoArrayList().get(numb))) {
+            numb = random.nextInt(Arrays.todoArrayList().size());
+        }
+        return numb;
+    }
+
+    public boolean isTodoRateAll(){
+        boolean ratedAll = true;
+        for(SimpleTodoModel todo: simpleTodoModel){
+            if(todo.getMoodrate()==0) {
+                 ratedAll = false;
+                 break;
+            }
+        }
+        return ratedAll;
     }
 
     private void setDateForTopPart() {
@@ -832,6 +896,11 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     @Override
     public void onTextChanged(String name, int position) {
+
+    }
+
+    @Override
+    public void onReplaceClicked(int position) {
 
     }
 }

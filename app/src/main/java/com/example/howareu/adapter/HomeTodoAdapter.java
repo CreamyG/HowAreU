@@ -21,11 +21,13 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
     private List<SimpleTodoModel> simpleTodoModel;
     Context context;
     private HomeTodoAdapter.OnTodoMoodRateClickListener onTodoMoodRateClickListener;
+    private OnReplaceClickListener onReplaceClickListener;
 
-    public HomeTodoAdapter(List<SimpleTodoModel> simpleTodoModel, Context context, HomeTodoAdapter.OnTodoMoodRateClickListener onTodoMoodRateClickListener) {
+    public HomeTodoAdapter(List<SimpleTodoModel> simpleTodoModel, Context context, HomeTodoAdapter.OnTodoMoodRateClickListener onTodoMoodRateClickListener,OnReplaceClickListener onReplaceClickListener) {
         this.simpleTodoModel = simpleTodoModel;
         this.context = context;
         this.onTodoMoodRateClickListener = onTodoMoodRateClickListener;
+        this.onReplaceClickListener = onReplaceClickListener;
     }
 
     @NonNull
@@ -67,6 +69,13 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
             }
         });
 
+        holder.btnReplace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onReplaceClickListener.onReplaceClicked(holder.getAdapterPosition());
+            }
+        });
+
     }
 
     @Override
@@ -76,8 +85,9 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private EditText editTextToDo, editTextToDoRate;
-        private Button btnRateMoodTodo;
+        private Button btnRateMoodTodo,btnReplace;
         private CardView todolist_CardView;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,6 +97,7 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
             editTextToDo= itemView.findViewById(R.id.editTextToDo);
             editTextToDoRate= itemView.findViewById(R.id.editTextToDoRate);
             btnRateMoodTodo= itemView.findViewById(R.id.btnRateMoodTodo);
+            btnReplace= itemView.findViewById(R.id.btnReplace);
 
         }
     }
@@ -98,6 +109,14 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
 
     public void setOnTodoMoodRateClickListener(HomeTodoAdapter.OnTodoMoodRateClickListener listener) {
         this.onTodoMoodRateClickListener = listener;
+    }
+
+    public interface OnReplaceClickListener {
+        void onReplaceClicked(int position);
+    }
+
+    public void setOnReplaceClickListener(OnReplaceClickListener onReplaceClickListener){
+        this.onReplaceClickListener = onReplaceClickListener;
     }
 
 }

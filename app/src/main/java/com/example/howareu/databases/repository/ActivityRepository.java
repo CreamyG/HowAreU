@@ -33,6 +33,6 @@ public class ActivityRepository {
     public Date getDate(int activityId){
         return activityDao.getActivityDate(activityId);
     }
-    public  LiveData<List<Activity>> getAllActivity(){return activityDao.getAllActivity();
-    }
+    public  LiveData<List<Activity>> getAllActivity(){return activityDao.getAllActivity();}
+    public  LiveData<List<Activity>>  getActivityByDate(String day,String month, String year){return activityDao.getActivityByDate(day,month,year);};
 }

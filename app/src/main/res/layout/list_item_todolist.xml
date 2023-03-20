@@ -22,7 +22,7 @@
             android:orientation="horizontal"
             android:layout_margin="6dp"
             android:layout_marginLeft="2dp"
-            android:weightSum="4">
+            android:weightSum="5">
 
             <Button
                 android:id="@+id/btnRateMoodTodo"
@@ -49,6 +49,12 @@
                 android:hint="No rate"
                 android:inputType="none"
                 />
+            <Button
+                android:id="@+id/btnReplace"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="replace" />
 
 
 
