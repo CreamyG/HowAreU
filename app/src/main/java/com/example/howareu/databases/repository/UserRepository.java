@@ -1,6 +1,8 @@
 package com.example.howareu.databases.repository;
 import android.app.Application;
 import androidx.lifecycle.LiveData;
+
+import com.example.howareu.databases.HowAreYouDatabase;
 import com.example.howareu.databases.UserDatabase;
 import com.example.howareu.databases.dao.UserDao;
 import com.example.howareu.model.User;
@@ -11,7 +13,7 @@ public class UserRepository {
     private FirebaseUserRepository firebaseUserRepository;
 
     public UserRepository(Application application) {
-        UserDatabase database = UserDatabase.getInstance(application);
+        HowAreYouDatabase database = HowAreYouDatabase.getInstance(application);
         userDao = database.userDao();
         firebaseUserRepository = new FirebaseUserRepository();
     }

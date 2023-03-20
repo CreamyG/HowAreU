@@ -4,11 +4,11 @@ public abstract class Strings {
     public static String FIREBASE_LINK_DB = "https://howareu-ecb34-default-rtdb.asia-southeast1.firebasedatabase.app/";
 
     //MOOD NAME FOR MOOD TABLE
-    public static String MOOD_VERY_SAD = "VERY SAD";
-    public static String MOOD_SAD = "SAD";
-    public static String MOOD_NEUTRAL = "NEUTRAL";
-    public static String MOOD_HAPPY = "HAPPY";
-    public static String MOOD_VERY_HAPPY = "VERY HAPPY";
+    public static final String MOOD_VERY_SAD = "VERY SAD";
+    public static final String MOOD_SAD = "SAD";
+    public static final String MOOD_NEUTRAL = "NEUTRAL";
+    public static final String MOOD_HAPPY = "HAPPY";
+    public static final String MOOD_VERY_HAPPY = "VERY HAPPY";
 
     //SHARED PREFS
 
@@ -24,4 +24,17 @@ public abstract class Strings {
     public static final String JOURNAL_SAVE = "journalSave";
 
     public static final String JOURNAL_PRIVACY = "journalPrivacy";
+
+
+    //MOOD NAME LABEL
+    public static String MOOD_LABEL_VERY_SAD = "Very Sad";
+    public static String MOOD_LABEL_SAD = "Sad";
+    public static String MOOD_LABEL_NEUTRAL = "Neutral";
+    public static String MOOD_LABEL_HAPPY = "Happy";
+    public static String MOOD_LABEL_VERY_HAPPY = "Very Sad";
+
+
+
+
+
 }

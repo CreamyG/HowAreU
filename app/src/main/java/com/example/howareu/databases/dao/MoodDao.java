@@ -36,4 +36,8 @@ public interface MoodDao {
     @Query("SELECT COUNT(*) == 0 FROM mood ")
     boolean isMoodTableEmpty();
 
+
+    @Query("SELECT * FROM mood WHERE id = :moodId")
+    LiveData<Mood> getMoodById(int moodId);
+
 }

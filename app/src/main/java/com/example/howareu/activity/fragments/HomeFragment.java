@@ -29,10 +29,12 @@ import com.example.howareu.constant.Integers;
 import com.example.howareu.constant.Strings;
 import com.example.howareu.databases.repository.ActivityRepository;
 import com.example.howareu.databases.repository.JournalRepository;
+import com.example.howareu.databases.repository.StatRepository;
 import com.example.howareu.model.Activity;
 import com.example.howareu.model.Journal;
 import com.example.howareu.model.SimpleActivityModel;
 import com.example.howareu.model.SimpleTodoModel;
+import com.example.howareu.model.Stat;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -76,6 +78,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     private ActivityRepository activityDb;
     private JournalRepository journalDb;
+    private StatRepository statDb;
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -104,6 +107,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         activityDb = new ActivityRepository(application);
         journalDb = new JournalRepository(application);
+        statDb = new StatRepository(application);
         lastClickTime = mPrefs.getLong(Strings.LAST_CLICK_TIME, 0);
         currentTime = System.currentTimeMillis();
     }
@@ -198,6 +202,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                     //Success no empty Form
                     currentTime = System.currentTimeMillis();
                     saveActivitiesToDb();
+                    saveStatDb();
                     saveJournalToDb();
                     mPrefs.edit().putLong(Strings.LAST_CLICK_TIME, currentTime).apply();
                     mPrefs.edit().putString(Strings.JOURNAL_SAVE, journalInput.getText().toString()).apply();
@@ -463,8 +468,10 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         MoodTotalForTheDay = dialogView.findViewById(R.id.MoodTotalForTheDay);
 
-        MoodTotalForTheDay.setText(calculateMood());
+        MoodTotalForTheDay.setText(getCalculatedMoodString(calculateMood()));
         btnConfirm =dialogView.findViewById(R.id.btnConfirm);
+
+
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -474,8 +481,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     }
 
-    public String calculateMood(){
-        String moodForTheDay= "";
+
+    public int calculateMood(){
         ArrayList<Integer> allRate = new ArrayList<Integer>();
         for(SimpleActivityModel x: simpleActivityModel){
             allRate.add(x.getMoodrate());
@@ -488,8 +495,10 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             sumOfRate+=x;
         }
         int mood = sumOfRate/allRate.size();
-
-
+        return mood;
+    }
+    public String getCalculatedMoodString(int mood){
+        String moodForTheDay= "";
         if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
             moodForTheDay = "Very Sad = ";
         }
@@ -508,6 +517,27 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         moodForTheDay+=mood;
         return moodForTheDay;
     }
+    public int getMoodIdByCalculatedRate(int mood){
+        int moodId= 0;
+        if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
+            moodId = Integers.MOOD_VERY_SAD;
+        }
+        else if(mood>=Integers.MOOD_PERCENT_SAD  && mood < Integers.MOOD_PERCENT_NEUTRAL){
+            moodId = Integers.MOOD_SAD;
+        }
+        else if(mood>=Integers.MOOD_PERCENT_NEUTRAL  && mood < Integers.MOOD_PERCENT_HAPPY){
+            moodId = Integers.MOOD_NEUTRAL;
+        }
+        else if(mood>=Integers.MOOD_PERCENT_HAPPY  && mood < Integers.MOOD_PERCENT_VERY_HAPPY){
+            moodId = Integers.MOOD_HAPPY;
+        }
+        else if(mood==Integers.MOOD_PERCENT_VERY_HAPPY){
+            moodId = Integers.MOOD_VERY_HAPPY;
+        }
+
+        return moodId;
+    }
+
 
     @Override
     public void onTodoMoodRateClicked(int position) {
@@ -577,6 +607,23 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             }
         }.execute();
 
+    }
+    public void saveStatDb(){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                statDb.insertStat(new Stat(calculateMood(),getMoodIdByCalculatedRate(calculateMood())));
+
+                // Update UI with results on the main thread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+                return null;
+            }
+        }.execute();
     }
 
 
