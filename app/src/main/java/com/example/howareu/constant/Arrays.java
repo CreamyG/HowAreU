@@ -32,4 +32,13 @@ public abstract class Arrays {
         return daysInWeek;
     }
 
+
+    public static final ArrayList<String> quotes() {
+        ArrayList<String> quotes = new ArrayList<String>();
+        quotes.add("Ride the wind bullsEye!");
+        quotes.add("Yey its Friyay");
+        quotes.add("Hey soul sister");
+        return quotes;
+    }
+
 }

@@ -12,7 +12,14 @@ public abstract class Strings {
 
     //SHARED PREFS
 
+
+
     public static final String PREF_NAME = "MyPrefs";
+
+
+    public static final String START_PREF_NAME = "startPrefs";
+    public static final String SAVED_QUOTE = "savedQuote";
+
     public static final String LAST_CLICK_TIME = "lastClickTime";
     public static final String LAST_LOGIN_TIME = "lastLoginTime";
 

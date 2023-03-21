@@ -68,7 +68,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     Application application;
     List<SimpleActivityModel> simpleActivityModel = new ArrayList<>();
     List<SimpleTodoModel> simpleTodoModel = new ArrayList<>();
-    List<Date> allActivityDate = new ArrayList<>();
+
 
     List<Activity> allActivity ;
     List<Journal> allJournal;
