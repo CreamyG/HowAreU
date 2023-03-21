@@ -220,7 +220,6 @@ public class StatisticsFragment extends Fragment {
                 statDateAndMoodId = statDb.getMoodIdAndDate(currentMonth,currentYear);
 
 
-
                 // Update UI with results on the main thread
                 getActivity().runOnUiThread(new Runnable() {
                     @Override

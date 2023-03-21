@@ -55,4 +55,8 @@ public interface JournalDao {
 
     @Query("SELECT * FROM journal WHERE content LIKE '%' || :search || '%' AND strftime('%m', datetime(date/1000, 'unixepoch')) = :month  AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  DESC")
     LiveData<List<Journal>>  getJournalBySearchDesc(String month, String year,String search);
+
+
+    @Query("SELECT * FROM journal WHERE strftime('%m', datetime(date/1000, 'unixepoch')) = :month AND strftime('%d', datetime(date/1000, 'unixepoch')) = :day AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  ASC")
+    List<Journal>  getJournalByWholeDate(String day, String month, String year);
 }

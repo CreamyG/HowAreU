@@ -36,4 +36,7 @@ public class JournalRepository {
     public LiveData<List<Journal>> getJournalByDateDesc(String month,String year){return journalDao.getJournalByDateDesc(month,year);}
     public LiveData<List<Journal>> getJournalBySearch(String month,String year,String search){return journalDao.getJournalBySearch(month,year,search);}
     public LiveData<List<Journal>> getJournalBySearchDesc(String month,String year,String search){return journalDao.getJournalBySearchDesc(month,year,search);}
+
+    public List<Journal> getJournalByWholeDate(String day,String month,String year){return journalDao.getJournalByWholeDate(day,month,year);}
+
 }

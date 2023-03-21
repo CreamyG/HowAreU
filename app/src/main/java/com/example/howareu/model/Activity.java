@@ -18,11 +18,22 @@ public class Activity {
     private String content;
     @ColumnInfo(name = "mood_id")
     private int mood_id;
+    @ColumnInfo(name = "type")
+    private int type;
 
-    public Activity(String content, int mood_id) {
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public Activity(String content, int mood_id, int type) {
         this.date =  date == null ? new Date() : date;
         this.content = content;
         this.mood_id = mood_id;
+        this.type = type;
     }
 
     @NonNull

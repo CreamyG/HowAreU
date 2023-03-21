@@ -14,4 +14,8 @@ public abstract class Integers {
     public static final int MOOD_NEUTRAL = 3;
     public static final int MOOD_HAPPY = 4;
     public static final int MOOD_VERY_HAPPY = 5;
+
+    //ActivityType
+    public static final int ACTIVITY = 0;
+    public static final int TODO = 1;
 }

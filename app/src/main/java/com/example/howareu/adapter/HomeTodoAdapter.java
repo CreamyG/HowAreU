@@ -54,11 +54,13 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
             holder.editTextToDo.setEnabled(true);
             holder.editTextToDoRate.setEnabled(true);
             holder.btnRateMoodTodo.setEnabled(true);
+            holder.btnReplace.setEnabled(true);
         }
         else{
             holder.editTextToDo.setEnabled(false);
             holder.editTextToDoRate.setEnabled(false);
             holder.btnRateMoodTodo.setEnabled(false);
+            holder.btnReplace.setEnabled(false);
         }
 
 

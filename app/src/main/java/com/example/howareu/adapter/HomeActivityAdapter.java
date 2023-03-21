@@ -125,6 +125,12 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
         holder.btnRateMoodActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                View focusedView = v.getRootView().findFocus();
+                if (focusedView != null && focusedView.hasFocus()) {
+                    focusedView.clearFocus();
+                }
+
+
                     onMoodRateClickListener.onMoodRateClicked(holder.editTextActivity.getText().toString(), holder.getAdapterPosition());
             }
         });

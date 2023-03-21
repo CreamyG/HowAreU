@@ -9,14 +9,14 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
@@ -35,6 +35,7 @@ import com.example.howareu.databases.repository.StatRepository;
 import com.example.howareu.model.Activity;
 import com.example.howareu.model.Journal;
 import com.example.howareu.model.SimpleActivityModel;
+import com.example.howareu.model.SimpleAllActivityModel;
 import com.example.howareu.model.SimpleTodoModel;
 import com.example.howareu.model.Stat;
 import com.google.gson.Gson;
@@ -44,6 +45,7 @@ import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -66,6 +68,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     Application application;
     List<SimpleActivityModel> simpleActivityModel = new ArrayList<>();
     List<SimpleTodoModel> simpleTodoModel = new ArrayList<>();
+    List<Date> allActivityDate = new ArrayList<>();
+
+    List<Activity> allActivity ;
+    List<Journal> allJournal;
+    ArrayList<SimpleAllActivityModel> allActivityModels = new ArrayList<>();
+
 
     Switch isPrivate;
     Gson gson = new Gson();
@@ -75,6 +83,10 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     private long lastClickTime;
     private long currentTime;
+    private String currentDay;
+    private String currentMonth;
+    private String currentYear;
+    private Calendar calen;
 
     private ActivityRepository activityDb;
     private JournalRepository journalDb;
@@ -117,6 +129,13 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         lastClickTime = mPrefs.getLong(Strings.LAST_CLICK_TIME, 0);
 
         currentTime = System.currentTimeMillis();
+
+        calen = Calendar.getInstance();
+        calen.setTimeInMillis(System.currentTimeMillis());
+
+        currentDay = String.valueOf(calen.get(Calendar.DAY_OF_MONTH));
+        currentMonth = String.valueOf(calen.get(Calendar.MONTH)+1);
+        currentYear = String.valueOf(calen.get(Calendar.YEAR));
 
 
     }
@@ -252,7 +271,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                     currentTime = System.currentTimeMillis();
                     saveActivitiesToDb();
                     saveStatDb();
-                    if(journalInput.getText().toString().trim().equals("")) {
+                    if(!journalInput.getText().toString().trim().equals("")) {
                         saveJournalToDb();
                     }
                     mPrefs.edit().putLong(Strings.LAST_CLICK_TIME, currentTime).apply();
@@ -268,12 +287,26 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             }
         });
+        journalInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                mPrefs.edit().putString(Strings.JOURNAL_UNSAVED,journalInput.getText().toString()).apply();
+
+            }
+        });
 
 
-
-
-
-        populateForm();
+        getActivityList();
         setDateForTopPart();
         return view;
 
@@ -328,10 +361,25 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             Boolean isChecked = mPrefs.getBoolean(Strings.JOURNAL_PRIVACY, false);
             isPrivate.setChecked(isChecked);
 
-        } else {
+        }
+        else if(checkIfDateExist()){
+            for(SimpleAllActivityModel act:allActivityModels){
+                disableButtonandForms();
+                journalSetByDateExist();
+                if(act.getType()==Integers.ACTIVITY){
+                    simpleActivityModel.add(new SimpleActivityModel(act.getActivityName(),act.getMoodrate(),false));
+                }
+                if(act.getType()==Integers.TODO){
+                    simpleTodoModel.add(new SimpleTodoModel(act.getActivityName(),act.getMoodrate(),false));
+                }
+            }
+
+            activityAdapter.notifyDataSetChanged();
+            todoAdapter.notifyDataSetChanged();
+        }
+        else {
             if(simpleActivityModel.isEmpty()){
                 if(!checkUnSavedActivitySPisNull(type)){
-
                     getUnSavedActivity(type,true);
                 }
                 else{
@@ -367,6 +415,17 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             }
 
+            if(journalInput.getText().toString().isEmpty()){
+                Calendar cal = Calendar.getInstance();
+                cal.setTimeInMillis(lastClickTime);
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTimeInMillis(currentTime);
+                String journalText = mPrefs.getString(Strings.JOURNAL_UNSAVED, "");
+                journalInput.setText(journalText);
+
+
+            }
+
         }
 
     }
@@ -389,8 +448,45 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         btnSave.setEnabled(false);
         journalInput.setEnabled(false);
         isPrivate.setEnabled(false);
+        btnAddTodo.setEnabled(false);
     }
 
+    public boolean checkIfDateExist(){
+        boolean alreadyDone= false;
+        if(!allActivityModels.isEmpty()){
+
+            for(SimpleAllActivityModel act:allActivityModels){
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(act.getDate());
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTimeInMillis(currentTime);
+                if(isSameDay(cal,cal2)){
+                    alreadyDone = true;
+                    break;
+                }
+
+            }
+
+
+        }
+        return alreadyDone;
+    }
+
+    public void journalSetByDateExist(){
+            if(!allJournal.isEmpty()){
+                for(Journal journal:allJournal){
+                    Calendar cal = Calendar.getInstance();
+                    cal.setTime(journal.getDate());
+                    Calendar cal2 = Calendar.getInstance();
+                    cal2.setTimeInMillis(currentTime);
+                    if(isSameDay(cal,cal2)){
+                        journalInput.setText(journal.getContent());
+                        break;
+                    }
+
+                }
+            }
+    }
     public boolean checkIfAlreadyDone(){
         boolean alreadyDone= false;
         Calendar cal = Calendar.getInstance();
@@ -401,6 +497,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             // enable the button click if it's not the same day
             btnSave.setEnabled(true);
             btnAddActivity.setEnabled(true);
+            btnAddTodo.setEnabled(true);
             journalInput.setEnabled(true);
             isPrivate.setEnabled(true);
             alreadyDone=false;
@@ -451,11 +548,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             @Override
             public void onClick(View v) {
                 if(isActivity){
-                    activityAdapter.notifyDataSetChanged();
                     simpleActivityModel.get(position).setActivityName(name);
-                }
-                else{
-                    todoAdapter.notifyDataSetChanged();
+                    activityAdapter.notifyDataSetChanged();
                 }
 
                 switch(v.getId()){
@@ -572,6 +666,47 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         });
 
     }
+
+    public void getActivityList(){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+
+                if(currentMonth.length()<2){
+                    currentMonth="0"+currentMonth;
+                }
+                allActivity = activityDb.getActivityByDate(currentDay,currentMonth,currentYear);
+
+                allJournal = journalDb.getJournalByWholeDate(currentDay,currentMonth,currentYear);
+                int x= 0;
+                    // Update UI with results on the main thread
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (allActivity != null) {
+
+
+                                for (Activity act : allActivity) {
+                                    allActivityModels.add(new SimpleAllActivityModel(
+                                            act.getDate(),
+                                            act.getContent(),
+                                            getMoodRateById(act.getMood_id()),
+                                            act.getType()));
+                                }
+
+
+                                populateForm();
+                            }
+
+                        }
+
+                    });
+
+                return null;
+            }
+        }.execute();
+    }
+
     public void saveActivitiesToDb(){
 
         new AsyncTask<Void, Void, Void>() {
@@ -582,7 +717,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 for(SimpleActivityModel x: simpleActivityModel){
                     //Save in Database
                     int moodId = getMoodIdByRate(x.getMoodrate());
-                    Activity activityAdd = new Activity(x.activityName,moodId);
+                    Activity activityAdd = new Activity(x.activityName,moodId,Integers.ACTIVITY);
                     activityDb.insertActivity(activityAdd);
                     //Save in SharedPref
                     activityName.add(x.getActivityName());
@@ -593,7 +728,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 for(SimpleTodoModel x: simpleTodoModel){
                     //Save in Database
                     int moodId = getMoodIdByRate(x.getMoodrate());
-                    Activity activityAdd = new Activity(x.todoName,moodId);
+                    Activity activityAdd = new Activity(x.todoName,moodId,Integers.TODO);
                     activityDb.insertActivity(activityAdd);
 
                     //Save in SharedPref
@@ -623,6 +758,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                         mPrefs.edit().putString(Strings.ACTIVITY_RATE_UNSAVED, null).apply();
                         mPrefs.edit().putString(Strings.TODO_NAME_UNSAVED, null).apply();
                         mPrefs.edit().putString(Strings.TODO_RATE_UNSAVED, null).apply();
+                        mPrefs.edit().putString(Strings.JOURNAL_UNSAVED, null).apply();
                     }
                 });
                 return null;
@@ -853,6 +989,33 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 break;
             case Integers.MOOD_PERCENT_VERY_HAPPY:
                 moodId= Integers.MOOD_VERY_HAPPY;
+                break;
+            default:
+                moodId=0;
+                break;
+
+
+        }
+        return moodId;
+    }
+
+    public int getMoodRateById(int id){
+        int moodId = 0;
+        switch(id){
+            case Integers.MOOD_SAD:
+                moodId=  Integers.MOOD_PERCENT_SAD;
+                break;
+            case Integers.MOOD_VERY_SAD:
+                moodId=  Integers.MOOD_PERCENT_VERY_SAD;
+                break;
+            case Integers.MOOD_NEUTRAL:
+                moodId=  Integers.MOOD_PERCENT_NEUTRAL;
+                break;
+            case Integers.MOOD_HAPPY:
+                moodId= Integers.MOOD_PERCENT_HAPPY;
+                break;
+            case Integers.MOOD_VERY_HAPPY:
+                moodId= Integers.MOOD_PERCENT_VERY_HAPPY;
                 break;
             default:
                 moodId=0;

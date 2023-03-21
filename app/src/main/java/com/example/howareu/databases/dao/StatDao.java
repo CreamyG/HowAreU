@@ -29,7 +29,7 @@ public interface StatDao {
     void delete(Stat stat);
 
     @Query("SELECT * FROM stat")
-    LiveData<List<Activity>> getAllActivity();
+    LiveData<List<Stat>> getAllStat();
 
     @Query("SELECT mood_id FROM stat WHERE id = :statId")
     int getMoodIdById(int statId);

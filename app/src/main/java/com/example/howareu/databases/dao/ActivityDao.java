@@ -40,8 +40,8 @@ public interface ActivityDao {
 
 
 
-    @Query("SELECT * FROM activities WHERE  strftime('%m', datetime(date/1000, 'unixepoch')) = :month AND strftime('%d', datetime(date/1000, 'day')) = :year AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  ASC")
-    LiveData<List<Activity>>  getActivityByDate(String day,String month, String year);
+    @Query("SELECT * FROM activities WHERE  strftime('%m', datetime(date/1000, 'unixepoch')) = :month AND strftime('%d', datetime(date/1000, 'unixepoch')) = :day AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  ASC")
+    List<Activity> getActivityByDate(String day,String month, String year);
 
 
 

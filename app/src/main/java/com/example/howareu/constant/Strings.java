@@ -28,7 +28,7 @@ public abstract class Strings {
 
 
     public static final String JOURNAL_SAVE = "journalSave";
-
+    public static final String JOURNAL_UNSAVED = "journalUnsaved";
     public static final String JOURNAL_PRIVACY = "journalPrivacy";
 
 
