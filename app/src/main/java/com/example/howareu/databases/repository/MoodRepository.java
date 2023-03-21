@@ -3,7 +3,6 @@ package com.example.howareu.databases.repository;
 import android.app.Application;
 
 import com.example.howareu.databases.HowAreYouDatabase;
-import com.example.howareu.databases.MoodDatabase;
 import com.example.howareu.databases.dao.MoodDao;
 import com.example.howareu.model.Mood;
 

@@ -5,8 +5,6 @@ import android.app.Application;
 import androidx.lifecycle.LiveData;
 
 import com.example.howareu.databases.HowAreYouDatabase;
-import com.example.howareu.databases.StatDatabase;
-import com.example.howareu.databases.dao.MoodDao;
 import com.example.howareu.databases.dao.StatDao;
 import com.example.howareu.model.Stat;
 import com.example.howareu.model.StatDateAndMoodId;

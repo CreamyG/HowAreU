@@ -307,16 +307,16 @@
                     <!-- of programming language used. -->
                     <!-- For now default set to 0-->
                     <TextView
+                        android:id="@+id/textNeutral"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0"
-                        android:id="@+id/textNeutral"
-                        android:textAlignment="textEnd"
-                        android:textSize="18sp"
-                        android:textColor="@color/color_one"
-                        android:textStyle="bold"
+                        android:layout_alignParentRight="true"
                         android:fontFamily="sans-serif-light"
-                        android:layout_alignParentRight="true"/>
+                        android:text="0"
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/color_one"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
                 <View

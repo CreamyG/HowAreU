@@ -13,14 +13,16 @@ import com.example.howareu.databases.dao.JournalDao;
 import com.example.howareu.databases.dao.MoodDao;
 import com.example.howareu.databases.dao.StatDao;
 import com.example.howareu.databases.dao.UserDao;
+import com.example.howareu.databases.dao.UserLocalDao;
 import com.example.howareu.model.Activity;
 import com.example.howareu.model.Journal;
 import com.example.howareu.model.Mood;
 import com.example.howareu.model.Stat;
 import com.example.howareu.model.StatDateAndMoodId;
 import com.example.howareu.model.User;
+import com.example.howareu.model.UserLocal;
 
-@Database(entities = {Stat.class, Mood.class, Activity.class, Journal.class, User.class}, version = 1)
+@Database(entities = {Stat.class, Mood.class, Activity.class, Journal.class, User.class, UserLocal.class}, version = 1)
 @TypeConverters(DateConverter.class)
 public abstract class HowAreYouDatabase extends RoomDatabase {
     private static HowAreYouDatabase DatabaseInstance;
@@ -31,6 +33,7 @@ public abstract class HowAreYouDatabase extends RoomDatabase {
     public abstract MoodDao moodDao();
     public abstract StatDao statDao();
     public abstract UserDao userDao();
+    public abstract UserLocalDao userLocalDao();
 
     public static synchronized HowAreYouDatabase getInstance(Application context) {
         if (DatabaseInstance == null) {

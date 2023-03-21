@@ -7,7 +7,7 @@
     android:background="#B7A28F"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".activity.LoginActivity">
+    tools:context=".activity.OnlineLoginActivity">
 
 
     <!-- Sign Up Part -->

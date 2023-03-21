@@ -18,6 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private long lastLog;
     private long currentTime;
     private SharedPreferences mPrefs;
+    private boolean isLogged = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         mPrefs= getSharedPreferences(Strings.START_PREF_NAME, Context.MODE_PRIVATE);
         currentTime = System.currentTimeMillis();
         lastLog = mPrefs.getLong(Strings.LAST_LOGIN_TIME, 0);
-
+        isLogged=mPrefs.getBoolean(Strings.IS_LOGGED,false);
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(lastLog);
         Calendar cal2 = Calendar.getInstance();
@@ -36,7 +37,8 @@ public class SplashScreenActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent i = null;
-                if(isSameDay(cal,cal2)){
+                if(isSameDay(cal,cal2)&&isLogged){
+
                     i = new Intent(SplashScreenActivity.this, MainMenuActivity.class);
                 }
                 else{

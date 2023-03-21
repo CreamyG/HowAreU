@@ -127,15 +127,13 @@ public class MainMenuActivity extends AppCompatActivity {
         FirebaseAuth auth= FirebaseAuth.getInstance();
         int id = item.getItemId();
         switch (id){
-            case R.id.setting:
-                Toast.makeText(this, "Still no Setting Activity", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.about_us:
-                Toast.makeText(this, "Still no About Us Activity", Toast.LENGTH_SHORT).show();
+                Intent i =  new Intent(MainMenuActivity.this, AboutActivity.class);
+                startActivity(i);
                 break;
             case R.id.lagout:
                 auth.signOut();
-                startActivity(new Intent(this, LoginActivity.class));
+                startActivity(new Intent(this, OnlineLoginActivity.class));
                 break;
             default:
                 break;

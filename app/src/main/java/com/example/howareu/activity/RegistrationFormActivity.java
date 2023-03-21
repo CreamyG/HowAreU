@@ -140,7 +140,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent intent = new Intent(RegistrationFormActivity.this, LoginActivity.class);
+            Intent intent = new Intent(RegistrationFormActivity.this, OnlineLoginActivity.class);
             startActivity(intent);
         } else {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();

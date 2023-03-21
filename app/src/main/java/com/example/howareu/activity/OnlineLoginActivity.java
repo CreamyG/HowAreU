@@ -15,7 +15,7 @@ import com.example.howareu.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class LoginActivity extends AppCompatActivity {
+public class OnlineLoginActivity extends AppCompatActivity {
 
     private EditText mEmail;
     private EditText mPassword;
@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         signUpTxt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, RegistrationFormActivity.class);
+                Intent intent = new Intent(OnlineLoginActivity.this, RegistrationFormActivity.class);
                 startActivity(intent);
             }
         });
@@ -77,7 +77,7 @@ public class LoginActivity extends AppCompatActivity {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w("Firebase", "signInWithEmail:failure", task.getException());
-                        Toast.makeText(LoginActivity.this, "Authentication failed.",
+                        Toast.makeText(OnlineLoginActivity.this, "Authentication failed.",
                                 Toast.LENGTH_SHORT).show();
                         updateUI(null);
                     }
@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void updateUI(FirebaseUser user) {
         if (user != null) {
-            Intent intent = new Intent(LoginActivity.this, MainMenuActivity.class);
+            Intent intent = new Intent(OnlineLoginActivity.this, MainMenuActivity.class);
             startActivity(intent);
         } else {
             // User is signed out

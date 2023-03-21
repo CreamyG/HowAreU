@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -23,14 +24,12 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.example.howareu.R;
-import com.example.howareu.activity.LoginActivity;
-import com.example.howareu.activity.MainMenuActivity;
 import com.example.howareu.activity.ViewJournalActivity;
 import com.example.howareu.adapter.JournalHistoryAdapter;
+import com.example.howareu.constant.Strings;
 import com.example.howareu.databases.repository.JournalRepository;
 import com.example.howareu.model.Journal;
 import com.example.howareu.model.SimpleJournalModel;
-import com.example.howareu.model.StatDateAndMoodId;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -54,7 +53,7 @@ public class JournalHistoryFragment extends Fragment implements JournalHistoryAd
     GridView journalGrid;
     EditText searchQuery, passCodeEditText;
     TextView passCodeError;
-    String passCode= "123";
+    String passCode= "";
     Boolean isDesc=false;
     JournalHistoryAdapter journalAdapter;
     ArrayList<SimpleJournalModel> journalArrayList = new ArrayList<>();
@@ -62,6 +61,7 @@ public class JournalHistoryFragment extends Fragment implements JournalHistoryAd
     ArrayList<Date> dateList = new ArrayList<>();
     ArrayList<String> content = new ArrayList<>();
     ArrayList<Boolean> isPrivate = new ArrayList<>();
+    private SharedPreferences mPrefs;
     public JournalHistoryFragment() {
         // Required empty public constructor
     }
@@ -86,6 +86,8 @@ public class JournalHistoryFragment extends Fragment implements JournalHistoryAd
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+        mPrefs = getActivity().getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
+        passCode = mPrefs.getString(Strings.PASSCODE, "CALLADMIN");
         journalDb = new JournalRepository(application);
         cal2 =  Calendar.getInstance();
         currentMonth = String.valueOf(cal2.get(Calendar.MONTH)+1);

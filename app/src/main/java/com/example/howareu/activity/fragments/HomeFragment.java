@@ -66,8 +66,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     HomeTodoAdapter todoAdapter;
     Context context;
     Application application;
-    List<SimpleActivityModel> simpleActivityModel = new ArrayList<>();
-    List<SimpleTodoModel> simpleTodoModel = new ArrayList<>();
+    List<SimpleActivityModel> simpleActivityModel;
+    List<SimpleTodoModel> simpleTodoModel;
 
 
     List<Activity> allActivity ;
@@ -118,7 +118,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        simpleActivityModel = new ArrayList<>();
+        simpleTodoModel = new ArrayList<>();
         mPrefs = getActivity().getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
         activityAdapter= new HomeActivityAdapter(simpleActivityModel,this.getContext(),this,this, this);
         todoAdapter= new HomeTodoAdapter(simpleTodoModel,this.getContext(),this,this);
@@ -414,16 +415,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 }
 
             }
-
-            if(journalInput.getText().toString().isEmpty()){
-                Calendar cal = Calendar.getInstance();
-                cal.setTimeInMillis(lastClickTime);
-                Calendar cal2 = Calendar.getInstance();
-                cal2.setTimeInMillis(currentTime);
-                String journalText = mPrefs.getString(Strings.JOURNAL_UNSAVED, "");
+            String journalText = mPrefs.getString(Strings.JOURNAL_UNSAVED, "");
+            if(!journalText.isEmpty()){
                 journalInput.setText(journalText);
-
-
             }
 
         }

@@ -23,11 +23,13 @@ public class InspirationalQuotesActivity extends AppCompatActivity {
     private static final int SPLASH_TIME_OUT = 3000; // 3 seconds
     private SharedPreferences mPrefs;
     public TextView quoteText;
+    public boolean isLogged = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inspirational_quotes);
         mPrefs= getSharedPreferences(Strings.START_PREF_NAME, Context.MODE_PRIVATE);
+        isLogged = mPrefs.getBoolean(Strings.IS_LOGGED,false);
         quoteText = findViewById(R.id.quoteText);
         //Getting Hard coded quotes  and savedQuote from pref
         ArrayList<String> quotes = Arrays.quotes();
@@ -59,7 +61,14 @@ public class InspirationalQuotesActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent i = new Intent(InspirationalQuotesActivity.this, MainMenuActivity.class);
+                Intent i = null;
+                if(isLogged){
+                     i= new Intent(InspirationalQuotesActivity.this, MainMenuActivity.class);
+                }
+                else{
+                    i= new Intent(InspirationalQuotesActivity.this, SetUserActivity.class);
+                }
+
                 startActivity(i);
                 finish();
             }

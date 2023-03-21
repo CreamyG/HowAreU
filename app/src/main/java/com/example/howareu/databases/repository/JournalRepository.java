@@ -4,11 +4,8 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.howareu.databases.ActivityDatabase;
 import com.example.howareu.databases.HowAreYouDatabase;
-import com.example.howareu.databases.JournalDatabase;
 import com.example.howareu.databases.dao.JournalDao;
-import com.example.howareu.model.Activity;
 import com.example.howareu.model.Journal;
 
 import java.util.Date;

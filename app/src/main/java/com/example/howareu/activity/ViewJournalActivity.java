@@ -51,7 +51,7 @@ public class ViewJournalActivity extends AppCompatActivity {
                 break;
             case R.id.lagout:
                 auth.signOut();
-                startActivity(new Intent(this, LoginActivity.class));
+                startActivity(new Intent(this, OnlineLoginActivity.class));
                 break;
             default:
                 break;
