@@ -52,35 +52,41 @@ import java.util.Random;
 
 public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDeleteActivityClickListener, HomeActivityAdapter.OnActivityMoodRateClickListener,
         HomeTodoAdapter.OnTodoMoodRateClickListener,View.OnClickListener,HomeActivityAdapter.OnTextChangeListener, HomeTodoAdapter.OnReplaceClickListener {
+
+    //Fragment needs
+    Context context;
+    Application application;
+
+    //Views
     RecyclerView activityRecycler;
     RecyclerView todoRecycler;
     EditText journalInput;
-    Button btnAddActivity;
-    Button btnSave;
+    Button btnAddActivity,btnAddTodo,btnSave;
     Button btnSad, btnVerySad, btnNeutral, btnHappy, btnVeryHappy,btnExit;
-    Button btnConfirm;
-    Button btnAddTodo;
     TextView MoodTotalForTheDay, textMonth,textDate;
+    Switch isPrivate;
 
+    //Adapters
     HomeActivityAdapter activityAdapter;
     HomeTodoAdapter todoAdapter;
-    Context context;
-    Application application;
+
+    //List
     List<SimpleActivityModel> simpleActivityModel;
     List<SimpleTodoModel> simpleTodoModel;
-
 
     List<Activity> allActivity ;
     List<Journal> allJournal;
     ArrayList<SimpleAllActivityModel> allActivityModels = new ArrayList<>();
 
 
-    Switch isPrivate;
+
+
+
+    //Shared pref
+    private SharedPreferences mPrefs;
     Gson gson = new Gson();
 
-
-    private SharedPreferences mPrefs;
-
+    //Date and time's
     private long lastClickTime;
     private long currentTime;
     private String currentDay;
@@ -88,6 +94,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     private String currentYear;
     private Calendar calen;
 
+    //Databases
     private ActivityRepository activityDb;
     private JournalRepository journalDb;
     private StatRepository statDb;
@@ -118,17 +125,27 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //List for Adapter populate
         simpleActivityModel = new ArrayList<>();
         simpleTodoModel = new ArrayList<>();
+
+        //SharePref
         mPrefs = getActivity().getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
+
+
+
+        //Adapters
         activityAdapter= new HomeActivityAdapter(simpleActivityModel,this.getContext(),this,this, this);
         todoAdapter= new HomeTodoAdapter(simpleTodoModel,this.getContext(),this,this);
 
+        //Databases
         activityDb = new ActivityRepository(application);
         journalDb = new JournalRepository(application);
         statDb = new StatRepository(application);
-        lastClickTime = mPrefs.getLong(Strings.LAST_CLICK_TIME, 0);
 
+
+        //Date and Times
+        lastClickTime = mPrefs.getLong(Strings.LAST_CLICK_TIME, 0);
         currentTime = System.currentTimeMillis();
 
         calen = Calendar.getInstance();
@@ -150,7 +167,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-
+        //Views
         activityRecycler = view.findViewById(R.id.activity_recycler);
         todoRecycler = view.findViewById(R.id.todo_recycler);
         btnAddActivity = view.findViewById(R.id.btnAddActivity);
@@ -158,12 +175,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         btnSave = view.findViewById(R.id.btnSave);
         journalInput = view.findViewById(R.id.journalInput);
         isPrivate = view.findViewById(R.id.isPrivate);
-        activityRecycler.setAdapter(activityAdapter);
-        activityRecycler.setLayoutManager(new LinearLayoutManager(context));
-
         textMonth = view.findViewById(R.id.textMonth);
         textDate = view.findViewById(R.id.textDate);
 
+        //Recyclers
+        activityRecycler.setAdapter(activityAdapter);
+        activityRecycler.setLayoutManager(new LinearLayoutManager(context));
         todoRecycler.setAdapter(todoAdapter);
         todoRecycler.setLayoutManager(new LinearLayoutManager(context));
 
@@ -173,8 +190,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         btnAddActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //Add a empty value to simpleActivityModel to add an item on to the Activity adapter
                 simpleActivityModel.add(new SimpleActivityModel("",0,true));
+                //update the adapter
                 activityAdapter.notifyItemInserted(simpleActivityModel.size()-1);
             }
         });
@@ -183,8 +201,11 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         activityAdapter.setOnDeleteItemClickListener(new HomeActivityAdapter.OnDeleteActivityClickListener() {
             @Override
             public void onDeleteActivityClicked(int position) {
+                //remove a date on the simpleActivityModel to remove an item on to the adapter
                   simpleActivityModel.remove(position);
+                    //update the adapter
                   activityAdapter.notifyItemRemoved(position);
+                  //update the pref for unsaved progress
                   unsavedActivityToPref();
 
             }
@@ -193,10 +214,13 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         btnAddTodo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //Check first if todo_list has more activity to get
                 if (simpleTodoModel.size()<Arrays.todoArrayList().size()) {
+                    //check if existing todoActivities are done or rated
                     if (isTodoRateAll()) {
-
+                        //Add a empty value to SimpleTodoModel to add an item on to the Todo_adapter
                         simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(getRandomToDo()), 0, true));
+                        //update the adapter
                         todoAdapter.notifyItemInserted(simpleTodoModel.size() - 1);
 
                     }
@@ -207,6 +231,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 }
             }
         });
+
+        //Replace TodoActivity
         todoAdapter.setOnReplaceClickListener(new HomeTodoAdapter.OnReplaceClickListener() {
             @Override
             public void onReplaceClicked(int position) {
@@ -229,7 +255,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             }
         });
-        //ToDoMoodRate
+        //Rate Mood onTodo
         todoAdapter.setOnTodoMoodRateClickListener(new HomeTodoAdapter.OnTodoMoodRateClickListener() {
             @Override
             public void onTodoMoodRateClicked(int position) {
@@ -237,7 +263,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             }
         });
-        //TextChangeListener
+
+        //TextChangeListener To save in preference(save progress)
         activityAdapter.setOnTextChangeListener(new HomeActivityAdapter.OnTextChangeListener() {
             @Override
             public void onTextChanged(String name, int position) {
@@ -246,7 +273,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             }
         });
 
-        //Save
+        //Save when user is done
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -288,6 +315,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             }
         });
+
+        //Journal TextChange To save in preference(save progress)
         journalInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -307,13 +336,16 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         });
 
 
-        getActivityList();
-        setDateForTopPart();
+
+        getActivityList();//From Database
+        setDateForTopPart();//Date for Top part
         return view;
 
 
     }
 
+
+    //Get Random TodoAct
     public int getRandomToDo(){
         Random random = new Random();
         List<String> names = new ArrayList<>();
@@ -328,6 +360,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         return numb;
     }
 
+    //Check if rated all
     public boolean isTodoRateAll(){
         boolean ratedAll = true;
         for(SimpleTodoModel todo: simpleTodoModel){
@@ -339,6 +372,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         return ratedAll;
     }
 
+    //Setting the current Date on top part
     private void setDateForTopPart() {
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(currentTime);
@@ -350,8 +384,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         textDate.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
     }
 
-    public void populateForm(){
 
+    //Populate all fields
+    public void populateForm(){
 
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
         if (checkIfAlreadyDone()) {
@@ -424,6 +459,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     }
 
+
+    //Disable all fields and buttons
     public void disableEverything(){
         disableButtonandForms();
 
@@ -437,6 +474,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         todoAdapter.notifyDataSetChanged();
 
     }
+
+
+    //Disable all buttons and forms
     public void disableButtonandForms(){
         btnAddActivity.setEnabled(false);
         btnSave.setEnabled(false);
@@ -445,6 +485,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         btnAddTodo.setEnabled(false);
     }
 
+
+    //Check if activity has current Date on DB
     public boolean checkIfDateExist(){
         boolean alreadyDone= false;
         if(!allActivityModels.isEmpty()){
@@ -466,6 +508,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         return alreadyDone;
     }
 
+
+    //If journalDB date exist then set it
     public void journalSetByDateExist(){
             if(!allJournal.isEmpty()){
                 for(Journal journal:allJournal){
@@ -481,6 +525,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 }
             }
     }
+
+    //Check if current date already saved or done
     public boolean checkIfAlreadyDone(){
         boolean alreadyDone= false;
         Calendar cal = Calendar.getInstance();
@@ -505,20 +551,6 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }
         return alreadyDone;
 
-
-    }
-
-
-
-    @Override
-    public void onDeleteActivityClicked(int position) {
-
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
 
     }
 
@@ -649,7 +681,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         MoodTotalForTheDay = dialogView.findViewById(R.id.MoodTotalForTheDay);
 
         MoodTotalForTheDay.setText(getCalculatedMoodString(calculateMood()));
-        btnConfirm =dialogView.findViewById(R.id.btnConfirm);
+        Button btnConfirm =dialogView.findViewById(R.id.btnConfirm);
 
 
         btnConfirm.setOnClickListener(new View.OnClickListener() {
@@ -660,7 +692,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         });
 
     }
-
+    //Get all activity list of current date
     public void getActivityList(){
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -701,6 +733,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }.execute();
     }
 
+    //Save acts and journal To Database
     public void saveActivitiesToDb(){
 
         new AsyncTask<Void, Void, Void>() {
@@ -760,6 +793,30 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }.execute();
 
     }
+
+    //Save Journal to Database
+    public void saveJournalToDb(){
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                String journalText = journalInput.getText().toString();
+                Boolean isJournalPrivate = isPrivate.isChecked();
+                journalDb.insertJournal(new Journal(journalText, isJournalPrivate));
+
+                // Update UI with results on the main thread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                    }
+                });
+                return null;
+            }
+        }.execute();
+
+    }
+
+    //Save calculated mood to stat database
     public void saveStatDb(){
         new AsyncTask<Void, Void, Void>() {
             @Override
@@ -778,7 +835,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }.execute();
     }
 
-
+    //save unsaved todo_progress to sharedpref
     public void unsavedToDoToPref(){
         ArrayList<String> todoName = new ArrayList<>();
         ArrayList<String> todoRate = new ArrayList<>();
@@ -793,6 +850,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         mPrefs.edit().putString(Strings.TODO_RATE_UNSAVED, jsonTodoRate).apply();
     }
 
+    //save unsaved activity_progress to sharedpref
     public void unsavedActivityToPref(){
         ArrayList<String> activityName = new ArrayList<>();
         ArrayList<String> activityRate = new ArrayList<>();
@@ -809,12 +867,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         mPrefs.edit().putString(Strings.ACTIVITY_RATE_UNSAVED, jsonActivityRate).apply();
     }
 
-    public void getUnSavedData(){
-        Type type = new TypeToken<ArrayList<String>>() {}.getType();
-        getUnSavedTodo(type,true);
-        getUnSavedActivity(type,true);
 
-    }
+    //Gettings unsaved todo_progress from sharedpref
     public void getUnSavedTodo(Type type, Boolean isEnabled){
         String jsonName =mPrefs.getString(Strings.TODO_NAME_UNSAVED, "");
         String jsonRate =mPrefs.getString(Strings.TODO_RATE_UNSAVED, "");
@@ -829,7 +883,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }
     }
 
-
+    //Gettings unsaved activity_progress from sharedpref
     public void getUnSavedActivity(Type type, Boolean isEnabled){
         String jsonName =mPrefs.getString(Strings.ACTIVITY_NAME_UNSAVED, "");
         String jsonRate =mPrefs.getString(Strings.ACTIVITY_RATE_UNSAVED, "");
@@ -840,12 +894,14 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }
     }
 
+    //Get All savedData from sharedpref(if user was done)
     public void getSavedData(){
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
         getSaveActivity(type,false);
         getSaveTodo(type,false);
 
     }
+    //Get All saved TodoData from sharedpref(if user was done)
     public void getSaveTodo(Type type, Boolean isEnabled){
         String jsonName =mPrefs.getString(Strings.TODO_NAME_SAVE, "");
         String jsonRate =mPrefs.getString(Strings.TODO_RATE_SAVE, "");
@@ -860,7 +916,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }
     }
 
-
+    //Get All saved ActivityData from sharedpref(if user was done)
     public void getSaveActivity(Type type, Boolean isEnabled){
         String jsonName =mPrefs.getString(Strings.ACTIVITY_NAME_SAVE, "");
         String jsonRate =mPrefs.getString(Strings.ACTIVITY_RATE_SAVE, "");
@@ -871,6 +927,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }
     }
 
+
+    //Check if unsaved Act shared pref is empty
     public boolean checkUnSavedActivitySPisNull(Type type){
         String json =mPrefs.getString(Strings.ACTIVITY_NAME_UNSAVED, "");
         ArrayList<String> savedActivityNameArray = gson.fromJson(json, type);
@@ -885,6 +943,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         return isEmpty ;
     }
+
+    //Check if unsaved todo_shared pref is empty
     public boolean checkUnSavedToDoSPisNull(Type type){
         String json =mPrefs.getString(Strings.TODO_NAME_UNSAVED, "");
         ArrayList<String> savedActivityNameArray = gson.fromJson(json, type);
@@ -900,17 +960,15 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         return isEmpty ;
     }
 
-
+    //Check if Same date of the 2  dates in the parameter
     private boolean isSameDay(Calendar cal1, Calendar cal2) {
-
-
         // compare the year, month, and day of the two timestamps
         return cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
                 cal1.get(Calendar.MONTH) == cal2.get(Calendar.MONTH) &&
                 cal1.get(Calendar.DAY_OF_MONTH) == cal2.get(Calendar.DAY_OF_MONTH);
     }
 
-
+    //Mood calculate
     public int calculateMood(){
         ArrayList<Integer> allRate = new ArrayList<Integer>();
         for(SimpleActivityModel x: simpleActivityModel){
@@ -926,6 +984,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         int mood = sumOfRate/allRate.size();
         return mood;
     }
+
+    //Calculated mood to its mood name
     public String getCalculatedMoodString(int mood){
         String moodForTheDay= "";
         if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
@@ -946,6 +1006,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         moodForTheDay+=mood;
         return moodForTheDay;
     }
+
+    //Calculated mood to its mood id
     public int getMoodIdByCalculatedRate(int mood){
         int moodId= 0;
         if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
@@ -966,6 +1028,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         return moodId;
     }
+
+    //MoodRate to Id
     public int getMoodIdByRate(int rate){
         int moodId = 0;
         switch(rate){
@@ -993,6 +1057,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         return moodId;
     }
 
+    //MoodId to MoodRate
     public int getMoodRateById(int id){
         int moodId = 0;
         switch(id){
@@ -1019,29 +1084,11 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }
         return moodId;
     }
-    public void saveJournalToDb(){
-        new AsyncTask<Void, Void, Void>() {
-            @Override
-            protected Void doInBackground(Void... voids) {
-                String journalText = journalInput.getText().toString();
-                Boolean isJournalPrivate = isPrivate.isChecked();
-                journalDb.insertJournal(new Journal(journalText, isJournalPrivate));
-
-                // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
-                return null;
-            }
-        }.execute();
-
-    }
 
 
 
+
+    //Unused Required Interfaces
     @Override
     public void onTodoMoodRateClicked(int position) {
 
@@ -1058,6 +1105,17 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     @Override
     public void onReplaceClicked(int position) {
+
+    }
+    @Override
+    public void onDeleteActivityClicked(int position) {
+
+    }
+
+
+
+    @Override
+    public void onClick(View v) {
 
     }
 }
