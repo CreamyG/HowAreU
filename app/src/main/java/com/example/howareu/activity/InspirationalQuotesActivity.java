@@ -49,7 +49,7 @@ public class InspirationalQuotesActivity extends AppCompatActivity {
         String selectedQuote = quotes.get(ran);
         savedQuote.add(selectedQuote);
         quoteText.setText(selectedQuote);
-        //Clear savedQuote pref when 7thday or just save to pref
+        //Clear savedQuote pref when reaches last quote or just save to pref
         if(savedQuote.size()==quotes.size()){
             mPrefs.edit().putStringSet(Strings.SAVED_QUOTE,null).apply();
         }
