@@ -1,7 +1,9 @@
 package com.example.howareu.activity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -43,6 +45,9 @@ public class MainMenuActivity extends AppCompatActivity {
     private Fragment fragmentJournal;
 
 
+    private SharedPreferences mPrefs2;
+
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +56,7 @@ public class MainMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main_menu);
         byteArray = getIntent().getByteArrayExtra("myBitmap");
         moodDb = new MoodRepository(getApplication());
+        mPrefs2 = getSharedPreferences(Strings.START_PREF_NAME, Context.MODE_PRIVATE);
         new AsyncTask<Void, Void, Boolean>() {
             @Override
             protected Boolean doInBackground(Void... voids) {
@@ -133,7 +139,10 @@ public class MainMenuActivity extends AppCompatActivity {
                 break;
             case R.id.lagout:
                 auth.signOut();
-                startActivity(new Intent(this, OnlineLoginActivity.class));
+                mPrefs2.edit().putBoolean(Strings.IS_LOGGED,false).apply();
+                mPrefs2.edit().putBoolean(Strings.FROM_LOGOUT,true).apply();
+                startActivity(new Intent(this, LoggedOutActivity.class));
+
                 break;
             default:
                 break;

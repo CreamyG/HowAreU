@@ -29,4 +29,7 @@ public interface UserLocalDao {
 
     @Query("SELECT passcode FROM local_user WHERE name = :name")
     String getUsersIdUsingEmail(String name);
+
+    @Query("SELECT COUNT(*)  FROM local_user WHERE name = :name AND passcode=:passcode")
+    Boolean doesUserExist(String name,String passcode);
 }

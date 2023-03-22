@@ -17,4 +17,5 @@ public class UserLocalRepository {
     }
 
     public void insertUser(UserLocal user){userLocal.insert(user);}
+    public boolean doesUserExist(String name,String passcode){return userLocal.doesUserExist(name,passcode);}
 }

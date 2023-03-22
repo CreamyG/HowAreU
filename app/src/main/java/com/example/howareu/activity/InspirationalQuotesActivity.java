@@ -66,7 +66,14 @@ public class InspirationalQuotesActivity extends AppCompatActivity {
                      i= new Intent(InspirationalQuotesActivity.this, MainMenuActivity.class);
                 }
                 else{
-                    i= new Intent(InspirationalQuotesActivity.this, SetUserActivity.class);
+                    boolean fromLogout = mPrefs.getBoolean(Strings.FROM_LOGOUT,false);
+                    if(fromLogout){
+                        i= new Intent(InspirationalQuotesActivity.this, LoggedOutActivity.class);
+                    }
+                    else{
+                        i= new Intent(InspirationalQuotesActivity.this, SetUserActivity.class);
+                    }
+
                 }
 
                 startActivity(i);
