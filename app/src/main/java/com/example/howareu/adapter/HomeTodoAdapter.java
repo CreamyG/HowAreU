@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.howareu.R;
+import com.example.howareu.constant.Integers;
 import com.example.howareu.model.SimpleTodoModel;
 
 import java.util.List;
@@ -45,22 +47,39 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
         holder.editTextToDo.setFocusable(false);
         holder.editTextToDo.setClickable(false);
 
-        holder.editTextToDoRate.setFocusable(false);
-        holder.editTextToDoRate.setClickable(false);
         holder.editTextToDo.setText(simpleTodoModel.get(position).getTodoName());
-        holder.editTextToDoRate.setText(simpleTodoModel.get(position).getMoodrate()+"");
 
         if(simpleTodoModel.get(position).isEnabled()){
             holder.editTextToDo.setEnabled(true);
-            holder.editTextToDoRate.setEnabled(true);
             holder.btnRateMoodTodo.setEnabled(true);
             holder.btnReplace.setEnabled(true);
         }
         else{
             holder.editTextToDo.setEnabled(false);
-            holder.editTextToDoRate.setEnabled(false);
             holder.btnRateMoodTodo.setEnabled(false);
             holder.btnReplace.setEnabled(false);
+        }
+
+        switch(simpleTodoModel.get(position).getMoodrate()){
+            case Integers.MOOD_PERCENT_SAD:
+                holder.btnRateMoodTodo.setImageResource(R.drawable.sad);
+                break;
+            case Integers.MOOD_PERCENT_VERY_SAD:
+                holder.btnRateMoodTodo.setImageResource(R.drawable.crying);
+                break;
+            case Integers.MOOD_PERCENT_NEUTRAL:
+                holder.btnRateMoodTodo.setImageResource(R.drawable.cool);
+                break;
+            case Integers.MOOD_PERCENT_HAPPY:
+                holder.btnRateMoodTodo.setImageResource(R.drawable.calm);
+                break;
+            case Integers.MOOD_PERCENT_VERY_HAPPY:
+                holder.btnRateMoodTodo.setImageResource(R.drawable.happy);
+                break;
+            default:
+                holder.btnRateMoodTodo.setImageResource(R.drawable.aboutus);
+                break;
+
         }
 
 
@@ -86,8 +105,9 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private EditText editTextToDo, editTextToDoRate;
-        private Button btnRateMoodTodo,btnReplace;
+        private EditText editTextToDo;
+        private Button btnReplace;
+        private ImageView btnRateMoodTodo;
         private CardView todolist_CardView;
 
 
@@ -97,7 +117,6 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
 
 
             editTextToDo= itemView.findViewById(R.id.editTextToDo);
-            editTextToDoRate= itemView.findViewById(R.id.editTextToDoRate);
             btnRateMoodTodo= itemView.findViewById(R.id.btnRateMoodTodo);
             btnReplace= itemView.findViewById(R.id.btnReplace);
 

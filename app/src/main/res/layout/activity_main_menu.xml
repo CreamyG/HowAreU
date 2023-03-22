@@ -34,7 +34,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@drawable/whiteborder">
+        android:background="@drawable/whiteborder"
+        >
 
         <ImageView
             android:id="@+id/home"

@@ -2,6 +2,7 @@ package com.example.howareu.constant;
 
 public abstract class Integers {
     //MOOD PERCENTAGE FOR MOOD TABLE
+    public static final int NONE = 0;
     public static final int MOOD_PERCENT_VERY_SAD = 10;
     public static final int MOOD_PERCENT_SAD = 25;
     public static final int MOOD_PERCENT_NEUTRAL = 50;

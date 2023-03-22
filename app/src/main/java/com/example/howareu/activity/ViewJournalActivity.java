@@ -43,9 +43,6 @@ public class ViewJournalActivity extends AppCompatActivity {
         FirebaseAuth auth= FirebaseAuth.getInstance();
         int id = item.getItemId();
         switch (id){
-            case R.id.setting:
-                Toast.makeText(this, "Still no Setting Activity", Toast.LENGTH_SHORT).show();
-                break;
             case R.id.about_us:
                 Toast.makeText(this, "Still no About Us Activity", Toast.LENGTH_SHORT).show();
                 break;

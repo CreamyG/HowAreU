@@ -24,31 +24,24 @@
             android:layout_marginLeft="2dp"
             android:weightSum="5">
 
-            <Button
+            <ImageView
                 android:id="@+id/btnRateMoodTodo"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:text="RateMood" />
+                android:text="RateMood"
+                app:srcCompat="@drawable/aboutus"/>
 
             <EditText
                 android:id="@+id/editTextToDo"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:ems="10"
                 android:inputType="none"
                 />
 
-            <EditText
-                android:id="@+id/editTextToDoRate"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="No rate"
-                android:inputType="none"
-                />
+
             <Button
                 android:id="@+id/btnReplace"
                 android:layout_width="0dp"
