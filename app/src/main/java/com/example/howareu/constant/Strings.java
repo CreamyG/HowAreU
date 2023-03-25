@@ -21,7 +21,7 @@ public abstract class Strings {
     public static final String SAVED_QUOTE = "savedQuote";
     public static final String PASSCODE = "passcode";
     public static final String IS_LOGGED = "isLogged";
-    public static final String FROM_LOGOUT = "isLogged";
+    public static final String FROM_LOGOUT = "fromLogged";
 
     public static final String LAST_CLICK_TIME = "lastClickTime";
     public static final String LAST_LOGIN_TIME = "lastLoginTime";

@@ -106,8 +106,8 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private EditText editTextToDo;
-        private Button btnReplace;
-        private ImageView btnRateMoodTodo;
+
+        private ImageView btnRateMoodTodo,btnReplace;
         private CardView todolist_CardView;
 
 

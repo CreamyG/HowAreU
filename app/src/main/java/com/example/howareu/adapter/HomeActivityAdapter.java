@@ -173,8 +173,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private EditText editTextActivity;
-        private Button  btnDeleteMoodActivity;
-        private ImageView btnRateMoodActivity;
+        private ImageView btnRateMoodActivity,btnDeleteMoodActivity;
         private CardView activity_CardView;
 
         public ViewHolder(@NonNull View itemView) {
