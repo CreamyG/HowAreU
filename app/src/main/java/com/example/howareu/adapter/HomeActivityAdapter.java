@@ -73,19 +73,19 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
                  holder.btnRateMoodActivity.setImageResource(R.drawable.sad);
                  break;
              case Integers.MOOD_PERCENT_VERY_SAD:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.crying);
+                 holder.btnRateMoodActivity.setImageResource(R.drawable.very_sad);
                  break;
              case Integers.MOOD_PERCENT_NEUTRAL:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.cool);
+                 holder.btnRateMoodActivity.setImageResource(R.drawable.neutral);
                  break;
              case Integers.MOOD_PERCENT_HAPPY:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.calm);
+                 holder.btnRateMoodActivity.setImageResource(R.drawable.smiling_face);
                  break;
              case Integers.MOOD_PERCENT_VERY_HAPPY:
                  holder.btnRateMoodActivity.setImageResource(R.drawable.happy);
                  break;
              default:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.aboutus);
+                 holder.btnRateMoodActivity.setImageResource(R.drawable.very_happy);
                  break;
 
          }

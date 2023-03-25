@@ -61,23 +61,24 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
         }
 
         switch(simpleTodoModel.get(position).getMoodrate()){
+
             case Integers.MOOD_PERCENT_SAD:
                 holder.btnRateMoodTodo.setImageResource(R.drawable.sad);
                 break;
             case Integers.MOOD_PERCENT_VERY_SAD:
-                holder.btnRateMoodTodo.setImageResource(R.drawable.crying);
+                holder.btnRateMoodTodo.setImageResource(R.drawable.very_sad);
                 break;
             case Integers.MOOD_PERCENT_NEUTRAL:
-                holder.btnRateMoodTodo.setImageResource(R.drawable.cool);
+                holder.btnRateMoodTodo.setImageResource(R.drawable.neutral);
                 break;
             case Integers.MOOD_PERCENT_HAPPY:
-                holder.btnRateMoodTodo.setImageResource(R.drawable.calm);
+                holder.btnRateMoodTodo.setImageResource(R.drawable.smiling_face);
                 break;
             case Integers.MOOD_PERCENT_VERY_HAPPY:
                 holder.btnRateMoodTodo.setImageResource(R.drawable.happy);
                 break;
             default:
-                holder.btnRateMoodTodo.setImageResource(R.drawable.aboutus);
+                holder.btnRateMoodTodo.setImageResource(R.drawable.very_happy);
                 break;
 
         }

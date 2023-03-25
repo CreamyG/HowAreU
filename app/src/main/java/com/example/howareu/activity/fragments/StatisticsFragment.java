@@ -121,19 +121,19 @@ public class StatisticsFragment extends Fragment {
         int drawable = 0;
         switch(moodName){
             case Strings.MOOD_VERY_SAD:
-                drawable = R.drawable.crying;
+                drawable = R.drawable.very_sad;
                 break;
             case Strings.MOOD_SAD:
-                drawable = R.drawable.sad;
+                drawable = R.drawable.ssad;
                 break;
             case Strings.MOOD_NEUTRAL:
-                drawable = R.drawable.cool;
+                drawable = R.drawable.neutral;
                 break;
             case Strings.MOOD_HAPPY:
-                drawable = R.drawable.calm;
+                drawable = R.drawable.smiling_face;
                 break;
             case Strings.MOOD_VERY_HAPPY:
-                drawable = R.drawable.happy;
+                drawable = R.drawable.very_happy;
                 break;
 
         }
@@ -335,20 +335,20 @@ public class StatisticsFragment extends Fragment {
     public void getMoodEmoji(int mood){
 
         if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
-            mood_month_ave_image.setImageResource(R.drawable.sad);
+            mood_month_ave_image.setImageResource(R.drawable.very_sad);
 
         }
         else if(mood>=Integers.MOOD_PERCENT_SAD  && mood < Integers.MOOD_PERCENT_NEUTRAL){
-            mood_month_ave_image.setImageResource(R.drawable.sad);
+            mood_month_ave_image.setImageResource(R.drawable.ssad);
         }
         else if(mood>=Integers.MOOD_PERCENT_NEUTRAL  && mood < Integers.MOOD_PERCENT_HAPPY){
-            mood_month_ave_image.setImageResource(R.drawable.happy);
+            mood_month_ave_image.setImageResource(R.drawable.neutral);
         }
         else if(mood>=Integers.MOOD_PERCENT_HAPPY  && mood < Integers.MOOD_PERCENT_VERY_HAPPY){
-            mood_month_ave_image.setImageResource(R.drawable.happy);
+            mood_month_ave_image.setImageResource(R.drawable.smiling_face);
         }
         else if(mood==Integers.MOOD_PERCENT_VERY_HAPPY){
-            mood_month_ave_image.setImageResource(R.drawable.happy);
+            mood_month_ave_image.setImageResource(R.drawable.very_happy);
         }
 
     }
