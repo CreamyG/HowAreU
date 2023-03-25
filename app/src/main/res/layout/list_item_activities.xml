@@ -30,7 +30,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="RateMood"
-                app:srcCompat="@drawable/aboutus" />
+                app:srcCompat="@drawable/add" />
 
             <EditText
                 android:id="@+id/editTextActivity"
@@ -41,21 +41,15 @@
                 android:inputType="textPersonName"
                 android:hint="Enter Activity" />
 
-
-            <Button
+            <ImageView
                 android:id="@+id/btnDeleteMoodActivity"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:text="Delete" />
-
-
+                android:text="Delete"
+                android:src="@drawable/baseline_remove_circle_outline_24"
+                />
 
         </LinearLayout>
-
-
-
     </LinearLayout>
-
-
 </androidx.cardview.widget.CardView>

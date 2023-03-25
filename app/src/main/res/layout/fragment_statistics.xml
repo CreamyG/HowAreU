@@ -191,23 +191,8 @@
 
                 <!--Text view to use of -->
                 <!-- programming languages text-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/stats_mood_count_percentage"
-                    android:textSize="23sp"
-                    android:textStyle="bold"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginTop="20dp"/>
 
                 <!--View to display the line-->
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:background="@color/color_two"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:layout_marginTop="5dp"/>
 
                 <RelativeLayout
                     android:layout_width="match_parent"
