@@ -24,7 +24,6 @@ public class RegistrationFormActivity extends AppCompatActivity {
 
 
     private EditText mEmailEditText;
-    private EditText mUsernameEditText;
     private EditText mPasswordEditText;
     private EditText mCPasswordEditText;
 
@@ -41,7 +40,6 @@ public class RegistrationFormActivity extends AppCompatActivity {
 
         mEmailEditText = findViewById(R.id.et_email);
 
-        mUsernameEditText= findViewById(R.id.et_username);
 
         mPasswordEditText = findViewById(R.id.et_password);
 
@@ -58,7 +56,6 @@ public class RegistrationFormActivity extends AppCompatActivity {
 
     public void register(View view){
         String email = mEmailEditText.getText().toString();
-        String username = mUsernameEditText.getText().toString();
         String password = mPasswordEditText.getText().toString();
         String cPassword = mCPasswordEditText.getText().toString();
 
@@ -75,7 +72,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
                             new AsyncTask<Void, Void, Void>() {
                                 @Override
                                 protected Void doInBackground(Void... voids) {
-                                    User userModel = new User(null,email,username);
+                                    User userModel = new User(null,email,"username");
                                     userDb.addUser(userModel,isNetworkConnected());
                                     // Update UI with results on the main thread
                                     runOnUiThread(new Runnable() {
