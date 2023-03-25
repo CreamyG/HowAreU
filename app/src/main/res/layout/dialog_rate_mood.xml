@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
@@ -13,52 +14,58 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <Button
+
+        <ImageView
             android:id="@+id/btnExit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:text="Exit" />
-
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:text="RateMood"
+            app:srcCompat="@drawable/reject"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-        <Button
+
+        <ImageView
             android:id="@+id/btnVerySad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight = "1"
-            android:text="Very Sad" />
-        <Button
+            android:text="RateMood"
+            app:srcCompat="@drawable/very_sad"/>
+
+        <ImageView
             android:id="@+id/btnSad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight = "1"
-            android:text="Sad" />
+            android:text="Sad"
+            app:srcCompat="@drawable/ssad"/>
 
-        <Button
+        <ImageView
             android:id="@+id/btnNeutral"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight = "1"
-            android:text="Neutral" />
-
-        <Button
+            android:text="Sad"
+            app:srcCompat="@drawable/neutral"/>
+        <ImageView
             android:id="@+id/btnHappy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight = "1"
-            android:text="Happy" />
+            android:text="Sad"
+            app:srcCompat="@drawable/smiling_face"/>
 
-        <Button
+        <ImageView
             android:id="@+id/btnVeryHappy"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:layout_weight = "1"
-            android:text="Very Happpy" />
+            android:text="Sad"
+            app:srcCompat="@drawable/very_happy"/>
 
     </LinearLayout>
 

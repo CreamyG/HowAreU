@@ -33,9 +33,6 @@
             android:name=".activity.ViewJournalActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.BreathingActivity"
-            android:exported="false" />
-        <activity
             android:name=".activity.InspirationalQuotesActivity"
             android:exported="false" />
         <activity

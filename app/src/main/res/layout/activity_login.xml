@@ -16,27 +16,25 @@
         android:id="@+id/username_text"
         android:layout_width="134dp"
         android:layout_height="44dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="60dp"
         android:text="Username"
         android:textAlignment="center"
         android:textColor="@color/cardview_dark_background"
         android:textColorLink="@color/white"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5"
-        app:layout_constraintVertical_bias="0.063" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
     <EditText
         android:id="@+id/email_edit_text"
         android:layout_width="357dp"
         android:layout_height="wrap_content"
         android:inputType="text"
-        android:padding="16dp"
         android:textColor="@color/black"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
@@ -52,20 +50,16 @@
         android:textColor="@color/cardview_dark_background"
         android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/password_edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/email_edit_text"
-        app:layout_constraintVertical_bias="1.0"
         tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/password_edit_text"
         android:layout_width="358dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:inputType="textPassword"
-        android:padding="16dp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"

@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        welcomeButton = findViewById(R.id.getStartedButton);
+        //welcomeButton = findViewById(R.id.getStartedButton);
 
         welcomeButton.setOnClickListener(new View.OnClickListener() {
             @Override

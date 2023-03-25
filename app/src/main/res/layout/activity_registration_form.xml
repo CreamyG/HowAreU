@@ -10,67 +10,52 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="191dp"
-        android:layout_height="208dp"
+        android:layout_width="310dp"
+        android:layout_height="288dp"
+        android:layout_marginStart="164dp"
+        android:layout_marginBottom="480dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101"
         app:srcCompat="@drawable/lg_1" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create an Account"
+        android:layout_marginTop="80dp"
+        android:text="Register\nAccount"
+        android:fontFamily="@font/alkatra_variablefont_wght"
         android:textColorHighlight="@color/black"
         android:textColorLink="@color/white"
-        android:textSize="35sp"
+        android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintEnd_toStartOf="@+id/imageView"
+        app:layout_constraintHorizontal_bias="0.666"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.381" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
     <EditText
         android:id="@+id/et_email"
         android:layout_width="330dp"
         android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:hint="Email"
+        android:layout_marginTop="50dp"
+        android:hint="Name"
         android:inputType="textEmailAddress"
         android:minHeight="48dp"
         android:textColorHighlight="@color/black"
         android:textColorLink="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <EditText
-        android:id="@+id/et_username"
-        android:layout_width="330dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="20dp"
-        android:hint="Username"
-        android:inputType="text"
-        android:minHeight="48dp"
-        android:textColorHighlight="@color/black"
-        android:textColorLink="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_email" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/et_password"
         android:layout_width="329dp"
         android:layout_height="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="24dp"
         android:hint="Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
@@ -78,14 +63,15 @@
         android:textColorLink="@color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_username" />
+        app:layout_constraintTop_toBottomOf="@+id/et_email" />
 
     <EditText
         android:id="@+id/et_c_password"
         android:layout_width="330dp"
         android:layout_height="48dp"
-        android:layout_marginTop="27dp"
+        android:layout_marginTop="24dp"
         android:hint="Confirm Password"
         android:inputType="textPassword"
         android:minHeight="48dp"
@@ -99,7 +85,7 @@
 
     <Button
         android:id="@+id/btn_sign_up"
-        android:layout_width="289dp"
+        android:layout_width="wrap_content"
         android:layout_height="49dp"
         android:background="@color/cardview_shadow_start_color"
         android:onClick="register"
@@ -107,6 +93,7 @@
         android:textColorHighlight="@color/black"
         android:textColorLink="@color/white"
         android:textSize="20sp"
+        android:padding="-20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
