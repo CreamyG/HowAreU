@@ -44,6 +44,10 @@ public class SplashScreenActivity extends AppCompatActivity {
                     if(fromLogout){
                         i= new Intent(SplashScreenActivity.this, LoggedOutActivity.class);
                     }
+                    else if(!isLogged){
+                        i= new Intent(SplashScreenActivity.this, SetUserActivity.class);
+
+                    }
                     else{
                         i= new Intent(SplashScreenActivity.this, MainMenuActivity.class);
                     }
@@ -53,12 +57,8 @@ public class SplashScreenActivity extends AppCompatActivity {
                 }
                 else{
 
-                    if(fromLogout){
-                        i= new Intent(SplashScreenActivity.this, LoggedOutActivity.class);
-                    }
-                    else{
-                        i= new Intent(SplashScreenActivity.this, InspirationalQuotesActivity.class);
-                    }
+                    i= new Intent(SplashScreenActivity.this, InspirationalQuotesActivity.class);
+
                 }
                 mPrefs.edit().putLong(Strings.LAST_LOGIN_TIME, currentTime).apply();
 

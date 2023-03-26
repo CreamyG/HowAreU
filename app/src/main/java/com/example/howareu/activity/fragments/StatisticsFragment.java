@@ -313,6 +313,7 @@ public class StatisticsFragment extends Fragment {
     }
 
     public void setMoodMonth(){
+        mood_month_ave_image.setVisibility(View.GONE);
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
@@ -333,7 +334,7 @@ public class StatisticsFragment extends Fragment {
     }
 
     public void getMoodEmoji(int mood){
-
+        mood_month_ave_image.setVisibility(View.VISIBLE);
         if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
             mood_month_ave_image.setImageResource(R.drawable.very_sad);
 
