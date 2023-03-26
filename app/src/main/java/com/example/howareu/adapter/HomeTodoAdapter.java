@@ -75,10 +75,10 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
                 holder.btnRateMoodTodo.setImageResource(R.drawable.smiling_face);
                 break;
             case Integers.MOOD_PERCENT_VERY_HAPPY:
-                holder.btnRateMoodTodo.setImageResource(R.drawable.happy);
+                holder.btnRateMoodTodo.setImageResource(R.drawable.very_happy);
                 break;
             default:
-                holder.btnRateMoodTodo.setImageResource(R.drawable.very_happy);
+                holder.btnRateMoodTodo.setImageResource(R.drawable.add);
                 break;
 
         }
