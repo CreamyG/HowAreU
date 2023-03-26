@@ -41,7 +41,7 @@ public class RegistrationFormActivity extends AppCompatActivity {
 
         mEmailEditText = findViewById(R.id.et_email);
 
-        mUsernameEditText= findViewById(R.id.et_username);
+//        mUsernameEditText= findViewById(R.id.et_username);
 
         mPasswordEditText = findViewById(R.id.et_password);
 
