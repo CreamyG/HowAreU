@@ -70,7 +70,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
         }
          switch(simpleActivityModel.get(position).getMoodrate()){
              case Integers.MOOD_PERCENT_SAD:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.sad);
+                 holder.btnRateMoodActivity.setImageResource(R.drawable.ssad);
                  break;
              case Integers.MOOD_PERCENT_VERY_SAD:
                  holder.btnRateMoodActivity.setImageResource(R.drawable.very_sad);
