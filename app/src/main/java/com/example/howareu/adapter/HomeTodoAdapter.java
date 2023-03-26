@@ -78,7 +78,7 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
                 holder.btnRateMoodTodo.setImageResource(R.drawable.very_happy);
                 break;
             default:
-                holder.btnRateMoodTodo.setImageResource(R.drawable.add);
+                holder.btnRateMoodTodo.setImageResource(R.drawable.add  );
                 break;
 
         }

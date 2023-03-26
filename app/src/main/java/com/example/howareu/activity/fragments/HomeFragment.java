@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,7 +63,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     RecyclerView todoRecycler;
     EditText journalInput;
     Button btnAddActivity,btnAddTodo,btnSave;
-    Button btnSad, btnVerySad, btnNeutral, btnHappy, btnVeryHappy,btnExit;
+    ImageView btnSad, btnVerySad, btnNeutral, btnHappy, btnVeryHappy,btnExit;
     TextView MoodTotalForTheDay, textMonth,textDate;
     Switch isPrivate;
 
