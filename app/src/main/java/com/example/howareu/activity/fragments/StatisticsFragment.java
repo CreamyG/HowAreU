@@ -353,6 +353,10 @@ public class StatisticsFragment extends Fragment {
         else if(mood==Integers.MOOD_PERCENT_VERY_HAPPY){
             mood_month_ave_image.setImageResource(R.drawable.very_happy);
         }
+        else{
+            mood_month_ave.setText(Strings.STAT_LABEL_NO_AVE);
+            mood_month_ave_image.setVisibility(View.GONE);
+        }
 
     }
 
