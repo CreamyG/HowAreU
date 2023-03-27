@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.howareu.R;
 import com.example.howareu.activity.fragments.HomeFragment;
-import com.example.howareu.activity.fragments.JournalHistoryFragment;
+import com.example.howareu.activity.fragments.JournalFragment;
 import com.example.howareu.activity.fragments.StatisticsFragment;
 import com.example.howareu.constant.Integers;
 import com.example.howareu.constant.Strings;
@@ -82,7 +82,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
         fragmentHome = new HomeFragment();
         fragmentStat = new StatisticsFragment();
-        fragmentJournal = new JournalHistoryFragment();
+        fragmentJournal = new JournalFragment();
 
 
         //setName();
