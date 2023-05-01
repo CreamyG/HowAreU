@@ -68,27 +68,27 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
         if(holder.editTextActivity.getText().toString().isEmpty()){
             holder.btnRateMoodActivity.setEnabled(false);
         }
-         switch(simpleActivityModel.get(position).getMoodrate()){
-             case Integers.MOOD_PERCENT_SAD:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.ssad);
-                 break;
-             case Integers.MOOD_PERCENT_VERY_SAD:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.very_sad);
-                 break;
-             case Integers.MOOD_PERCENT_NEUTRAL:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.neutral);
-                 break;
-             case Integers.MOOD_PERCENT_HAPPY:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.smiling_face);
-                 break;
-             case Integers.MOOD_PERCENT_VERY_HAPPY:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.very_happy);
-                 break;
-             default:
-                 holder.btnRateMoodActivity.setImageResource(R.drawable.add);
-                 break;
+        switch(simpleActivityModel.get(position).getMoodrate()){
+            case Integers.MOOD_PERCENT_SAD:
+                holder.btnRateMoodActivity.setImageResource(R.drawable.ssad);
+                break;
+            case Integers.MOOD_PERCENT_VERY_SAD:
+                holder.btnRateMoodActivity.setImageResource(R.drawable.very_sad);
+                break;
+            case Integers.MOOD_PERCENT_NEUTRAL:
+                holder.btnRateMoodActivity.setImageResource(R.drawable.neutral);
+                break;
+            case Integers.MOOD_PERCENT_HAPPY:
+                holder.btnRateMoodActivity.setImageResource(R.drawable.smiling_face);
+                break;
+            case Integers.MOOD_PERCENT_VERY_HAPPY:
+                holder.btnRateMoodActivity.setImageResource(R.drawable.very_happy);
+                break;
+            default:
+                holder.btnRateMoodActivity.setImageResource(R.drawable.add);
+                break;
 
-         }
+        }
 
 
 
@@ -106,15 +106,15 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
             @Override
             public void afterTextChanged(Editable s) {
 
-                    if(holder.editTextActivity.getText().toString().isEmpty()){
-                        holder.btnRateMoodActivity.setEnabled(false);
-                    }
-                    else{
-                        holder.btnRateMoodActivity.setEnabled(true);
-                    }
-                    int adapterPosition=holder.getAdapterPosition();
-                    String qwe=holder.editTextActivity.getText().toString();
-                    onTextChangeListener.onTextChanged(holder.editTextActivity.getText().toString(), adapterPosition);
+                if(holder.editTextActivity.getText().toString().isEmpty()){
+                    holder.btnRateMoodActivity.setEnabled(false);
+                }
+                else{
+                    holder.btnRateMoodActivity.setEnabled(true);
+                }
+                int adapterPosition=holder.getAdapterPosition();
+                String qwe=holder.editTextActivity.getText().toString();
+                onTextChangeListener.onTextChanged(holder.editTextActivity.getText().toString(), adapterPosition);
 
 
             }
@@ -155,7 +155,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
                 }
 
 
-                    onMoodRateClickListener.onMoodRateClicked(holder.editTextActivity.getText().toString(), holder.getAdapterPosition());
+                onMoodRateClickListener.onMoodRateClicked(holder.editTextActivity.getText().toString(), holder.getAdapterPosition());
             }
         });
     }
