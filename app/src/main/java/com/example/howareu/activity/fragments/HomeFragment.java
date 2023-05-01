@@ -350,14 +350,17 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     public int getRandomToDo(){
         Random random = new Random();
         List<String> names = new ArrayList<>();
+
         for (SimpleTodoModel todo : simpleTodoModel) {
             names.add(todo.getTodoName());
         }
 
         int numb = random.nextInt(Arrays.todoArrayList().size());
+
         while (names.contains(Arrays.todoArrayList().get(numb))) {
             numb = random.nextInt(Arrays.todoArrayList().size());
         }
+
         return numb;
     }
 
@@ -436,12 +439,15 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 else{
                     List<Integer> randomNumbers = new ArrayList<>();
                     Random random = new Random();
+
+
                     while (randomNumbers.size() < 3) {
                         int numb = random.nextInt(Arrays.todoArrayList().size());
                         if (!randomNumbers.contains(numb)) {
                             randomNumbers.add(numb);
                         }
                     }
+
 
                     for (int x : randomNumbers) {
                         simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(x), 0, true));
@@ -679,6 +685,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         AlertDialog dialog = builder.create();
         dialog.show();
 
+        MoodTotalForTheDay = dialogView.findViewById(R.id.MoodTotalForTheDay);
         MoodTotalForTheDay = dialogView.findViewById(R.id.MoodTotalForTheDay);
 
         MoodTotalForTheDay.setText(getCalculatedMoodString(calculateMood()));
@@ -971,17 +978,25 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     //Mood calculate
     public int calculateMood(){
+
         ArrayList<Integer> allRate = new ArrayList<Integer>();
+
         for(SimpleActivityModel x: simpleActivityModel){
             allRate.add(x.getMoodrate());
         }
         for(SimpleTodoModel x:simpleTodoModel){
             allRate.add(x.getMoodrate());
         }
+
+
         int sumOfRate = 0 ;
+
+
         for(int  x:allRate) {
             sumOfRate+=x;
         }
+
+
         int mood = sumOfRate/allRate.size();
         return mood;
     }
