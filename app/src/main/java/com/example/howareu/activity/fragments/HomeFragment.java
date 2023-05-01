@@ -203,11 +203,11 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             @Override
             public void onDeleteActivityClicked(int position) {
                 //remove a date on the simpleActivityModel to remove an item on to the adapter
-                  simpleActivityModel.remove(position);
-                    //update the adapter
-                  activityAdapter.notifyItemRemoved(position);
-                  //update the pref for unsaved progress
-                  unsavedActivityToPref();
+                simpleActivityModel.remove(position);
+                //update the adapter
+                activityAdapter.notifyItemRemoved(position);
+                //update the pref for unsaved progress
+                unsavedActivityToPref();
 
             }
         });
@@ -350,14 +350,17 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     public int getRandomToDo(){
         Random random = new Random();
         List<String> names = new ArrayList<>();
+
         for (SimpleTodoModel todo : simpleTodoModel) {
             names.add(todo.getTodoName());
         }
 
         int numb = random.nextInt(Arrays.todoArrayList().size());
+
         while (names.contains(Arrays.todoArrayList().get(numb))) {
             numb = random.nextInt(Arrays.todoArrayList().size());
         }
+
         return numb;
     }
 
@@ -366,8 +369,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         boolean ratedAll = true;
         for(SimpleTodoModel todo: simpleTodoModel){
             if(todo.getMoodrate()==0) {
-                 ratedAll = false;
-                 break;
+                ratedAll = false;
+                break;
             }
         }
         return ratedAll;
@@ -436,12 +439,15 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 else{
                     List<Integer> randomNumbers = new ArrayList<>();
                     Random random = new Random();
+
+
                     while (randomNumbers.size() < 3) {
                         int numb = random.nextInt(Arrays.todoArrayList().size());
                         if (!randomNumbers.contains(numb)) {
                             randomNumbers.add(numb);
                         }
                     }
+
 
                     for (int x : randomNumbers) {
                         simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(x), 0, true));
@@ -512,19 +518,19 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     //If journalDB date exist then set it
     public void journalSetByDateExist(){
-            if(!allJournal.isEmpty()){
-                for(Journal journal:allJournal){
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(journal.getDate());
-                    Calendar cal2 = Calendar.getInstance();
-                    cal2.setTimeInMillis(currentTime);
-                    if(isSameDay(cal,cal2)){
-                        journalInput.setText(journal.getContent());
-                        break;
-                    }
-
+        if(!allJournal.isEmpty()){
+            for(Journal journal:allJournal){
+                Calendar cal = Calendar.getInstance();
+                cal.setTime(journal.getDate());
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTimeInMillis(currentTime);
+                if(isSameDay(cal,cal2)){
+                    journalInput.setText(journal.getContent());
+                    break;
                 }
+
             }
+        }
     }
 
     //Check if current date already saved or done
@@ -680,6 +686,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         dialog.show();
 
         MoodTotalForTheDay = dialogView.findViewById(R.id.MoodTotalForTheDay);
+        MoodTotalForTheDay = dialogView.findViewById(R.id.MoodTotalForTheDay);
 
         MoodTotalForTheDay.setText(getCalculatedMoodString(calculateMood()));
         Button btnConfirm =dialogView.findViewById(R.id.btnConfirm);
@@ -706,28 +713,28 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
                 allJournal = journalDb.getJournalByWholeDate(currentDay,currentMonth,currentYear);
                 int x= 0;
-                    // Update UI with results on the main thread
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (allActivity != null) {
+                // Update UI with results on the main thread
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (allActivity != null) {
 
 
-                                for (Activity act : allActivity) {
-                                    allActivityModels.add(new SimpleAllActivityModel(
-                                            act.getDate(),
-                                            act.getContent(),
-                                            getMoodRateById(act.getMood_id()),
-                                            act.getType()));
-                                }
-
-
-                                populateForm();
+                            for (Activity act : allActivity) {
+                                allActivityModels.add(new SimpleAllActivityModel(
+                                        act.getDate(),
+                                        act.getContent(),
+                                        getMoodRateById(act.getMood_id()),
+                                        act.getType()));
                             }
 
+
+                            populateForm();
                         }
 
-                    });
+                    }
+
+                });
 
                 return null;
             }
@@ -971,17 +978,25 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     //Mood calculate
     public int calculateMood(){
+
         ArrayList<Integer> allRate = new ArrayList<Integer>();
+
         for(SimpleActivityModel x: simpleActivityModel){
             allRate.add(x.getMoodrate());
         }
         for(SimpleTodoModel x:simpleTodoModel){
             allRate.add(x.getMoodrate());
         }
+
+
         int sumOfRate = 0 ;
+
+
         for(int  x:allRate) {
             sumOfRate+=x;
         }
+
+
         int mood = sumOfRate/allRate.size();
         return mood;
     }
