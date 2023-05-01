@@ -214,7 +214,7 @@ public abstract class Arrays {
         quotes.add("“And if today all you did was hold yourself together, I’m proud of you.”\n" +
                 "– Anonymous");
         quotes.add("“I have endured pain and loss. I have felt broken. I have known hardship, and I have felt lost and alone. But here I stand, trying to move forward, one day at a time. I will remember the lessons in my life because they are making me who I am. Stronger. A warrior.\"\n"+
-               "– Anonymous" );
+                "– Anonymous" );
         quotes.add("“Give yourself another day, another chance. You will find your courage eventually. Don’t give up on yourself just yet.”\n"+ "– Anonymous");
 
 
