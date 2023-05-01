@@ -12,8 +12,6 @@ public abstract class Strings {
 
     //SHARED PREFS
 
-
-
     public static final String PREF_NAME = "MyPrefs";
 
 
@@ -48,6 +46,9 @@ public abstract class Strings {
     public static String MOOD_LABEL_NEUTRAL = "Neutral";
     public static String MOOD_LABEL_HAPPY = "Happy";
     public static String MOOD_LABEL_VERY_HAPPY = "Very Sad";
+
+    //Stats
+    public static String STAT_LABEL_NO_AVE = "No data";
 
 
 
