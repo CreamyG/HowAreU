@@ -1,7 +1,10 @@
 package com.example.howareu.activity.fragments;
 
+import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -15,15 +18,20 @@ import androidx.lifecycle.Observer;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.howareu.R;
+import com.example.howareu.activity.ViewJournalActivity;
 import com.example.howareu.adapter.CalendarAdapter;
 import com.example.howareu.constant.Integers;
 import com.example.howareu.constant.Strings;
+import com.example.howareu.databases.repository.JournalRepository;
 import com.example.howareu.databases.repository.StatRepository;
+import com.example.howareu.model.Journal;
 import com.example.howareu.model.StatDateAndMoodId;
 
 import org.eazegraph.lib.charts.PieChart;
@@ -38,10 +46,17 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class StatisticsFragment extends Fragment {
+public class StatisticsFragment extends Fragment implements CalendarAdapter.onClickEmoji {
 
+
+    EditText  passCodeEditText;
+    TextView passCodeError;
+    Button viewJournalBtn;
+    String passCode= "";
     PieChart pieChart;
     TextView textVerySad, textSad, textNeutral, textHappy,textVeryHappy, monthLabel,mood_month_ave;
+
+
     Context context;
     Application application;
     private GridView mGridView;
@@ -53,10 +68,17 @@ public class StatisticsFragment extends Fragment {
     String currentMonth;
     String currentYear;
     LiveData<List<StatDateAndMoodId>> statDateAndMoodId;
+    private JournalRepository journalDb;
+    LiveData<List<Journal>> journalList;
     ArrayList<Date> dateList = new ArrayList<>();
     ArrayList<Integer> moodIdList = new ArrayList<>();
     ArrayList<String> moodNameList = new ArrayList<>();
     HashMap<Date, Integer> badgeMap = new HashMap<>();
+    HashMap<Integer, Journal> journalMap = new HashMap<>();
+
+    ArrayList<Date> journalDateList = new ArrayList<>();
+    ArrayList<Boolean> isPrivateList = new ArrayList<>();
+    private SharedPreferences mPrefs;
     public StatisticsFragment() {
         // Required empty public constructor
     }
@@ -79,6 +101,9 @@ public class StatisticsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         statDb = new StatRepository(application);
+        journalDb = new JournalRepository(application);
+        mPrefs = getActivity().getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
+        passCode = mPrefs.getString(Strings.PASSCODE, "CALLADMIN");
         if (getArguments() != null) {
         }
     }
@@ -211,19 +236,24 @@ public class StatisticsFragment extends Fragment {
 
     public void getDateAndMoodID(){
         new AsyncTask<Void, Void, Void>() {
+            boolean stateDone= false;
+            boolean journalDone= false;
             @Override
             protected Void doInBackground(Void... voids) {
                 if(currentMonth.length()==1){
                     currentMonth = "0"+ currentMonth;
                 }
 
+
                 statDateAndMoodId = statDb.getMoodIdAndDate(currentMonth,currentYear);
+                journalList = journalDb.getJournalByDate(currentMonth,currentYear);
 
 
                 // Update UI with results on the main thread
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         if(statDateAndMoodId != null) {
                             statDateAndMoodId.observe(getViewLifecycleOwner(), new Observer<List<StatDateAndMoodId>>() {
                                 @Override
@@ -235,14 +265,62 @@ public class StatisticsFragment extends Fragment {
                                         moodNameList.add(stat.getMood_name());
 
                                     }
-                                    createCalendar();
+                                    stateDone=true;
+                                    checkIfDone();
+
                                 }
                             });
+                        }
+                        else{
+                            stateDone=true;
+                            checkIfDone();
+                        }
+
+
+                    }
+                });
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(journalList != null){
+                            journalList.observe(getViewLifecycleOwner(), new Observer<List<Journal>>() {
+                                @Override
+                                public void onChanged(List<Journal> journals) {
+                                    List<Journal> journArrayList = new ArrayList<>(journals);
+                                    for (Journal journal : journArrayList) {
+                                        journalDateList.add(journal.getDate());
+                                        isPrivateList.add(journal.isPrivate());
+                                    }
+                                    journalDone=true;
+                                    checkIfDone();
+                                }
+                            });
+                        }
+                        else{
+                            stateDone=true;
+                            checkIfDone();
                         }
 
                     }
                 });
+
+
                 return null;
+            }
+            private void checkIfDone(){
+                if(journalDone&&stateDone){
+                    createCalendar();
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Void unused) {
+
+                super.onPostExecute(unused);
+                checkIfDone();
+
+
             }
         }.execute();
     }
@@ -256,10 +334,11 @@ public class StatisticsFragment extends Fragment {
         cal.add(Calendar.DAY_OF_MONTH, -monthBeginning);
         boolean startPlot = false;
         int emojiCounter = 0;
+        int journalCounter = 0;
         while (dates.size() < 42) {
 
 
-
+            //Nulls after end of the month
             if(dates.size()>7){
                 if(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)).equals("1")){
                     while (dates.size() < 42) {
@@ -267,9 +346,11 @@ public class StatisticsFragment extends Fragment {
                     }
                 }
             }
+            //To start the plot if day is = 1(First day of the month)
             if(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)).equals("1")){
                 startPlot = true;
             }
+            //adds number date to the calendar
             dates.add(cal.getTime());
             cal.add(Calendar.DAY_OF_MONTH, 1);
 
@@ -286,6 +367,22 @@ public class StatisticsFragment extends Fragment {
                         if (dateloop == date) {
                             badgeMap.put(dates.get(dates.size()-1), getMoodImage(moodNameList.get(emojiCounter)));
                             emojiCounter++;
+
+                            if(!journalDateList.isEmpty()){
+                                if(journalCounter<journalDateList.size()){
+                                    calDb = Calendar.getInstance();
+                                    calDb.setTime(journalDateList.get(journalCounter));
+                                    cal2=Calendar.getInstance();
+                                    cal2.setTime(dates.get(dates.size()-1));
+                                    date = calDb.get(Calendar.DAY_OF_MONTH);
+                                    dateloop =  cal2.get(Calendar.DAY_OF_MONTH);
+                                    if (dateloop == date) {
+                                        journalMap.put(journalDateList.get(journalCounter).getDate(),journalList.getValue().get(journalCounter));
+                                        journalCounter++;
+                                    }
+
+                                }
+                            }
 
                         }
                     }
@@ -308,7 +405,7 @@ public class StatisticsFragment extends Fragment {
         // Add a badge to the fourth date
 
         // Create a new CalendarAdapter and set it to the GridView
-        mAdapter = new CalendarAdapter(context, dates, badgeMap);
+        mAdapter = new CalendarAdapter(context, dates, badgeMap, journalMap, this);
         mGridView.setAdapter(mAdapter);
     }
 
@@ -361,4 +458,53 @@ public class StatisticsFragment extends Fragment {
     }
 
 
+
+
+    public void showPassCodePopUp(String content,String date){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_passcode, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        passCodeEditText= dialogView.findViewById(R.id.passCodeEditText);
+        viewJournalBtn= dialogView.findViewById(R.id.viewJournalBtn);
+        passCodeError = dialogView.findViewById(R.id.passCodeError);
+        viewJournalBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(passCodeEditText.getText().toString().equals(passCode)){
+                    showViewJournal(content,date);
+                    dialog.dismiss();
+                }
+                else{
+                    passCodeError.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    public void showViewJournal(String content, String date){
+        Intent intent = new Intent(getActivity(), ViewJournalActivity.class);
+        intent.putExtra("content", content);
+        intent.putExtra("date", date);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onEmojiClicked(Journal journal) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(journal.getDate());
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+        String date = monthFormat.format(cal.getTime());
+        date += " "+cal.get(Calendar.DATE);
+        date += " "+cal.get(Calendar.YEAR);
+
+        if (journal.isPrivate()) {
+            showPassCodePopUp(journal.getContent(),date);
+        }
+        else{
+            showViewJournal(journal.getContent(),date);
+        }
+    }
 }

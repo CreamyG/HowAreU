@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.howareu.R;
 import com.example.howareu.constant.Arrays;
+import com.example.howareu.model.Journal;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,15 +26,19 @@ public class CalendarAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Date> mDates;
     private HashMap<Date, Integer> mBadgeMap;
+    private HashMap<Integer, Journal> journalHashMap;
     private LayoutInflater mInflater;
     private ArrayList<String> daysInWeek;
+    private onClickEmoji onClickEmoji;
 
-    public CalendarAdapter(Context context, ArrayList<Date> dates, HashMap<Date, Integer> badgeMap) {
+    public CalendarAdapter(Context context, ArrayList<Date> dates, HashMap<Date, Integer> badgeMap, HashMap<Integer, Journal> journalHashMap, onClickEmoji onClickEmoji) {
         mContext = context;
         mDates = dates;
         mBadgeMap = badgeMap;
         mInflater = LayoutInflater.from(context);
         this.daysInWeek = Arrays.daysInWeek();
+        this.journalHashMap = journalHashMap;
+        this.onClickEmoji = onClickEmoji;
     }
 
     @Override
@@ -92,6 +97,20 @@ public class CalendarAdapter extends BaseAdapter {
                     if (badgeId != null) {
                         holder.badgeImageView.setImageResource(badgeId);
                         holder.badgeImageView.setVisibility(View.VISIBLE);
+
+
+                        if(journalHashMap!=null){
+                            holder.badgeImageView.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Date date = mDates.get(realPosition);
+                                    Journal journal = journalHashMap.get(date.getDate());
+                                    onClickEmoji.onEmojiClicked(journal);
+                                }
+                            });
+
+                        }
+
                     }
                     else{
                         holder.badgeImageView.setVisibility(View.GONE);
@@ -113,6 +132,10 @@ public class CalendarAdapter extends BaseAdapter {
         TextView dateTextView;
         LinearLayout calendarCellLinearLayout;
         ImageView badgeImageView;
+    }
+
+    public interface onClickEmoji{
+        void onEmojiClicked(Journal journal);
     }
 
 }

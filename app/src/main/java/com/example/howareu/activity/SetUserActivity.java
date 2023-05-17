@@ -18,6 +18,8 @@ import com.example.howareu.databases.repository.UserLocalRepository;
 import com.example.howareu.model.User;
 import com.example.howareu.model.UserLocal;
 
+import java.util.regex.Pattern;
+
 public class SetUserActivity extends AppCompatActivity {
     EditText editTextName, editTextPasscode, editTextPasscodeConfirm;
     TextView errorText;
@@ -47,6 +49,9 @@ public class SetUserActivity extends AppCompatActivity {
                 String pass = editTextPasscode.getText().toString();
                 String pass2 = editTextPasscodeConfirm.getText().toString();
                 String errorMessage = "";
+
+
+
                 if(name.isEmpty() ||pass.isEmpty() || pass2.isEmpty()){
                     errorMessage="Check Empty Fields ";
                     hasError=true;
@@ -58,6 +63,20 @@ public class SetUserActivity extends AppCompatActivity {
                     else{
                         errorMessage="Check Fields";
                     }
+                    hasError=true;
+                }
+
+                if (pass.length()<8 ) {
+                    errorMessage="PassCode size must be atleast 8 ";
+                    hasError=true;
+                }
+                String regex = "^(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).+$";
+                Pattern pattern = Pattern.compile(regex);
+                if( pattern.matcher(pass).find()){
+                    if (!errorMessage.isEmpty()) {
+                        errorMessage += "\n";
+                    }
+                    errorMessage+="PassCode  must contain atleast 1 special Character";
                     hasError=true;
                 }
 

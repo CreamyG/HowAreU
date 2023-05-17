@@ -191,10 +191,17 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         btnAddActivity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Add a empty value to simpleActivityModel to add an item on to the Activity adapter
-                simpleActivityModel.add(new SimpleActivityModel("",0,true));
-                //update the adapter
-                activityAdapter.notifyItemInserted(simpleActivityModel.size()-1);
+                if(simpleActivityModel.size()<10){
+                    //Add a empty value to simpleActivityModel to add an item on to the Activity adapter
+                    simpleActivityModel.add(new SimpleActivityModel("",0,true));
+                    //update the adapter
+                    activityAdapter.notifyItemInserted(simpleActivityModel.size()-1);
+                }
+                else{
+                    //Reached maximum Activity to add
+                    Toast.makeText(context, "Limited to 10 Activity only", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
@@ -278,41 +285,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                boolean hasNoEmptyActivity = true;
-                boolean hasNoEmptyActivityRate = true;
-                boolean hasNoEmptyTodoRate = true;
-                for(SimpleActivityModel x: simpleActivityModel){
-                    if(x.getActivityName().isEmpty()){
-                        hasNoEmptyActivity=false;
-                    }
-                    if(x.getMoodrate()==0){
-                        hasNoEmptyActivityRate=false;
-                    }
-                }
-                for(SimpleTodoModel x: simpleTodoModel){
-                    if(x.getMoodrate()==0){
-                        hasNoEmptyTodoRate=false;
-                    }
-                }
 
-                if(hasNoEmptyActivity&&hasNoEmptyActivityRate&&hasNoEmptyTodoRate){
-                    //Success no empty Form
-                    currentTime = System.currentTimeMillis();
-                    saveActivitiesToDb();
-                    saveStatDb();
-                    if(!journalInput.getText().toString().trim().equals("")) {
-                        saveJournalToDb();
-                    }
-                    mPrefs.edit().putLong(Strings.LAST_CLICK_TIME, currentTime).apply();
-                    mPrefs.edit().putString(Strings.JOURNAL_SAVE, journalInput.getText().toString()).apply();
-                    mPrefs.edit().putBoolean(Strings.JOURNAL_PRIVACY, isPrivate.isChecked()).apply();
-                    disableEverything();
-                    savePopUp();
-
-                }
-                else{
-                    //Message or Warning
-                }
+                savePopUp();
 
             }
         });
@@ -677,7 +651,70 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     }
     //Pop up After Saving
     public void savePopUp(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_confirm_saving, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+        Button btnConfirmSave =dialogView.findViewById(R.id.btnConfirmSave);
+        Button btnCancelSave =dialogView.findViewById(R.id.btnCancel);
 
+        btnConfirmSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                confirmedSave();
+                dialog.dismiss();
+            }
+        });
+
+        btnCancelSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    public void confirmedSave(){
+        boolean hasNoEmptyActivity = true;
+        boolean hasNoEmptyActivityRate = true;
+        boolean hasNoEmptyTodoRate = true;
+        for(SimpleActivityModel x: simpleActivityModel){
+            if(x.getActivityName().isEmpty()){
+                hasNoEmptyActivity=false;
+            }
+            if(x.getMoodrate()==0){
+                hasNoEmptyActivityRate=false;
+            }
+        }
+        for(SimpleTodoModel x: simpleTodoModel){
+            if(x.getMoodrate()==0){
+                hasNoEmptyTodoRate=false;
+            }
+        }
+
+        if(hasNoEmptyActivity&&hasNoEmptyActivityRate&&hasNoEmptyTodoRate){
+            //Success no empty Form
+            currentTime = System.currentTimeMillis();
+            saveActivitiesToDb();
+            saveStatDb();
+            if(!journalInput.getText().toString().trim().equals("")) {
+                saveJournalToDb();
+            }
+            mPrefs.edit().putLong(Strings.LAST_CLICK_TIME, currentTime).apply();
+            mPrefs.edit().putString(Strings.JOURNAL_SAVE, journalInput.getText().toString()).apply();
+            mPrefs.edit().putBoolean(Strings.JOURNAL_PRIVACY, isPrivate.isChecked()).apply();
+            disableEverything();
+            savedPopUp();
+        }
+        else{
+            //Message or Warning
+        }
+    }
+
+    public void savedPopUp(){
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_saved, null);
@@ -698,7 +735,6 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 dialog.dismiss();
             }
         });
-
     }
     //Get all activity list of current date
     public void getActivityList(){
