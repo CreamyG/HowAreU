@@ -42,6 +42,8 @@ import com.example.howareu.model.Stat;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -669,9 +671,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         });
 
         btnCancelSave.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
+
                 dialog.dismiss();
+
             }
         });
 
@@ -681,6 +686,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         boolean hasNoEmptyActivity = true;
         boolean hasNoEmptyActivityRate = true;
         boolean hasNoEmptyTodoRate = true;
+        String errorMessage = "";
         for(SimpleActivityModel x: simpleActivityModel){
             if(x.getActivityName().isEmpty()){
                 hasNoEmptyActivity=false;
@@ -710,7 +716,31 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             savedPopUp();
         }
         else{
-            //Message or Warning
+            if(!hasNoEmptyActivity){
+                errorMessage ="Check Fields Has Empty Activity Input \n " ;
+            }
+            if(!hasNoEmptyActivityRate){
+                errorMessage +="Please Rate Every Activity\n" ;
+            }
+            if(!hasNoEmptyTodoRate){
+                errorMessage +="Please Rate Every To do Activity\n" ;
+                
+            }
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            LayoutInflater inflater = getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.dialog_not_saved, null);
+            builder.setView(dialogView);
+            AlertDialog dialogError = builder.create();
+            dialogError.show();
+            Button btnConfirmError =dialogView.findViewById(R.id.btnConfirmError);
+            TextView errorMes = dialogView.findViewById(R.id.errorMessage);
+            errorMes.setText(errorMessage);
+            btnConfirmError.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    dialogError.dismiss();
+                }
+            });
         }
     }
 
