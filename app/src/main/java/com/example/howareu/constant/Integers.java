@@ -20,7 +20,6 @@ public abstract class Integers {
     public static final int ACTIVITY = 0;
     public static final int TODO = 1;
 
-    public static final int NOTIFICATION_REQUEST_CODE = 1001;
 
 
 }
