@@ -35,7 +35,7 @@ public interface StatDao {
     int getMoodIdById(int statId);
 
     @Query("SELECT mood_percent FROM stat WHERE id = :statId")
-    int getMoodPercentById(int statId);
+    double getMoodPercentById(int statId);
 
     @Query("SELECT date FROM stat WHERE id = :statId")
     Date getStatDatebyId(int statId);
@@ -45,7 +45,7 @@ public interface StatDao {
     int getMoodCount(int mood_id, String month, String year);
 
     @Query("SELECT AVG(mood_percent) FROM stat WHERE strftime('%m', datetime(date/1000, 'unixepoch')) = :month  AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year")
-    int getMoodMonthAvg(String month,String year);
+    double getMoodMonthAvg(String month,String year);
 
 
     @Query("SELECT date,mood_id, mood.name FROM stat JOIN mood on stat.mood_id = mood.id WHERE strftime('%m', datetime(date/1000, 'unixepoch')) = :month  AND strftime('%Y', datetime(date/1000, 'unixepoch')) = :year ORDER BY date  ASC")

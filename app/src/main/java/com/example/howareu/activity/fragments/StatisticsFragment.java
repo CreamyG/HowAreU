@@ -37,6 +37,7 @@ import com.example.howareu.model.StatDateAndMoodId;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -423,8 +424,13 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... voids) {
-                int ave=statDb.getMoodMonthAvg(currentMonth,currentYear);
-                mood_month_ave.setText(String.valueOf(ave)+"%");
+                double ave=statDb.getMoodMonthAvg(currentMonth,currentYear);
+                // Create a DecimalFormat object with the desired format pattern
+                DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+
+                // Apply the formatting to the number
+                String formattedNumber = decimalFormat.format(ave);
+                mood_month_ave.setText(String.valueOf(formattedNumber)+"%");
                 getMoodEmoji(ave);
                 // Update UI with results on the main thread
                 getActivity().runOnUiThread(new Runnable() {
@@ -439,7 +445,7 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
         }.execute();
     }
 
-    public void getMoodEmoji(int mood){
+    public void getMoodEmoji(double mood){
 
 
         mood_month_ave_image.setVisibility(View.VISIBLE);

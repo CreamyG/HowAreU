@@ -14,11 +14,11 @@ public class Stat {
     @ColumnInfo(name = "date")
     private Date date;
     @ColumnInfo(name = "mood_percent")
-    private int mood_percent;
+    private double mood_percent;
     @ColumnInfo(name = "mood_id")
     private int mood_id;
 
-    public Stat(int mood_percent, int mood_id) {
+    public Stat(double mood_percent, int mood_id) {
         this.date =  date == null ? new Date() : date;
         this.mood_percent = mood_percent;
         this.mood_id = mood_id;
@@ -40,7 +40,7 @@ public class Stat {
         this.date = date;
     }
 
-    public int getMood_percent() {
+    public double getMood_percent() {
         return mood_percent;
     }
 

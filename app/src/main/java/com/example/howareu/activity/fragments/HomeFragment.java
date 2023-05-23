@@ -45,6 +45,7 @@ import com.google.gson.reflect.TypeToken;
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -985,7 +986,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
 
         for(int x =0; x<savedTodoNameArray.size();x++){
-            String qwe=savedTodoRateArray.get(x);
+
             simpleTodoModel.add(new SimpleTodoModel(savedTodoNameArray.get(x),Integer.valueOf(savedTodoRateArray.get(x)),isEnabled));
         }
     }
@@ -1043,7 +1044,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     }
 
     //Mood calculate
-    public int calculateMood(){
+    public double calculateMood(){
 
         ArrayList<Integer> allRate = new ArrayList<Integer>();
 
@@ -1055,7 +1056,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }
 
 
-        int sumOfRate = 0 ;
+        double sumOfRate = 0 ;
 
 
         for(int  x:allRate) {
@@ -1063,12 +1064,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         }
 
 
-        int mood = sumOfRate/allRate.size();
+        double mood = sumOfRate/allRate.size();
         return mood;
     }
 
     //Calculated mood to its mood name
-    public String getCalculatedMoodString(int mood){
+    public String getCalculatedMoodString(double mood){
         String moodForTheDay= "";
         if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
             moodForTheDay = "Very Sad = ";
@@ -1085,12 +1086,17 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         else if(mood==Integers.MOOD_PERCENT_VERY_HAPPY){
             moodForTheDay = "Happy = ";
         }
-        moodForTheDay+=mood;
+        // Create a DecimalFormat object with the desired format pattern
+        DecimalFormat decimalFormat = new DecimalFormat("#0.00");
+
+        // Apply the formatting to the number
+        String formattedNumber = decimalFormat.format(mood);
+        moodForTheDay+=formattedNumber;
         return moodForTheDay;
     }
 
     //Calculated mood to its mood id
-    public int getMoodIdByCalculatedRate(int mood){
+    public int getMoodIdByCalculatedRate(double mood){
         int moodId= 0;
         if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
             moodId = Integers.MOOD_VERY_SAD;

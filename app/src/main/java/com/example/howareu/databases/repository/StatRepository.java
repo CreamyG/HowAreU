@@ -25,7 +25,7 @@ public class StatRepository {
     public int getMoodCount(int mood_id, String month, String year){return statDao.getMoodCount(mood_id,month,year);}
 
 
-    public int getMoodMonthAvg(String month, String year){return statDao.getMoodMonthAvg(month,year);}
+    public double getMoodMonthAvg(String month, String year){return statDao.getMoodMonthAvg(month,year);}
 
     public LiveData<List<StatDateAndMoodId>> getMoodIdAndDate(String month,String year){return statDao.getMoodIdAndDate(month,year);}
 
