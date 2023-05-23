@@ -12,6 +12,9 @@
         android:theme="@style/AppThemeNoAction"
         tools:targetApi="31">
         <activity
+            android:name=".activity.GuideActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.LoggedOutActivity"
             android:exported="false" />
         <activity

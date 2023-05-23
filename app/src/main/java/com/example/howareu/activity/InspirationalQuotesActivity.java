@@ -22,6 +22,7 @@ import java.util.Set;
 public class InspirationalQuotesActivity extends AppCompatActivity {
     private static final int SPLASH_TIME_OUT = 3000; // 3 seconds
     private SharedPreferences mPrefs;
+    private  boolean isFirstTime;
     public TextView quoteText;
     public boolean isLogged = false;
     @Override
@@ -62,19 +63,27 @@ public class InspirationalQuotesActivity extends AppCompatActivity {
             @Override
             public void run() {
                 Intent i = null;
-                if(isLogged){
-                     i= new Intent(InspirationalQuotesActivity.this, MainMenuActivity.class);
+                isFirstTime= mPrefs.getBoolean(Strings.IS_FIRST_TIME,true);
+                if(isFirstTime){
+                    mPrefs.edit().putBoolean(Strings.IS_FIRST_TIME,false).apply();
+                    i= new Intent(InspirationalQuotesActivity.this, GuideActivity.class);
                 }
                 else{
-                    boolean fromLogout = mPrefs.getBoolean(Strings.FROM_LOGOUT,false);
-                    if(fromLogout){
-                        i= new Intent(InspirationalQuotesActivity.this, LoggedOutActivity.class);
+                    if(isLogged){
+                        i= new Intent(InspirationalQuotesActivity.this, MainMenuActivity.class);
                     }
                     else{
-                        i= new Intent(InspirationalQuotesActivity.this, SetUserActivity.class);
-                    }
+                        boolean fromLogout = mPrefs.getBoolean(Strings.FROM_LOGOUT,false);
+                        if(fromLogout){
+                            i= new Intent(InspirationalQuotesActivity.this, LoggedOutActivity.class);
+                        }
+                        else{
+                            i= new Intent(InspirationalQuotesActivity.this, SetUserActivity.class);
+                        }
 
+                    }
                 }
+
 
                 startActivity(i);
                 finish();

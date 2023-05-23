@@ -40,6 +40,8 @@ public abstract class Strings {
     public static final String JOURNAL_PRIVACY = "journalPrivacy";
 
 
+    public static final String IS_FIRST_TIME = "IS_FIRST_TIME";
+
     //MOOD NAME LABEL
     public static String MOOD_LABEL_VERY_SAD = "Very Sad";
     public static String MOOD_LABEL_SAD = "Sad";

@@ -17,6 +17,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     private static final int SPLASH_TIME_OUT = 3000; // 3 seconds
     private long lastLog;
     private long currentTime;
+    private boolean isFirstTime;
     private SharedPreferences mPrefs;
     private boolean isLogged = false;
     @Override
@@ -27,6 +28,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         currentTime = System.currentTimeMillis();
         lastLog = mPrefs.getLong(Strings.LAST_LOGIN_TIME, 0);
         isLogged= mPrefs.getBoolean(Strings.IS_LOGGED,false);
+
         Calendar cal = Calendar.getInstance();
         cal.setTimeInMillis(lastLog);
         Calendar cal2 = Calendar.getInstance();
@@ -39,8 +41,6 @@ public class SplashScreenActivity extends AppCompatActivity {
                 Intent i = null;
                 boolean fromLogout = mPrefs.getBoolean(Strings.FROM_LOGOUT,false);
                 if(isSameDay(cal,cal2)){
-
-
                     if(fromLogout){
                         i= new Intent(SplashScreenActivity.this, LoggedOutActivity.class);
                     }
@@ -51,14 +51,9 @@ public class SplashScreenActivity extends AppCompatActivity {
                     else{
                         i= new Intent(SplashScreenActivity.this, MainMenuActivity.class);
                     }
-
-
-
                 }
                 else{
-
                     i= new Intent(SplashScreenActivity.this, InspirationalQuotesActivity.class);
-
                 }
                 mPrefs.edit().putLong(Strings.LAST_LOGIN_TIME, currentTime).apply();
 
