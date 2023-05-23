@@ -25,13 +25,13 @@ import java.util.HashMap;
 public class CalendarAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Date> mDates;
-    private HashMap<Date, Integer> mBadgeMap;
+    private HashMap<Integer, Integer> mBadgeMap;
     private HashMap<Integer, Journal> journalHashMap;
     private LayoutInflater mInflater;
     private ArrayList<String> daysInWeek;
     private onClickEmoji onClickEmoji;
 
-    public CalendarAdapter(Context context, ArrayList<Date> dates, HashMap<Date, Integer> badgeMap, HashMap<Integer, Journal> journalHashMap, onClickEmoji onClickEmoji) {
+    public CalendarAdapter(Context context, ArrayList<Date> dates, HashMap<Integer, Integer> badgeMap, HashMap<Integer, Journal> journalHashMap, onClickEmoji onClickEmoji) {
         mContext = context;
         mDates = dates;
         mBadgeMap = badgeMap;
@@ -91,9 +91,8 @@ public class CalendarAdapter extends BaseAdapter {
                         holder.dateTextView.setText(String.valueOf(dayOfMonth));
                     } else {
                         holder.dateTextView.setText(" ");
-
                     }
-                    Integer badgeId = mBadgeMap.get(date);
+                    Integer badgeId = mBadgeMap.get(date.getDate());
                     if (badgeId != null) {
                         holder.badgeImageView.setImageResource(badgeId);
                         holder.badgeImageView.setVisibility(View.VISIBLE);

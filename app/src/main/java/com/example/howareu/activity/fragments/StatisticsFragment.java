@@ -70,14 +70,14 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
     LiveData<List<StatDateAndMoodId>> statDateAndMoodId;
     private JournalRepository journalDb;
     LiveData<List<Journal>> journalList;
-    ArrayList<Date> dateList = new ArrayList<>();
-    ArrayList<Integer> moodIdList = new ArrayList<>();
-    ArrayList<String> moodNameList = new ArrayList<>();
-    HashMap<Date, Integer> badgeMap = new HashMap<>();
+    ArrayList<Date> dateList;
+    ArrayList<Integer> moodIdList;
+    ArrayList<String> moodNameList;
+    HashMap<Integer, Integer> badgeMap = new HashMap<>();
     HashMap<Integer, Journal> journalMap = new HashMap<>();
 
-    ArrayList<Date> journalDateList = new ArrayList<>();
-    ArrayList<Boolean> isPrivateList = new ArrayList<>();
+    ArrayList<Date> journalDateList;
+    ArrayList<Boolean> isPrivateList;
     private SharedPreferences mPrefs;
     public StatisticsFragment() {
         // Required empty public constructor
@@ -238,12 +238,21 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
         new AsyncTask<Void, Void, Void>() {
             boolean stateDone= false;
             boolean journalDone= false;
+
+
+
             @Override
             protected Void doInBackground(Void... voids) {
                 if(currentMonth.length()==1){
                     currentMonth = "0"+ currentMonth;
                 }
 
+                dateList = new ArrayList<>();
+                moodIdList = new ArrayList<>();
+                moodNameList = new ArrayList<>();
+
+                journalDateList = new ArrayList<>();
+                isPrivateList= new ArrayList<>();
 
                 statDateAndMoodId = statDb.getMoodIdAndDate(currentMonth,currentYear);
                 journalList = journalDb.getJournalByDate(currentMonth,currentYear);
@@ -365,7 +374,7 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                         int date = calDb.get(Calendar.DAY_OF_MONTH);
                         int dateloop =  cal2.get(Calendar.DAY_OF_MONTH);
                         if (dateloop == date) {
-                            badgeMap.put(dates.get(dates.size()-1), getMoodImage(moodNameList.get(emojiCounter)));
+                            badgeMap.put(dateList.get(emojiCounter).getDate(), getMoodImage(moodNameList.get(emojiCounter)));
                             emojiCounter++;
 
                             if(!journalDateList.isEmpty()){
