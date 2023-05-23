@@ -11,13 +11,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
+import com.example.howareu.NotificationReceiver;
 import com.example.howareu.R;
 import com.example.howareu.activity.fragments.HomeFragment;
 import com.example.howareu.activity.fragments.JournalHistoryFragment;
@@ -52,8 +52,13 @@ public class MainMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAuth = FirebaseAuth.getInstance();
+
         setContentView(R.layout.activity_main_menu);
+        NotificationReceiver receiver = new NotificationReceiver();
+        receiver.setNotificationAlarm(this);
+        receiver.setLoginResetAlarm(this);
+        receiver.setNotificationAlarm2(this);
+        mAuth = FirebaseAuth.getInstance();
         byteArray = getIntent().getByteArrayExtra("myBitmap");
         moodDb = new MoodRepository(getApplication());
         mPrefs2 = getSharedPreferences(Strings.START_PREF_NAME, Context.MODE_PRIVATE);
@@ -71,6 +76,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 // Do something with the result
             }
         }.execute();
+
 
 
 
@@ -207,5 +213,9 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         }.execute();
     }
+
+
+
+
 
 }

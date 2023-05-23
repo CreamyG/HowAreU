@@ -88,6 +88,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
     //Shared pref
     private SharedPreferences mPrefs;
+    private SharedPreferences prefsNotif;
     Gson gson = new Gson();
 
     //Date and time's
@@ -135,6 +136,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         //SharePref
         mPrefs = getActivity().getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
+        prefsNotif = getActivity().getSharedPreferences(Strings.PREF_NOTIF, Context.MODE_PRIVATE);
 
 
 
@@ -714,6 +716,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             mPrefs.edit().putString(Strings.JOURNAL_SAVE, journalInput.getText().toString()).apply();
             mPrefs.edit().putBoolean(Strings.JOURNAL_PRIVACY, isPrivate.isChecked()).apply();
             disableEverything();
+            prefsNotif.edit().putBoolean(Strings.IS_DAY_DONE,true).apply();
             savedPopUp();
         }
         else{

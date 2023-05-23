@@ -42,6 +42,12 @@ public abstract class Strings {
 
     public static final String IS_FIRST_TIME = "IS_FIRST_TIME";
 
+
+    public static final String PREF_NOTIF = "PREF_NOTIF";
+    public static final String IS_DAY_DONE = "IS_DAY_DONE";
+
+
+
     //MOOD NAME LABEL
     public static String MOOD_LABEL_VERY_SAD = "Very Sad";
     public static String MOOD_LABEL_SAD = "Sad";
