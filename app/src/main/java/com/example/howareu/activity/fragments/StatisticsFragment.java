@@ -5,7 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
@@ -21,6 +20,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,9 +53,11 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
     EditText  passCodeEditText;
     TextView passCodeError;
     Button viewJournalBtn;
+    ImageView nextMonth, prevMonth;
     String passCode= "";
     PieChart pieChart;
     TextView textVerySad, textSad, textNeutral, textHappy,textVeryHappy, monthLabel,mood_month_ave;
+
 
 
     Context context;
@@ -63,15 +65,22 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
     private GridView mGridView;
     private CalendarAdapter mAdapter;
     private StatRepository statDb;
+
     Calendar cal2;
+    Calendar cal;
     ImageView mood_month_ave_image;
 
     String currentMonth;
     String currentYear;
+
+    int monthChange;
+    int monthChangeCounter;
+
     LiveData<List<StatDateAndMoodId>> statDateAndMoodId;
     private JournalRepository journalDb;
     LiveData<List<Journal>> journalList;
     ArrayList<Date> dateList;
+    ArrayList<Date> dates;
     ArrayList<Integer> moodIdList;
     ArrayList<String> moodNameList;
     HashMap<Integer, Integer> badgeMap = new HashMap<>();
@@ -121,15 +130,16 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
         pieChart = view.findViewById(R.id.piechart);
         mood_month_ave = view.findViewById(R.id.mood_month_ave);
         mood_month_ave_image = view.findViewById(R.id.mood_month_ave_image);
+        prevMonth = view.findViewById(R.id.prevMonthButton);
+        nextMonth = view.findViewById(R.id.nextMonthButton);
 
-        // Get the month name
+
         cal2 = Calendar.getInstance();
+        cal = Calendar.getInstance();
         cal2.setTimeInMillis(System.currentTimeMillis());
-
-        currentMonth = String.valueOf(cal2.get(Calendar.MONTH)+1);
-        currentYear = String.valueOf(cal2.get(Calendar.YEAR));
-
-        getDateAndMoodID();
+        cal.setTimeInMillis(System.currentTimeMillis());
+        monthChange = 0;
+        setMonthYear();
 
 
         mGridView = view.findViewById(R.id.calendarGrid);
@@ -140,7 +150,45 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
         setPieText();
         setMoodMonth();
 
+        onClickListenersMonthChange();
         return view;
+    }
+
+    public void onClickListenersMonthChange(){
+        prevMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                clearCalendar();
+                monthChange=-1;
+                setMonthYear();
+
+
+            }
+        });
+        nextMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clearCalendar();
+                monthChange = 1;
+                setMonthYear();
+            }
+        });
+    }
+
+    public void clearCalendar(){
+        dates = new ArrayList<>();
+        badgeMap =new HashMap<>();
+        journalMap = new HashMap<>();
+        mAdapter.notifyDataSetChanged();
+
+    }
+
+    public void setMonthYear(){
+        cal2.add(Calendar.MONTH,monthChange);
+        currentMonth = String.valueOf(cal2.get(Calendar.MONTH)+1);
+        currentYear = String.valueOf(cal2.get(Calendar.YEAR));
+        getDateAndMoodID();
     }
 
     public Integer getMoodImage(String moodName){
@@ -321,6 +369,8 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
             private void checkIfDone(){
                 if(journalDone&&stateDone){
                     createCalendar();
+
+
                 }
             }
 
@@ -336,12 +386,22 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
     }
 
     public void createCalendar(){
-        ArrayList<Date> dates = new ArrayList<>();
-        Calendar cal = Calendar.getInstance();
-
+        dates = new ArrayList<>();
+        cal.setTime(cal2.getTime());
+        int date3 = cal2.get(Calendar.DAY_OF_MONTH);
+        int month3 = cal2.get(Calendar.MONTH)+1;
+        int date2 = cal.get(Calendar.DAY_OF_MONTH);
+        int month2 = cal.get(Calendar.MONTH)+1;
+        month2 = cal.get(Calendar.MONTH)+1;
         cal.set(Calendar.DAY_OF_MONTH, 1);
-        int monthBeginning = cal.get(Calendar.DAY_OF_WEEK) - 1;
+
+        date2 = cal.get(Calendar.DAY_OF_MONTH);
+        month2 = cal.get(Calendar.MONTH)+1;
+        int monthBeginning = cal.get(Calendar.DAY_OF_WEEK) -1;
         cal.add(Calendar.DAY_OF_MONTH, -monthBeginning);
+
+        date2 = cal.get(Calendar.DAY_OF_MONTH);
+        month2 = cal.get(Calendar.MONTH)+1;
         boolean startPlot = false;
         int emojiCounter = 0;
         int journalCounter = 0;
@@ -370,10 +430,10 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
 
                         Calendar calDb = Calendar.getInstance();
                         calDb.setTime(dateList.get(emojiCounter));
-                        Calendar cal2=Calendar.getInstance();
-                        cal2.setTime(dates.get(dates.size()-1));
+                        Calendar cal3=Calendar.getInstance();
+                        cal3.setTime(dates.get(dates.size()-1));
                         int date = calDb.get(Calendar.DAY_OF_MONTH);
-                        int dateloop =  cal2.get(Calendar.DAY_OF_MONTH);
+                        int dateloop =  cal3.get(Calendar.DAY_OF_MONTH);
                         if (dateloop == date) {
                             badgeMap.put(dateList.get(emojiCounter).getDate(), getMoodImage(moodNameList.get(emojiCounter)));
                             emojiCounter++;
@@ -382,10 +442,10 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                                 if(journalCounter<journalDateList.size()){
                                     calDb = Calendar.getInstance();
                                     calDb.setTime(journalDateList.get(journalCounter));
-                                    cal2=Calendar.getInstance();
-                                    cal2.setTime(dates.get(dates.size()-1));
+                                    cal3=Calendar.getInstance();
+                                    cal3.setTime(dates.get(dates.size()-1));
                                     date = calDb.get(Calendar.DAY_OF_MONTH);
-                                    dateloop =  cal2.get(Calendar.DAY_OF_MONTH);
+                                    dateloop =  cal3.get(Calendar.DAY_OF_MONTH);
                                     if (dateloop == date) {
                                         journalMap.put(journalDateList.get(journalCounter).getDate(),journalList.getValue().get(journalCounter));
                                         journalCounter++;
@@ -404,19 +464,20 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
         }
 
 
+
+        // Create a HashMap to store badge IDs for specific dates
         SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
         String monthName = monthFormat.format(cal2.getTime());
         // Set the month label text
         monthLabel.setText(monthName+" "+ cal2.get(Calendar.YEAR));
-        // Create a HashMap to store badge IDs for specific dates
-
-
 
         // Add a badge to the fourth date
 
         // Create a new CalendarAdapter and set it to the GridView
         mAdapter = new CalendarAdapter(context, dates, badgeMap, journalMap, this);
+
         mGridView.setAdapter(mAdapter);
+
     }
 
     public void setMoodMonth(){

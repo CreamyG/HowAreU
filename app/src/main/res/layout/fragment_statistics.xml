@@ -412,7 +412,17 @@
                     android:textStyle="bold"
                     android:layout_marginLeft="25dp"
                     android:layout_marginTop="20dp"/>
-
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <ImageView
+                    android:id="@+id/prevMonthButton"
+                    android:layout_width="35dp"
+                    android:layout_height="45dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/prev" />
                 <TextView
                     android:id="@+id/month_label"
                     android:layout_width="wrap_content"
@@ -420,9 +430,18 @@
                     android:text=""
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"/>
+
+                <ImageView
+                    android:id="@+id/nextMonthButton"
+                    android:layout_width="35dp"
+                    android:layout_height="45dp"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/next"/>
+
+            </LinearLayout>
 
                 <GridView
                     android:id="@+id/calendarGrid"

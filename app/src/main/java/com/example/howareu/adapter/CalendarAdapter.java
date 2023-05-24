@@ -35,10 +35,12 @@ public class CalendarAdapter extends BaseAdapter {
         mContext = context;
         mDates = dates;
         mBadgeMap = badgeMap;
-        mInflater = LayoutInflater.from(context);
-        this.daysInWeek = Arrays.daysInWeek();
         this.journalHashMap = journalHashMap;
         this.onClickEmoji = onClickEmoji;
+        mInflater = LayoutInflater.from(context);
+        this.daysInWeek = Arrays.daysInWeek();
+
+
     }
 
     @Override
