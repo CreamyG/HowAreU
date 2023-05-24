@@ -388,20 +388,13 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
     public void createCalendar(){
         dates = new ArrayList<>();
         cal.setTime(cal2.getTime());
-        int date3 = cal2.get(Calendar.DAY_OF_MONTH);
-        int month3 = cal2.get(Calendar.MONTH)+1;
-        int date2 = cal.get(Calendar.DAY_OF_MONTH);
-        int month2 = cal.get(Calendar.MONTH)+1;
-        month2 = cal.get(Calendar.MONTH)+1;
+
         cal.set(Calendar.DAY_OF_MONTH, 1);
 
-        date2 = cal.get(Calendar.DAY_OF_MONTH);
-        month2 = cal.get(Calendar.MONTH)+1;
         int monthBeginning = cal.get(Calendar.DAY_OF_WEEK) -1;
         cal.add(Calendar.DAY_OF_MONTH, -monthBeginning);
 
-        date2 = cal.get(Calendar.DAY_OF_MONTH);
-        month2 = cal.get(Calendar.MONTH)+1;
+
         boolean startPlot = false;
         int emojiCounter = 0;
         int journalCounter = 0;
