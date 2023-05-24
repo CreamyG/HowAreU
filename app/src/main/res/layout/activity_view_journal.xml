@@ -19,7 +19,7 @@
             android:id="@+id/journalDateText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="Title"
             android:layout_marginTop="1dp"/>
     </LinearLayout>
 
@@ -35,7 +35,7 @@
             android:id="@+id/journalContentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=""
+            android:text="content of the App"
             android:layout_marginTop="1dp"/>
 
 
