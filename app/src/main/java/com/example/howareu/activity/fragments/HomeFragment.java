@@ -105,6 +105,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     private StatRepository statDb;
 
 
+
+
     public HomeFragment() {
         // Required empty public constructor
     }
@@ -172,6 +174,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        View includedLayout = view.findViewById(R.id.date_for_fragment_home);
 
         //Views
         activityRecycler = view.findViewById(R.id.activity_recycler);
@@ -181,8 +184,8 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         btnSave = view.findViewById(R.id.btnSave);
         journalInput = view.findViewById(R.id.journalInput);
         isPrivate = view.findViewById(R.id.isPrivate);
-        textMonth = view.findViewById(R.id.textMonth);
-        textDate = view.findViewById(R.id.textDate);
+        textMonth = includedLayout.findViewById(R.id.textMonth);
+        textDate = includedLayout.findViewById(R.id.textDate);
 
         //Recyclers
         activityRecycler.setAdapter(activityAdapter);
@@ -362,7 +365,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         // Get the month name
         SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
         String monthName = monthFormat.format(cal.getTime());
-
+        if(monthName.length()>3){
+            monthName = monthName.substring(0,3)+".";
+        }
         textMonth.setText(monthName);
         textDate.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
     }

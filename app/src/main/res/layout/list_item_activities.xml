@@ -30,7 +30,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="RateMood"
-                app:srcCompat="@drawable/add" />
+                app:srcCompat="@drawable/emotionless3" />
 
             <EditText
                 android:id="@+id/editTextActivity"
@@ -48,7 +48,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:text="Delete"
-                android:src="@drawable/baseline_remove_circle_outline_24"
+                android:src="@drawable/remove"
                 />
 
         </LinearLayout>

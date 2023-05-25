@@ -85,7 +85,7 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
                 holder.btnRateMoodActivity.setImageResource(R.drawable.very_happy);
                 break;
             default:
-                holder.btnRateMoodActivity.setImageResource(R.drawable.add);
+                holder.btnRateMoodActivity.setImageResource(R.drawable.emotionless3);
                 break;
 
         }

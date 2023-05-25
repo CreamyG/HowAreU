@@ -30,7 +30,7 @@
                 android:layout_height="50dp"
                 android:layout_weight="1"
                 android:text="RateMood"
-                app:srcCompat="@drawable/add"/>
+                app:srcCompat="@drawable/emotionless3"/>
 
             <EditText
                 android:id="@+id/editTextToDo"

@@ -33,12 +33,13 @@
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/activity_view_journal.xml" value="0.3625" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/activity_wheel.xml" value="0.1762917933130699" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/date_calendar.xml" value="0.67" />
+        <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/date_for_fragment_home.xml" value="0.5" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/dialog_confirm_saving.xml" value="0.3572916666666667" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/dialog_not_saved.xml" value="0.3572916666666667" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/dialog_passcode.xml" value="0.3614583333333333" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/dialog_rate_mood.xml" value="0.3170289855072464" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/dialog_saved.xml" value="0.33" />
-        <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/fragment_home.xml" value="0.5" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/fragment_home_recommender.xml" value="0.358695652173913" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/fragment_journal.xml" value="0.35833333333333334" />
         <entry key="..\:/Users/CLadam/Documents/HowAreU/app/src/main/res/layout/fragment_journal_history.xml" value="0.358695652173913" />

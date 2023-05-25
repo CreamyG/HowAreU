@@ -3,7 +3,9 @@ package com.example.howareu.activity;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,18 +14,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.howareu.R;
+import com.example.howareu.constant.Strings;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ViewJournalActivity extends AppCompatActivity {
     String date;
     String content;
     TextView journalDateText,journalContentText;
+    private SharedPreferences mPrefs2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_journal);
         date = getIntent().getStringExtra("date");
         content =  getIntent().getStringExtra("content");
+        mPrefs2 = getSharedPreferences(Strings.START_PREF_NAME, Context.MODE_PRIVATE);
         journalDateText = findViewById(R.id.journalDateText);
         journalContentText = findViewById(R.id.journalContentText);
         journalDateText.setText(date);
@@ -48,7 +53,9 @@ public class ViewJournalActivity extends AppCompatActivity {
                 break;
             case R.id.lagout:
                 auth.signOut();
-                startActivity(new Intent(this, OnlineLoginActivity.class));
+                mPrefs2.edit().putBoolean(Strings.IS_LOGGED,false).apply();
+                mPrefs2.edit().putBoolean(Strings.FROM_LOGOUT,true).apply();
+                startActivity(new Intent(this, LoggedOutActivity.class));
                 break;
             default:
                 break;
