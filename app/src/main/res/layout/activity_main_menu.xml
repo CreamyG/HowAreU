@@ -56,7 +56,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/home" />
+            app:srcCompat="@drawable/stats" />
 
         <ImageView
             android:id="@+id/journalHistory"
@@ -70,7 +70,7 @@
             app:layout_constraintStart_toEndOf="@+id/statistics"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.627"
-            app:srcCompat="@drawable/history" />
+            app:srcCompat="@drawable/journal" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

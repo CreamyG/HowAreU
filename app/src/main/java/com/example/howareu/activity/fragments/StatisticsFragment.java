@@ -75,6 +75,7 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
 
     int monthChange;
     int monthChangeCounter;
+    private boolean isZeroPieChart= true;
 
     LiveData<List<StatDateAndMoodId>> statDateAndMoodId;
     private JournalRepository journalDb;
@@ -218,32 +219,42 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
     public void setPieChart(){
         // Set the percentage of language used
 
+        if(isZeroPieChart){
+            pieChart.addPieSlice(
+                    new PieModel(
+                            Strings.MOOD_LABEL_VERY_SAD,
+                            0,
+                            ContextCompat.getColor(context, R.color.empty)));
 
-        pieChart.addPieSlice(
-                new PieModel(
-                        Strings.MOOD_LABEL_VERY_SAD,
-                        Integer.parseInt(textVerySad.getText().toString()),
-                        ContextCompat.getColor(context, R.color.very_sad)));
-        pieChart.addPieSlice(
-                new PieModel(
-                        Strings.MOOD_LABEL_SAD,
-                        Integer.parseInt(textSad.getText().toString()),
-                        ContextCompat.getColor(context, R.color.sad)));
-        pieChart.addPieSlice(
-                new PieModel(
-                        Strings.MOOD_LABEL_NEUTRAL,
-                        Integer.parseInt(textNeutral.getText().toString()),
-                        ContextCompat.getColor(context, R.color.neutral)));
-        pieChart.addPieSlice(
-                new PieModel(
-                        Strings.MOOD_LABEL_HAPPY,
-                        Integer.parseInt(textHappy.getText().toString()),
-                        ContextCompat.getColor(context, R.color.happy)));
-        pieChart.addPieSlice(
-                new PieModel(
-                        Strings.MOOD_LABEL_VERY_HAPPY,
-                        Integer.parseInt(textVeryHappy.getText().toString()),
-                        ContextCompat.getColor(context, R.color.very_happy)));
+        }
+        else{
+            pieChart.addPieSlice(
+                    new PieModel(
+                            Strings.MOOD_LABEL_VERY_SAD,
+                            Integer.parseInt(textVerySad.getText().toString()),
+                            ContextCompat.getColor(context, R.color.very_sad)));
+            pieChart.addPieSlice(
+                    new PieModel(
+                            Strings.MOOD_LABEL_SAD,
+                            Integer.parseInt(textSad.getText().toString()),
+                            ContextCompat.getColor(context, R.color.sad)));
+            pieChart.addPieSlice(
+                    new PieModel(
+                            Strings.MOOD_LABEL_NEUTRAL,
+                            Integer.parseInt(textNeutral.getText().toString()),
+                            ContextCompat.getColor(context, R.color.neutral)));
+            pieChart.addPieSlice(
+                    new PieModel(
+                            Strings.MOOD_LABEL_HAPPY,
+                            Integer.parseInt(textHappy.getText().toString()),
+                            ContextCompat.getColor(context, R.color.happy)));
+            pieChart.addPieSlice(
+                    new PieModel(
+                            Strings.MOOD_LABEL_VERY_HAPPY,
+                            Integer.parseInt(textVeryHappy.getText().toString()),
+                            ContextCompat.getColor(context, R.color.very_happy)));
+        }
+
 
         pieChart.startAnimation();
     }
@@ -268,6 +279,13 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                 textNeutral.setText(Integer.toString(neutral));
                 textHappy.setText(Integer.toString(happy));
                 textVeryHappy.setText(Integer.toString(veryHappy));
+                int sumCount= verySad+sad+neutral+happy+veryHappy;
+                if (sumCount==0) {
+                    isZeroPieChart = true;
+                }
+                else{
+                    isZeroPieChart = false;
+                }
 
 
 
@@ -562,18 +580,19 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
 
     @Override
     public void onEmojiClicked(Journal journal) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(journal.getDate());
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
-        String date = monthFormat.format(cal.getTime());
-        date += " "+cal.get(Calendar.DATE);
-        date += " "+cal.get(Calendar.YEAR);
+        if(journal!=null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(journal.getDate());
+            SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+            String date = monthFormat.format(cal.getTime());
+            date += " " + cal.get(Calendar.DATE);
+            date += " " + cal.get(Calendar.YEAR);
 
-        if (journal.isPrivate()) {
-            showPassCodePopUp(journal.getContent(),date);
-        }
-        else{
-            showViewJournal(journal.getContent(),date);
+            if (journal.isPrivate()) {
+                showPassCodePopUp(journal.getContent(), date);
+            } else {
+                showViewJournal(journal.getContent(), date);
+            }
         }
     }
 }

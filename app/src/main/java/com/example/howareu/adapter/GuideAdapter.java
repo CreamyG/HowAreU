@@ -27,7 +27,7 @@ public class GuideAdapter extends PagerAdapter {
     public int[] slide_images={
             R.drawable.happy,
             R.drawable.home,
-            R.drawable.history,
+            R.drawable.stats,
     };
 
     public String[] slide_head={

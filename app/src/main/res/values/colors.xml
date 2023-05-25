@@ -19,5 +19,7 @@
     <color name="neutral">#99CFBC</color>
     <color name="happy">#9AEF50</color>
     <color name="very_happy">#F6CA29</color>
+    <color name="empty">#808080</color>
+
 
 </resources>
