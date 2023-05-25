@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#B7A28F">
 
 
 
@@ -10,7 +11,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        >
+
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,6 +21,10 @@
             android:text="Are you done? You can recheck it."
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:textColor="@color/cardview_dark_background"
+            android:textColorLink="@color/white"
             android:layout_centerHorizontal="true"/>
 
 
@@ -27,7 +34,8 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginBottom="20dp">
 
 
         <Button
@@ -35,12 +43,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:background="@color/cardview_shadow_start_color"
+            android:layout_marginEnd="20dp"
+            android:textColor="@color/white"
             android:text="Confirm" />
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
+            android:background="@color/cardview_shadow_start_color"
+            android:textColor="@color/white"
             android:text="Cancel" />
 
     </LinearLayout>
