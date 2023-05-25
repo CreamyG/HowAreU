@@ -313,7 +313,10 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             @Override
             public void afterTextChanged(Editable s) {
-                mPrefs.edit().putString(Strings.JOURNAL_UNSAVED,journalInput.getText().toString()).apply();
+                if(!checkIfAlreadyDone()){
+                    mPrefs.edit().putString(Strings.JOURNAL_UNSAVED,journalInput.getText().toString()).apply();
+                }
+
 
             }
         });
@@ -378,6 +381,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
         if (checkIfAlreadyDone()) {
+            if(simpleActivityModel.isEmpty()&&simpleTodoModel.isEmpty()) {
+                getSavedData();
+            }
+            disableButtonandForms();
+
+            String journalText2 = mPrefs.getString(Strings.JOURNAL_UNSAVED, "");
             activityAdapter.notifyDataSetChanged();
             todoAdapter.notifyDataSetChanged();
             String journalText = mPrefs.getString(Strings.JOURNAL_SAVE, "");
@@ -402,6 +411,10 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             todoAdapter.notifyDataSetChanged();
         }
         else {
+            String journalText = mPrefs.getString(Strings.JOURNAL_UNSAVED, "");
+            if(!journalText.isEmpty()){
+                journalInput.setText(journalText);
+            }
             if(simpleActivityModel.isEmpty()){
                 if(!checkUnSavedActivitySPisNull(type)){
                     getUnSavedActivity(type,true);
@@ -441,10 +454,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 }
 
             }
-            String journalText = mPrefs.getString(Strings.JOURNAL_UNSAVED, "");
-            if(!journalText.isEmpty()){
-                journalInput.setText(journalText);
-            }
+
 
         }
 
@@ -533,10 +543,6 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             isPrivate.setEnabled(true);
             alreadyDone=false;
         } else {
-            if(simpleActivityModel.isEmpty()&&simpleTodoModel.isEmpty()) {
-                getSavedData();
-            }
-            disableButtonandForms();
             alreadyDone = true;
             // disable the button click if it's the same day
         }
