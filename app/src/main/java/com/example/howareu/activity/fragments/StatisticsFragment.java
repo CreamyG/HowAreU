@@ -196,19 +196,19 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
         int drawable = 0;
         switch(moodName){
             case Strings.MOOD_VERY_SAD:
-                drawable = R.drawable.very_sad;
+                drawable = R.drawable.very_sad2;
                 break;
             case Strings.MOOD_SAD:
-                drawable = R.drawable.ssad;
+                drawable = R.drawable.sad2;
                 break;
             case Strings.MOOD_NEUTRAL:
-                drawable = R.drawable.neutral;
+                drawable = R.drawable.neutral2;
                 break;
             case Strings.MOOD_HAPPY:
-                drawable = R.drawable.smiling_face;
+                drawable = R.drawable.happy2;
                 break;
             case Strings.MOOD_VERY_HAPPY:
-                drawable = R.drawable.very_happy;
+                drawable = R.drawable.very_happy2;
                 break;
 
         }
@@ -522,20 +522,20 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
 
         mood_month_ave_image.setVisibility(View.VISIBLE);
         if(mood>=Integers.MOOD_PERCENT_VERY_SAD  && mood < Integers.MOOD_PERCENT_SAD){
-            mood_month_ave_image.setImageResource(R.drawable.very_sad);
+            mood_month_ave_image.setImageResource(R.drawable.very_sad2);
 
         }
         else if(mood>=Integers.MOOD_PERCENT_SAD  && mood < Integers.MOOD_PERCENT_NEUTRAL){
-            mood_month_ave_image.setImageResource(R.drawable.ssad);
+            mood_month_ave_image.setImageResource(R.drawable.sad2);
         }
         else if(mood>=Integers.MOOD_PERCENT_NEUTRAL  && mood < Integers.MOOD_PERCENT_HAPPY){
-            mood_month_ave_image.setImageResource(R.drawable.neutral);
+            mood_month_ave_image.setImageResource(R.drawable.neutral2);
         }
         else if(mood>=Integers.MOOD_PERCENT_HAPPY  && mood < Integers.MOOD_PERCENT_VERY_HAPPY){
-            mood_month_ave_image.setImageResource(R.drawable.smiling_face);
+            mood_month_ave_image.setImageResource(R.drawable.happy2);
         }
         else if(mood==Integers.MOOD_PERCENT_VERY_HAPPY){
-            mood_month_ave_image.setImageResource(R.drawable.very_happy);
+            mood_month_ave_image.setImageResource(R.drawable.very_happy2);
         }
         else{
             mood_month_ave.setText(Strings.STAT_LABEL_NO_AVE);

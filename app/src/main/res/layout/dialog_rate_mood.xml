@@ -26,7 +26,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="25dp">
 
         <ImageView
             android:id="@+id/btnVerySad"
@@ -34,7 +35,7 @@
             android:layout_height="50dp"
             android:layout_weight = "1"
             android:text="RateMood"
-            app:srcCompat="@drawable/very_sad"/>
+            app:srcCompat="@drawable/very_sad2"/>
 
         <ImageView
             android:id="@+id/btnSad"
@@ -42,7 +43,7 @@
             android:layout_height="50dp"
             android:layout_weight = "1"
             android:text="Sad"
-            app:srcCompat="@drawable/ssad"/>
+            app:srcCompat="@drawable/sad2"/>
 
         <ImageView
             android:id="@+id/btnNeutral"
@@ -50,14 +51,14 @@
             android:layout_height="50dp"
             android:layout_weight = "1"
             android:text="Sad"
-            app:srcCompat="@drawable/neutral"/>
+            app:srcCompat="@drawable/neutral2"/>
         <ImageView
             android:id="@+id/btnHappy"
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_weight = "1"
             android:text="Sad"
-            app:srcCompat="@drawable/smiling_face"/>
+            app:srcCompat="@drawable/happy2"/>
 
         <ImageView
             android:id="@+id/btnVeryHappy"
@@ -65,7 +66,7 @@
             android:layout_height="50dp"
             android:layout_weight = "1"
             android:text="Sad"
-            app:srcCompat="@drawable/very_happy"/>
+            app:srcCompat="@drawable/very_happy2"/>
 
     </LinearLayout>
 

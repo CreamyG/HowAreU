@@ -70,19 +70,19 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
         }
         switch(simpleActivityModel.get(position).getMoodrate()){
             case Integers.MOOD_PERCENT_SAD:
-                holder.btnRateMoodActivity.setImageResource(R.drawable.ssad);
+                holder.btnRateMoodActivity.setImageResource(R.drawable.sad2);
                 break;
             case Integers.MOOD_PERCENT_VERY_SAD:
-                holder.btnRateMoodActivity.setImageResource(R.drawable.very_sad);
+                holder.btnRateMoodActivity.setImageResource(R.drawable.very_sad2);
                 break;
             case Integers.MOOD_PERCENT_NEUTRAL:
-                holder.btnRateMoodActivity.setImageResource(R.drawable.neutral);
+                holder.btnRateMoodActivity.setImageResource(R.drawable.neutral2);
                 break;
             case Integers.MOOD_PERCENT_HAPPY:
-                holder.btnRateMoodActivity.setImageResource(R.drawable.smiling_face);
+                holder.btnRateMoodActivity.setImageResource(R.drawable.happy2);
                 break;
             case Integers.MOOD_PERCENT_VERY_HAPPY:
-                holder.btnRateMoodActivity.setImageResource(R.drawable.very_happy);
+                holder.btnRateMoodActivity.setImageResource(R.drawable.very_happy2);
                 break;
             default:
                 holder.btnRateMoodActivity.setImageResource(R.drawable.emotionless3);
