@@ -433,24 +433,22 @@
                     android:layout_width="35dp"
                     android:layout_height="45dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/prev" />
+                    app:srcCompat="@drawable/prev_arrow" />
                 <TextView
                     android:id="@+id/month_label"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text=""
+                    android:text="May 202222"
                     android:textSize="23sp"
                     android:textStyle="bold"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginTop="20dp"/>
+                    android:layout_gravity="center"/>
 
                 <ImageView
                     android:id="@+id/nextMonthButton"
                     android:layout_width="35dp"
                     android:layout_height="45dp"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/next"/>
+                    app:srcCompat="@drawable/next_arrow"/>
 
             </LinearLayout>
 

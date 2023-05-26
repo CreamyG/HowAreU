@@ -25,20 +25,25 @@ public class GuideAdapter extends PagerAdapter {
     }
 
     public int[] slide_images={
-            R.drawable.happy,
+            R.drawable.cool,
             R.drawable.home,
             R.drawable.stats,
+            R.drawable.journal,
+            R.drawable.ready,
     };
 
     public String[] slide_head={
-            "Greetings!","Home Menu","Translating via Camera"
+            "Greetings!","Activity Module","Statistics", "Journal History","Ready!"
 
     };
 
     public String[] slide_dec={
-            "Good day and HI! \n\nHI (Hand Ilocano) is an Ilocano sign language translator that has a 2-way communication model. The dataset of our app are simple Ilocano words that everyone is using daily. \n\nBefore you get started, this tutorial will help you to understand and know the function of our application. \nThis will be a brief walkthrough on our app.",
-            "On the home menu, we have 2 buttons (the camera and the keyboard). \n\n The camera button will lead you to a form where the app can translate sign language via camera. \n\nWhile the keyboard button will let you type a given word and a video will appear at the screen representing your input.",
-            "Point the camera on the person you want to communicate with. A text or word will appear on the textbox. \n\n If you want to switch camera, click the switch icon on the left side of the textbox. \n\n If you want to read aloud the text on the textbox, click the speaker icon on the right side of the textbox."
+            "Hello there! \"How are U\" is a mood monitoring app that aims to empower individuals in achieving and maintaining good mental health. We believe that by providing the tools, resources, and personalized support necessary, users can actively participate in their mental well-being, ultimately leading to a happier and more fulfilling life",
+            "Here is where you input activity, rate the mood of that activity, and see the recommendations of activity to do. Here you will also input your journal.",
+            "After completing the activities, users can evaluate their progress by accessing the statistics section. Here, they can find the mood count and a summary of their moods. The application includes a calendar view that displays the user's daily mood inputs. This calendar allows users to track their moods over time. Users can also view their overall mood for the month, which provides insights into their emotional well-being on a broader scale. Additionally, the application enables users to access and review their previous inputs, promoting reflection and self-awareness.",
+            "The application includes a journal history feature that displays all the user's inputted journal entries. Users can access the journal history in two ways: through the journal button or by clicking on specific dates on the calendar. The calendar is clickable, allowing users to tap or click on a date where they recorded their mood. Upon selecting a date, the corresponding journal entry for that day will be automatically displayed.",
+            "You are all set and ready to go. Have a nice day!"
+
     };
     @Override
     public int getCount() {

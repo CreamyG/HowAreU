@@ -73,10 +73,10 @@ public class JournalHistoryAdapter extends BaseAdapter {
         holder.textDateJournalHistory.setText(journalList.get(position).getDate());
         holder.journalCellText.setText(journalList.get(position).getContent());
         if(journalList.get(position).isPrivate()){
-            holder.privacyJournal.setImageResource(R.drawable.angry);
+            holder.privacyJournal.setImageResource(R.drawable.lock);
         }
         else{
-            holder.privacyJournal.setImageResource(R.drawable.happy);
+            holder.privacyJournal.setImageResource(R.drawable.unlock);
         }
 
         holder.JournalCellCardView.setOnClickListener(new View.OnClickListener() {

@@ -47,8 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/whiteborder"
-
+            android:layout_marginBottom="20dp"
             >
 
             <TextView
@@ -71,13 +70,16 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:layout_margin="6dp"
-                android:layout_marginLeft="2dp">
+                android:layout_marginLeft="2dp"
+                android:layout_marginBottom="20dp"
+                android:gravity="center">
                 <Button
                     android:id="@+id/btnAddActivity"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add"
-                    android:layout_weight="1"/>
+                    android:textColor="@color/white"
+                    android:background="@drawable/round_gradient"/>
             </LinearLayout>
 
 
@@ -89,7 +91,6 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="@drawable/whiteborder"
             >
             <TextView
                 android:layout_width="wrap_content"
@@ -114,20 +115,23 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="6dp"
-            android:layout_marginLeft="2dp">
+            android:layout_marginLeft="2dp"
+            android:gravity="center"
+            android:layout_marginBottom="20dp">
             <Button
                 android:id="@+id/btnAddTodo"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Add"
-                android:layout_weight="1"/>
+
+                android:textColor="@color/white"
+                android:background="@drawable/round_gradient"/>
         </LinearLayout>
         <LinearLayout
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="@drawable/whiteborder"
             >
             <LinearLayout
 
@@ -173,13 +177,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
+            android:gravity="center"
             >
 
             <Button
                 android:id="@+id/btnSave"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Save" />
+                android:text="Save"
+
+                android:textColor="@color/white"
+                android:background="@drawable/round_gradient"/>
 
 
         </LinearLayout>

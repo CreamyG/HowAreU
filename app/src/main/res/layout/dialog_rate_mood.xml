@@ -3,18 +3,23 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:orientation="horizontal">
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
 
 
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Select A Mood"
+            android:textStyle="bold"
+            android:textSize="20sp"
+            android:gravity="center"/>
         <ImageView
             android:id="@+id/btnExit"
             android:layout_width="50dp"
@@ -26,8 +31,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="25dp">
+        android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/btnVerySad"
@@ -68,6 +72,43 @@
             android:text="Sad"
             app:srcCompat="@drawable/very_happy2"/>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="Very Sad"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Sad" />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Neutral" />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Happy" />
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Very Happy" />
     </LinearLayout>
 
 </LinearLayout>

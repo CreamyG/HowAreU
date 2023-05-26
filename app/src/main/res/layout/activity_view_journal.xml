@@ -5,22 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ViewJournalActivity">
+    tools:context=".activity.ViewJournalActivity"
+    android:background="#B7A28F">
     <LinearLayout
         android:id="@+id/topPart"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@drawable/whiteborder"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+
+        >
 
 
         <TextView
             android:id="@+id/journalDateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:text="Title"
-            android:layout_marginTop="1dp"/>
+            android:fontFamily="@font/bowlbyonesc"
+            android:gravity="center"
+            android:textSize="30sp"/>
     </LinearLayout>
 
     <androidx.cardview.widget.CardView
@@ -28,14 +34,15 @@
         android:layout_height="match_parent"
         android:elevation="10dp"
         app:cardCornerRadius="10dp"
-        android:layout_marginTop="30dp"
         app:contentPadding="50dp"
+        app:cardBackgroundColor="#B7A28F"
         >
         <TextView
             android:id="@+id/journalContentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="content of the App"
+            android:text="Content of the App"
+            android:fontFamily="@font/bowlbyonesc"
             android:layout_marginTop="1dp"/>
 
 
