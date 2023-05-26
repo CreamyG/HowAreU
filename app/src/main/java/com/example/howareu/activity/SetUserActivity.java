@@ -80,7 +80,7 @@ public class SetUserActivity extends AppCompatActivity {
                     hasError=true;
                 }
 
-                if(hasError){
+                if(!hasError){
                     saveUser(name,pass);
                 }
                 else{

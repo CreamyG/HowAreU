@@ -5,5 +5,5 @@
         android:title="About us" />
     <item
         android:id="@+id/lagout"
-        android:title="Lagout" />
+        android:title="Logout" />
 </menu>
