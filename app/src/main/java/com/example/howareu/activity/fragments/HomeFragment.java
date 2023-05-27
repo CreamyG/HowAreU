@@ -449,7 +449,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                     for (int x : randomNumbers) {
                         simpleTodoModel.add(new SimpleTodoModel(Arrays.todoArrayList().get(x), 0, true));
                     }
-
+                    if(todoAdapter!=null){
+                        todoAdapter.notifyDataSetChanged();
+                    }
                     unsavedToDoToPref();
                 }
 
@@ -783,7 +785,20 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     }
     //Get all activity list of current date
     public void getActivityList(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_loading, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
         new AsyncTask<Void, Void, Void>() {
+
+            @Override
+            protected void onPreExecute() {
+
+                dialog.show();
+                super.onPreExecute();
+            }
+
             @Override
             protected Void doInBackground(Void... voids) {
 
@@ -818,6 +833,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 });
 
                 return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void unused) {
+                dialog.dismiss();
+                super.onPostExecute(unused);
             }
         }.execute();
     }
