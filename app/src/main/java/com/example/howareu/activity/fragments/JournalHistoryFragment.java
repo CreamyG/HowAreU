@@ -212,7 +212,20 @@ public class JournalHistoryFragment extends Fragment implements JournalHistoryAd
 
     public void getJournal(boolean isDesc){
         journalArrayList.clear();
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        LayoutInflater inflater = getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_loading, null);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
         new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected void onPreExecute() {
+
+                dialog.show();
+                super.onPreExecute();
+            }
+
+
             @Override
             protected Void doInBackground(Void... voids) {
                 if(currentMonth.length()==1){
@@ -253,6 +266,11 @@ public class JournalHistoryFragment extends Fragment implements JournalHistoryAd
                     });
 
                 return null;
+            }
+            @Override
+            protected void onPostExecute(Void unused) {
+                dialog.dismiss();
+                super.onPostExecute(unused);
             }
         }.execute();
     }

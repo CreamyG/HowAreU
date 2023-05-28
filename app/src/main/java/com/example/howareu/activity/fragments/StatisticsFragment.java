@@ -260,9 +260,9 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
     }
 
     public void setPieText(){
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, Integer[]>() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            protected Integer[] doInBackground(Void... voids) {
 
                 if(currentMonth.length()==1){
                     currentMonth = "0"+ currentMonth;
@@ -274,18 +274,6 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                 int neutral =  statDb.getMoodCount(Integers.MOOD_NEUTRAL, currentMonth, currentYear);
                 int happy =statDb.getMoodCount(Integers.MOOD_HAPPY, currentMonth, currentYear);
                 int veryHappy =statDb.getMoodCount(Integers.MOOD_VERY_HAPPY, currentMonth, currentYear);
-                textVerySad.setText(Integer.toString((verySad)));
-                textSad.setText(Integer.toString(sad));
-                textNeutral.setText(Integer.toString(neutral));
-                textHappy.setText(Integer.toString(happy));
-                textVeryHappy.setText(Integer.toString(veryHappy));
-                int sumCount= verySad+sad+neutral+happy+veryHappy;
-                if (sumCount==0) {
-                    isZeroPieChart = true;
-                }
-                else{
-                    isZeroPieChart = false;
-                }
 
 
 
@@ -296,7 +284,25 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                         setPieChart();
                     }
                 });
-                return null;
+                return new Integer[]{verySad, sad, neutral, happy, veryHappy};
+            }
+
+            @Override
+            protected void onPostExecute(Integer[] integers) {
+                textVerySad.setText(Integer.toString(integers[0]));
+                textSad.setText(Integer.toString(integers[1]));
+                textNeutral.setText(Integer.toString(integers[2]));
+                textHappy.setText(Integer.toString(integers[3]));
+                textVeryHappy.setText(Integer.toString(integers[4]));
+                int sumCount= integers[0]+integers[1]+integers[2]+integers[3]+integers[4];
+                if (sumCount==0) {
+                    isZeroPieChart = true;
+                }
+                else{
+                    isZeroPieChart = false;
+                }
+
+                super.onPostExecute(integers);
             }
         }.execute();
     }
@@ -493,26 +499,27 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
 
     public void setMoodMonth(){
         mood_month_ave_image.setVisibility(View.GONE);
-        new AsyncTask<Void, Void, Void>() {
+        new AsyncTask<Void, Void, String>() {
             @Override
-            protected Void doInBackground(Void... voids) {
+            protected String doInBackground(Void... voids) {
                 double ave=statDb.getMoodMonthAvg(currentMonth,currentYear);
                 // Create a DecimalFormat object with the desired format pattern
                 DecimalFormat decimalFormat = new DecimalFormat("#0.00");
 
                 // Apply the formatting to the number
                 String formattedNumber = decimalFormat.format(ave);
-                mood_month_ave.setText(String.valueOf(formattedNumber)+"%");
+                formattedNumber+="%";
+
                 getMoodEmoji(ave);
                 // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
 
+                return formattedNumber;
+            }
 
-                    }
-                });
-                return null;
+            @Override
+            protected void onPostExecute(String s) {
+                mood_month_ave.setText(s);
+                super.onPostExecute(s);
             }
         }.execute();
     }
