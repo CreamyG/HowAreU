@@ -91,31 +91,32 @@ public class CalendarAdapter extends BaseAdapter {
                     int dayOfMonth = cal.get(Calendar.DAY_OF_MONTH);
                     if (!(realPosition < 7 && dayOfMonth > 10)) {
                         holder.dateTextView.setText(String.valueOf(dayOfMonth));
+                        Integer badgeId = mBadgeMap.get(date.getDate());
+                        if (badgeId != null) {
+                            holder.badgeImageView.setImageResource(badgeId);
+                            holder.badgeImageView.setVisibility(View.VISIBLE);
+
+
+                            if(journalHashMap!=null){
+                                holder.badgeImageView.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Date date = mDates.get(realPosition);
+                                        Journal journal = journalHashMap.get(date.getDate());
+                                        onClickEmoji.onEmojiClicked(journal);
+                                    }
+                                });
+
+                            }
+
+                        }
+                        else{
+                            holder.badgeImageView.setVisibility(View.GONE);
+                        }
                     } else {
                         holder.dateTextView.setText(" ");
                     }
-                    Integer badgeId = mBadgeMap.get(date.getDate());
-                    if (badgeId != null) {
-                        holder.badgeImageView.setImageResource(badgeId);
-                        holder.badgeImageView.setVisibility(View.VISIBLE);
 
-
-                        if(journalHashMap!=null){
-                            holder.badgeImageView.setOnClickListener(new View.OnClickListener() {
-                                @Override
-                                public void onClick(View v) {
-                                    Date date = mDates.get(realPosition);
-                                    Journal journal = journalHashMap.get(date.getDate());
-                                    onClickEmoji.onEmojiClicked(journal);
-                                }
-                            });
-
-                        }
-
-                    }
-                    else{
-                        holder.badgeImageView.setVisibility(View.GONE);
-                    }
 
                 }
             }

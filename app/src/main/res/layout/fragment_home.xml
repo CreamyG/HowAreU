@@ -170,6 +170,7 @@
                 android:inputType="textMultiLine"
                 android:minLines="5"
                 android:scrollbars="vertical"
+                android:hint="What did you do on this day?"
                 android:textSize="16sp" />
 
         </LinearLayout>

@@ -825,7 +825,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                             }
 
 
-                            populateForm();
+
                         }
 
                     }
@@ -837,6 +837,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
             @Override
             protected void onPostExecute(Void unused) {
+                populateForm();
                 dialog.dismiss();
                 super.onPostExecute(unused);
             }

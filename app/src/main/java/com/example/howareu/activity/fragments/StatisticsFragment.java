@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -165,6 +166,7 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                 setMonthYear();
 
 
+
             }
         });
         nextMonth.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +175,7 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                 clearCalendar();
                 monthChange = 1;
                 setMonthYear();
+
             }
         });
     }
@@ -190,6 +193,8 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
         currentMonth = String.valueOf(cal2.get(Calendar.MONTH)+1);
         currentYear = String.valueOf(cal2.get(Calendar.YEAR));
         getDateAndMoodID();
+        setMoodMonth();
+
     }
 
     public Integer getMoodImage(String moodName){
@@ -277,13 +282,7 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
 
 
 
-                // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        setPieChart();
-                    }
-                });
+
                 return new Integer[]{verySad, sad, neutral, happy, veryHappy};
             }
 
@@ -301,7 +300,7 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                 else{
                     isZeroPieChart = false;
                 }
-
+                setPieChart();
                 super.onPostExecute(integers);
             }
         }.execute();
@@ -359,12 +358,6 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                         }
 
 
-                    }
-                });
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
                         if(journalList != null){
                             journalList.observe(getViewLifecycleOwner(), new Observer<List<Journal>>() {
                                 @Override
@@ -388,6 +381,7 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                 });
 
 
+
                 return null;
             }
             private void checkIfDone(){
@@ -400,9 +394,8 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
 
             @Override
             protected void onPostExecute(Void unused) {
-
-                super.onPostExecute(unused);
                 checkIfDone();
+                super.onPostExecute(unused);
 
 
             }
@@ -499,9 +492,10 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
 
     public void setMoodMonth(){
         mood_month_ave_image.setVisibility(View.GONE);
-        new AsyncTask<Void, Void, String>() {
+
+        new AsyncTask<Void, Void, Pair<String,Double>>() {
             @Override
-            protected String doInBackground(Void... voids) {
+            protected Pair<String,Double> doInBackground(Void... params) {
                 double ave=statDb.getMoodMonthAvg(currentMonth,currentYear);
                 // Create a DecimalFormat object with the desired format pattern
                 DecimalFormat decimalFormat = new DecimalFormat("#0.00");
@@ -510,16 +504,17 @@ public class StatisticsFragment extends Fragment implements CalendarAdapter.onCl
                 String formattedNumber = decimalFormat.format(ave);
                 formattedNumber+="%";
 
-                getMoodEmoji(ave);
+
                 // Update UI with results on the main thread
 
-                return formattedNumber;
+                return new Pair<>(formattedNumber ,ave);
             }
 
             @Override
-            protected void onPostExecute(String s) {
-                mood_month_ave.setText(s);
-                super.onPostExecute(s);
+            protected void onPostExecute(Pair<String, Double> result) {
+                getMoodEmoji(result.second);
+                mood_month_ave.setText(result.first);
+                super.onPostExecute(result);
             }
         }.execute();
     }
