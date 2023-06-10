@@ -1,6 +1,8 @@
 package com.example.howareu.activity;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -29,6 +31,8 @@ import com.example.howareu.databases.repository.UserRepository;
 import com.example.howareu.model.Mood;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Calendar;
+
 public class MainMenuActivity extends AppCompatActivity {
     private TextView nameTextView;
     private UserRepository userRep;
@@ -55,9 +59,12 @@ public class MainMenuActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_main_menu);
         NotificationReceiver receiver = new NotificationReceiver();
-        receiver.setNotificationAlarm(this);
-        receiver.setLoginResetAlarm(this);
-        receiver.setNotificationAlarm2(this);
+
+        receiver.setBroadcast(this);
+
+
+
+
         mAuth = FirebaseAuth.getInstance();
         byteArray = getIntent().getByteArrayExtra("myBitmap");
         moodDb = new MoodRepository(getApplication());
@@ -213,6 +220,7 @@ public class MainMenuActivity extends AppCompatActivity {
             }
         }.execute();
     }
+
 
 
 
