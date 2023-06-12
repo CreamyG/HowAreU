@@ -72,7 +72,7 @@ public class SetUserActivity extends AppCompatActivity {
                 }
                 String regex = ".*[!@#$%^&*(),.?\\\":{}|<>].*";
                 Pattern pattern = Pattern.compile(regex);
-                if( pattern.matcher(pass).find()){
+                if( !pattern.matcher(pass).find()){
                     if (!errorMessage.isEmpty()) {
                         errorMessage += "\n";
                     }

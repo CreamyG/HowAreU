@@ -1,13 +1,16 @@
-package com.example.howareu.activity.fragments;
+package com.example.howareu.activity.Modules;
 
 import android.app.AlertDialog;
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -25,6 +31,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.howareu.R;
+import com.example.howareu.activity.AboutActivity;
+import com.example.howareu.activity.LoggedOutActivity;
+import com.example.howareu.activity.MainMenuActivity;
 import com.example.howareu.adapter.HomeActivityAdapter;
 import com.example.howareu.adapter.HomeTodoAdapter;
 import com.example.howareu.constant.Arrays;
@@ -39,6 +48,7 @@ import com.example.howareu.model.SimpleActivityModel;
 import com.example.howareu.model.SimpleAllActivityModel;
 import com.example.howareu.model.SimpleTodoModel;
 import com.example.howareu.model.Stat;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -54,7 +64,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDeleteActivityClickListener, HomeActivityAdapter.OnActivityMoodRateClickListener,
+public class HomeActivity extends AppCompatActivity implements HomeActivityAdapter.OnDeleteActivityClickListener, HomeActivityAdapter.OnActivityMoodRateClickListener,
         HomeTodoAdapter.OnTodoMoodRateClickListener,View.OnClickListener,HomeActivityAdapter.OnTextChangeListener, HomeTodoAdapter.OnReplaceClickListener {
 
     //Fragment needs
@@ -87,7 +97,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
 
     //Shared pref
-    private SharedPreferences mPrefs;
+    private SharedPreferences mPrefs, mPrefs2;
     private SharedPreferences prefsNotif;
     Gson gson = new Gson();
 
@@ -104,30 +114,16 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     private JournalRepository journalDb;
     private StatRepository statDb;
 
-
-
-
-    public HomeFragment() {
-        // Required empty public constructor
-    }
+    private Toolbar toolbar;
 
 
 
 
-    @Override
-    public void onAttach(@NonNull Context context) {
-        super.onAttach(context);
-        this.context = context;
-        this.application = getActivity().getApplication();
 
-    }
 
-    public static HomeFragment newInstance(String param1, String param2) {
-        HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
-    }
+
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -137,14 +133,14 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         simpleTodoModel = new ArrayList<>();
 
         //SharePref
-        mPrefs = getActivity().getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
-        prefsNotif = getActivity().getSharedPreferences(Strings.PREF_NOTIF, Context.MODE_PRIVATE);
+        mPrefs = this.getSharedPreferences(Strings.PREF_NAME, Context.MODE_PRIVATE);
+        prefsNotif = this.getSharedPreferences(Strings.PREF_NOTIF, Context.MODE_PRIVATE);
 
-
+        context  = this;
 
         //Adapters
-        activityAdapter= new HomeActivityAdapter(simpleActivityModel,this.getContext(),this,this, this);
-        todoAdapter= new HomeTodoAdapter(simpleTodoModel,this.getContext(),this,this);
+        activityAdapter= new HomeActivityAdapter(simpleActivityModel,context,this,this, this);
+        todoAdapter= new HomeTodoAdapter(simpleTodoModel,context,this,this);
 
         //Databases
         activityDb = new ActivityRepository(application);
@@ -163,27 +159,16 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         currentMonth = String.valueOf(calen.get(Calendar.MONTH)+1);
         currentYear = String.valueOf(calen.get(Calendar.YEAR));
 
-
-    }
-
-
-
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        setContentView(R.layout.activity_home);
 
         //Views
-        activityRecycler = view.findViewById(R.id.activity_recycler);
-        todoRecycler = view.findViewById(R.id.todo_recycler);
-        btnAddActivity = view.findViewById(R.id.btnAddActivity);
-        btnAddTodo = view.findViewById(R.id.btnAddTodo);
-        btnSave = view.findViewById(R.id.btnSave);
-        journalInput = view.findViewById(R.id.journalInput);
-        isPrivate = view.findViewById(R.id.isPrivate);
+        activityRecycler = findViewById(R.id.activity_recycler);
+        todoRecycler = findViewById(R.id.todo_recycler);
+        btnAddActivity = findViewById(R.id.btnAddActivity);
+        btnAddTodo = findViewById(R.id.btnAddTodo);
+        btnSave = findViewById(R.id.btnSave);
+        journalInput = findViewById(R.id.journalInput);
+        isPrivate = findViewById(R.id.isPrivate);
 
         //Recyclers
         activityRecycler.setAdapter(activityAdapter);
@@ -191,7 +176,12 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         todoRecycler.setAdapter(todoAdapter);
         todoRecycler.setLayoutManager(new LinearLayoutManager(context));
 
+        mPrefs2 = getSharedPreferences(Strings.START_PREF_NAME, Context.MODE_PRIVATE);
 
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setTitle("");
 
         //Add Activity
         btnAddActivity.setOnClickListener(new View.OnClickListener() {
@@ -322,10 +312,28 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
 
         getActivityList();//From Database
-        setDateForTopPart();//Date for Top part
-        return view;
+
+        //Date
+        View includedLayout = findViewById(R.id.date_for_fragment_home_id);
+        textMonth = includedLayout.findViewById(R.id.textMonth);
+        textDate = includedLayout.findViewById(R.id.textDate);
+        currentTime = System.currentTimeMillis();
+        setDateForTopPart();
 
 
+    }
+
+    private void setDateForTopPart() {
+        Calendar cal = Calendar.getInstance();
+        cal.setTimeInMillis(currentTime);
+        // Get the month name
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
+        String monthName = monthFormat.format(cal.getTime());
+        if(monthName.length()>3){
+            monthName = monthName.substring(0,3)+".";
+        }
+        textMonth.setText(monthName);
+        textDate.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
     }
 
 
@@ -359,19 +367,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         return ratedAll;
     }
 
-    //Setting the current Date on top part
-    private void setDateForTopPart() {
-        Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(currentTime);
-        // Get the month name
-        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
-        String monthName = monthFormat.format(cal.getTime());
-        if(monthName.length()>3){
-            monthName = monthName.substring(0,3)+".";
-        }
-        textMonth.setText(monthName);
-        textDate.setText(String.valueOf(cal.get(Calendar.DAY_OF_MONTH)));
-    }
+
 
 
     //Populate all fields
@@ -458,7 +454,43 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
         }
 
+
     }
+
+    //For main menu lagout
+    @Override
+    public boolean onCreateOptionsMenu(@NonNull Menu menu) {
+        new MenuInflater(this).inflate(R.menu.toolbar_main_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        FirebaseAuth auth= FirebaseAuth.getInstance();
+        int id = item.getItemId();
+        switch (id){
+            case R.id.about_us:
+                Intent i =  new Intent(this, AboutActivity.class);
+                startActivity(i);
+                break;
+            case R.id.lagout:
+                auth.signOut();
+                mPrefs2.edit().putBoolean(Strings.IS_LOGGED,false).apply();
+                mPrefs2.edit().putBoolean(Strings.FROM_LOGOUT,true).apply();
+                startActivity(new Intent(this, LoggedOutActivity.class));
+
+                break;
+            default:
+                break;
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
+
+
 
 
     //Disable all fields and buttons
@@ -554,7 +586,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     //Pop up for Mood Rating Activity or To do
     public void rateMoodPopUp(int position, boolean isActivity, String name){
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.RoundedDialogTheme);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_rate_mood, null);
         builder.setView(dialogView);
@@ -667,7 +699,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     }
     //Pop up After Saving
     public void savePopUp(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.RoundedDialogTheme);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_confirm_saving, null);
         builder.setView(dialogView);
@@ -739,9 +771,9 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
             }
             if(!hasNoEmptyTodoRate){
                 errorMessage +="Please Rate Every To do Activity\n" ;
-                
+
             }
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.RoundedDialogTheme);
             LayoutInflater inflater = getLayoutInflater();
             View dialogView = inflater.inflate(R.layout.dialog_not_saved, null);
             builder.setView(dialogView);
@@ -760,7 +792,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     }
 
     public void savedPopUp(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.RoundedDialogTheme);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_saved, null);
         builder.setView(dialogView);
@@ -783,7 +815,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
     }
     //Get all activity list of current date
     public void getActivityList(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.RoundedDialogTheme);
         LayoutInflater inflater = getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_loading, null);
         builder.setView(dialogView);
@@ -808,7 +840,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 allJournal = journalDb.getJournalByWholeDate(currentDay,currentMonth,currentYear);
                 int x= 0;
                 // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         if (allActivity != null) {
@@ -887,7 +919,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
 
 
                 // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         mPrefs.edit().putString(Strings.ACTIVITY_NAME_UNSAVED,null).apply();
@@ -913,7 +945,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 journalDb.insertJournal(new Journal(journalText, isJournalPrivate));
 
                 // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
@@ -933,7 +965,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
                 statDb.insertStat(new Stat(calculateMood(),getMoodIdByCalculatedRate(calculateMood())));
 
                 // Update UI with results on the main thread
-                getActivity().runOnUiThread(new Runnable() {
+                runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 

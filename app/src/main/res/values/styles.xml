@@ -7,4 +7,8 @@
     <style name="AppThemeNoAction" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 
+
+    <style name="RoundedDialogTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
 </resources>

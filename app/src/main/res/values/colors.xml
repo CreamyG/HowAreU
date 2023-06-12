@@ -21,5 +21,7 @@
     <color name="very_happy">#F6CA29</color>
     <color name="empty">#808080</color>
 
+    <color name="transparent">#00000000</color>
+
 
 </resources>

@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -109,12 +110,13 @@ public class HomeTodoAdapter extends RecyclerView.Adapter<HomeTodoAdapter.ViewHo
         private EditText editTextToDo;
 
         private ImageView btnRateMoodTodo,btnReplace;
-        private CardView todolist_CardView;
+        private LinearLayout todolist_LinearView;
+
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            todolist_CardView= itemView.findViewById(R.id.todolist_CardView);
+            todolist_LinearView= itemView.findViewById(R.id.todolist_LinearView);
 
 
             editTextToDo= itemView.findViewById(R.id.editTextToDo);

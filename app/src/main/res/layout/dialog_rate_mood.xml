@@ -4,6 +4,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:background="#ffffff"
     >
 
     <LinearLayout
@@ -19,99 +20,165 @@
             android:text="Select A Mood"
             android:textStyle="bold"
             android:textSize="20sp"
+            android:layout_marginLeft="20dp"
+            android:textColor="#664F38"
             android:gravity="center"/>
         <ImageView
             android:id="@+id/btnExit"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:text="RateMood"
+            android:layout_margin="10dp"
             app:srcCompat="@drawable/reject"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
 
-        <ImageView
-            android:id="@+id/btnVerySad"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight = "1"
-            android:text="RateMood"
-            app:srcCompat="@drawable/very_sad2"/>
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/rounded_border_very_happy"
+            >
+            <ImageView
+                android:id="@+id/btnVeryHappy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="Sad"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/very_happy2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Very Happy" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/btnSad"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight = "1"
-            android:text="Sad"
-            app:srcCompat="@drawable/sad2"/>
 
-        <ImageView
-            android:id="@+id/btnNeutral"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight = "1"
-            android:text="Sad"
-            app:srcCompat="@drawable/neutral2"/>
-        <ImageView
-            android:id="@+id/btnHappy"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight = "1"
-            android:text="Sad"
-            app:srcCompat="@drawable/happy2"/>
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/rounded_border_happy"
+            android:layout_marginLeft="20dp"
+            >
+            <ImageView
+                android:id="@+id/btnHappy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:text="Sad"
+                app:srcCompat="@drawable/happy2"/>
 
-        <ImageView
-            android:id="@+id/btnVeryHappy"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight = "1"
-            android:text="Sad"
-            app:srcCompat="@drawable/very_happy2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Happy" />
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/rounded_border_neutral"
+            android:layout_marginLeft="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/btnNeutral"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="5dp"
+                android:text="Sad"
+                app:srcCompat="@drawable/neutral2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Neutral" />
+        </LinearLayout>
+
+
+
+
+
 
     </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
+        android:gravity="center"
         >
 
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Very Sad"
-            android:gravity="center"
-            />
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Sad" />
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Neutral" />
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Happy" />
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Very Happy" />
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/rounded_border_sad"
+            >
+            <ImageView
+                android:id="@+id/btnSad"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="Sad"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/sad2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Sad" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="90dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:background="@drawable/rounded_border_very_sad"
+            android:layout_marginLeft="20dp"
+            >
+
+            <ImageView
+                android:id="@+id/btnVerySad"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="RateMood"
+                android:layout_marginTop="5dp"
+                app:srcCompat="@drawable/very_sad2"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Very Sad"
+                android:gravity="center"
+                />
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
     </LinearLayout>
 
 </LinearLayout>

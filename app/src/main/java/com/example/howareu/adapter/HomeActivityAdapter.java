@@ -1,25 +1,21 @@
 package com.example.howareu.adapter;
 
 import android.content.Context;
-import android.media.Image;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.howareu.R;
 import com.example.howareu.constant.Integers;
 import com.example.howareu.model.SimpleActivityModel;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -174,11 +170,11 @@ public class HomeActivityAdapter extends RecyclerView.Adapter<HomeActivityAdapte
     public class ViewHolder extends RecyclerView.ViewHolder {
         private EditText editTextActivity;
         private ImageView btnRateMoodActivity,btnDeleteMoodActivity;
-        private CardView activity_CardView;
+        private LinearLayout activity_LinearView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            activity_CardView= itemView.findViewById(R.id.activity_CardView);
+            activity_LinearView = itemView.findViewById(R.id.activity_LinearView);
 
             editTextActivity= itemView.findViewById(R.id.editTextActivity);
 
