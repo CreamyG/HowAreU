@@ -70,7 +70,7 @@ public class SetUserActivity extends AppCompatActivity {
                     errorMessage="PassCode size must be atleast 8 ";
                     hasError=true;
                 }
-                String regex = "^(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\"\\\\|,.<>\\/?]).+$";
+                String regex = ".*[!@#$%^&*(),.?\\\":{}|<>].*";
                 Pattern pattern = Pattern.compile(regex);
                 if( pattern.matcher(pass).find()){
                     if (!errorMessage.isEmpty()) {
