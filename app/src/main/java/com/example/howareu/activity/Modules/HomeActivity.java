@@ -764,13 +764,13 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAdapt
         }
         else{
             if(!hasNoEmptyActivity){
-                errorMessage ="Check Fields Has Empty Activity Input \n " ;
+                errorMessage ="-Check Fields Has Empty Activity Input \n\n" ;
             }
             if(!hasNoEmptyActivityRate){
-                errorMessage +="Please Rate Every Activity\n" ;
+                errorMessage +="-Please Rate Every Activity\n\n" ;
             }
             if(!hasNoEmptyTodoRate){
-                errorMessage +="Please Rate Every To do Activity\n" ;
+                errorMessage +="-Please Rate Every in To do Activity\n" ;
 
             }
             AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.RoundedDialogTheme);
@@ -803,6 +803,27 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAdapt
         MoodTotalForTheDay = dialogView.findViewById(R.id.MoodTotalForTheDay);
 
         MoodTotalForTheDay.setText(getCalculatedMoodString(calculateMood()));
+        ImageView emoji = dialogView.findViewById(R.id.emoji_for_today);
+        switch(getMoodIdByCalculatedRate(calculateMood())) {
+            case Integers.MOOD_SAD:
+                emoji.setImageResource(R.drawable.sad2);
+                break;
+            case Integers.MOOD_VERY_SAD:
+                emoji.setImageResource(R.drawable.very_sad2);
+                break;
+            case Integers.MOOD_NEUTRAL:
+                emoji.setImageResource(R.drawable.neutral2);
+                break;
+            case Integers.MOOD_HAPPY:
+                emoji.setImageResource(R.drawable.happy2);
+                break;
+            case Integers.MOOD_VERY_HAPPY:
+                emoji.setImageResource(R.drawable.very_happy2);
+                break;
+            default:
+                emoji.setImageResource(R.drawable.emotionless3);
+                break;
+        }
         Button btnConfirm =dialogView.findViewById(R.id.btnConfirm);
 
 

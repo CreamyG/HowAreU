@@ -2,10 +2,33 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:background="@drawable/round_gradient3">
+    android:background="@drawable/white_brownline">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/white_brownline"
+        android:gravity="center">
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center">
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            app:srcCompat="@drawable/exclamation"
+            />
+
+
+        </LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,34 +40,43 @@
             android:id="@+id/errorMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Error Please Check all Fields"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:layout_centerHorizontal="true"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/cardview_dark_background"
-            android:textColorLink="@color/white"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="Sample Sample Sample"
+            android:textColor="#664F38"
+            android:textSize="15dp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="20dp">
+        android:background="@drawable/white_brownline">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="10dp">
 
 
-        <Button
-            android:id="@+id/btnConfirmError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@color/cardview_shadow_start_color"
-            android:textColor="@color/white"
-            android:text="Okay" />
+            <Button
+                android:id="@+id/btnConfirmError"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/round_gradient"
+                android:textColor="@color/white"
+                android:text="Okay" />
 
+        </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

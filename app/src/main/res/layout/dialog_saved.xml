@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/rounded_corner_white_brownline">
+    android:background="@drawable/white_brownline">
 
 
 
@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:background="@drawable/white_brownline"
         android:gravity="center">
 
         <TextView
@@ -24,8 +25,7 @@
             android:layout_centerHorizontal="true"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:textColor="@color/cardview_dark_background"
-            android:textColorLink="@color/white"/>
+            android:textColor="#664F38"/>
 
 
     </LinearLayout>
@@ -40,25 +40,26 @@
             android:layout_height="70dp"
             android:orientation="horizontal"
             android:gravity="center"
-
-            android:layout_marginBottom="20dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp">
 
 
             <ImageView
                 android:id="@+id/emoji_for_today"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                app:srcCompat="@drawable/happy2" />
+                app:srcCompat="@drawable/happy2"
+                android:layout_marginRight="10dp"/>
 
             <TextView
                 android:id="@+id/MoodTotalForTheDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Happy"
+                android:text="Happy = 69.69"
                 android:layout_centerHorizontal="true"
                 android:textStyle="bold"
                 android:textSize="20dp"
-                android:textColor="@color/cardview_dark_background"
+                android:textColor="#664F38"
                 android:textColorLink="@color/white"/>
 
 
@@ -76,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@color/cardview_shadow_start_color"
+                android:background="@drawable/round_gradient"
                 android:textColor="@color/white"
                 android:text="Okay" />
 

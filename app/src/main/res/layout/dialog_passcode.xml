@@ -1,55 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:background="@drawable/round_gradient3"
-  >
+    android:background="@drawable/white_brownline">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="20dp"
         android:gravity="center">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center">
-            <EditText
-            android:id="@+id/passCodeEditText"
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter Passcode"
+                android:textColor="#664F38"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                />
+
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center">
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:textSize="20dp"
-            android:textColor="@color/cardview_dark_background"
-            android:textColorLink="@color/white"
-            android:hint="Passcode" />
+            android:orientation="horizontal"
+            android:background="@drawable/rounded_border"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <EditText
+                android:id="@+id/passCodeEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="@color/cardview_dark_background"
+                android:textColorLink="@color/white"
+                android:textSize="20dp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                >
+                <TextView
+                    android:id="@+id/passCodeError"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Wrong Passcode"
+                    android:textColor="@color/color_one"
+                    android:visibility="gone"
+                    />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                android:gravity="center">
 
         <Button
             android:id="@+id/viewJournalBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginLeft="5dp"
+            android:padding="10dp"
             android:text="View Journal"
-            android:background="@color/cardview_shadow_start_color"
+            android:background="@drawable/round_gradient"
             android:textColor="@color/white"/>
+            </LinearLayout>
         </LinearLayout>
-        <TextView
-            android:id="@+id/passCodeError"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Wrong Passcode"
-            android:textColor="@color/color_one"
-            android:visibility="gone"
-            />
+
+
 
 
     </LinearLayout>

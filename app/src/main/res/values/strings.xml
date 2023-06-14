@@ -22,11 +22,14 @@
     <string name="stats_mood_summary">Mood Summary:</string>
     <string name="stats_mood_summary_m">Mood for the month:</string>
 
-    <string name="about_us"> Welcome to "How are U," a mood monitoring app dedicated to prioritizing good mental health and helping you achieve a blissful lifestyle. We understand that mental health is a complex and individualized matter that affects each person uniquely. Our mission is to assist you in attaining and maintaining optimal mental well-being by providing the necessary tools and resources to monitor and manage your moods and activities.
-
-Our app simplifies the process of tracking your daily activities and monitoring mood changes, allowing you to identify important factors that impact your mental health. By collecting and analyzing this data, we aim to identify patterns and trends that may indicate the need for intervention or support.
-
-Throughout your journey, our app is here to support you every step of the way. We firmly believe that by actively engaging in your mental health, you can achieve a happier and more fulfilling life. We provide you with the necessary tools, resources, and personalized support to empower you in taking an active role in your mental well-being. </string>
+    <string name="about_us"> <br>              Welcome to "How are U," a mood monitoring app dedicated to prioritizing good mental health and helping you achieve a blissful lifestyle. We understand that mental health is a complex and individualized matter that affects each person uniquely. Our mission is to assist you in attaining and maintaining optimal mental well-being by providing the necessary toolsand resources to monitor and manage your moods and activities.
+        </br>
+         <br>  </br>
+        <br>              Our app simplifies the process of tracking your daily activities and monitoring mood changes, allowing you to identify important factors that impact your mental health. By collecting and analyzing this data, we aim to identify patterns and trends that may indicate the need for intervention or support.
+        </br> <br>  </br>
+         <br>             Throughout your journey, our app is here to support you every step of the way. We firmly believe that by actively engaging in your mental health, you can achieve a happier and more fulfilling life. We provide you with the necessary tools, resources, and personalized support to empower you in taking an active role in your mental well-being.
+        </br>
+    </string>
     <string name="title_activity_home">HomeActivity</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>

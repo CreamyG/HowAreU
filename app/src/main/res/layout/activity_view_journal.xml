@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.ViewJournalActivity"
-    android:background="#B7A28F">
+    android:background="@drawable/lightformain">
     <LinearLayout
         android:id="@+id/topPart"
         android:layout_width="match_parent"
@@ -28,26 +28,29 @@
             android:gravity="center"
             android:textSize="30sp"/>
     </LinearLayout>
-
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:elevation="10dp"
-        app:cardCornerRadius="10dp"
-        app:contentPadding="50dp"
-        app:cardBackgroundColor="#B7A28F"
+        android:layout_height="wrap_content"
+        android:background="@drawable/whiteborder"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+
         >
+
+
         <TextView
             android:id="@+id/journalContentText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
             android:text="Content of the App"
             android:fontFamily="@font/bowlbyonesc"
             android:layout_marginTop="1dp"/>
+    </LinearLayout>
 
 
 
-    </androidx.cardview.widget.CardView>
 
 
 </LinearLayout>

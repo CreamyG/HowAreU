@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="100dp"
     android:orientation="vertical"
-    android:background="@drawable/round_gradient3"
+    android:background="@drawable/rounded_corner_white_brownline"
     android:gravity="center">
 
 
@@ -23,8 +23,7 @@
             android:layout_centerHorizontal="true"
             android:textStyle="bold"
             android:textSize="20dp"
-            android:textColor="@color/cardview_dark_background"
-            android:textColorLink="@color/white"/>
+            android:textColor="#664F38"/>
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"></ProgressBar>
