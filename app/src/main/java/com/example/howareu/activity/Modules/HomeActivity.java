@@ -705,7 +705,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAdapt
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.show();
-        Button btnConfirmSave =dialogView.findViewById(R.id.btnConfirmSave);
+        Button btnConfirmSave =dialogView.findViewById(R.id.btnConfirmSave2);
         Button btnCancelSave =dialogView.findViewById(R.id.btnCancel);
 
         btnConfirmSave.setOnClickListener(new View.OnClickListener() {

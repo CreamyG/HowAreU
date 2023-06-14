@@ -673,7 +673,7 @@ public class HomeFragment extends Fragment implements HomeActivityAdapter.OnDele
         builder.setView(dialogView);
         AlertDialog dialog = builder.create();
         dialog.show();
-        Button btnConfirmSave =dialogView.findViewById(R.id.btnConfirmSave);
+        Button btnConfirmSave =dialogView.findViewById(R.id.btnConfirmSave2);
         Button btnCancelSave =dialogView.findViewById(R.id.btnCancel);
 
         btnConfirmSave.setOnClickListener(new View.OnClickListener() {

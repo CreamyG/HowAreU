@@ -1,29 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@drawable/round_gradient3">
-
-
+    android:background="@drawable/rounded_corner_white">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+
+        >
+
+        <LinearLayout
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            >
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                app:srcCompat="@drawable/exclamation"
+                />
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Are you done?"
+                android:layout_marginTop="5dp"
+                android:textStyle="bold"
+                android:textSize="20dp"
+                android:textColor="#664F38"
+                android:layout_centerHorizontal="true"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_marginBottom="20dp"
+
         >
 
 
         <TextView
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Are you done? You can recheck it."
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:textStyle="bold"
-            android:textSize="20dp"
-            android:textColor="@color/cardview_dark_background"
+            android:text="Once you click Confirm, your inputs will be locked and cannot be edited. Are you ready to proceed?"
+            android:textSize="15dp"
+            android:textColor="#000000"
             android:textColorLink="@color/white"
             android:layout_centerHorizontal="true"/>
 
@@ -32,29 +79,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
-        android:layout_marginBottom="20dp">
+        android:weightSum="2">
 
 
-        <Button
-            android:id="@+id/btnConfirmSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:background="@color/cardview_shadow_start_color"
-            android:layout_marginEnd="20dp"
-            android:textColor="@color/white"
-            android:text="Confirm" />
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:background="@color/cardview_shadow_start_color"
-            android:textColor="@color/white"
+            android:layout_weight="1"
+            android:background="@drawable/white_brownline"
+            android:textColor="#664F38"
             android:text="Cancel" />
+
+        <Button
+            android:id="@+id/btnConfirmSave2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/white_brownline"
+            android:textColor="#664F38"
+            android:layout_weight="1"
+            android:text="Confirm" />
 
     </LinearLayout>
 </LinearLayout>
