@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.fragments.JournalHistoryFragment"
-    android:background="#B7A28F">
+    android:background="@drawable/lightformain">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -41,8 +41,10 @@
                     android:layout_weight="1"
                     android:text="Sort"
                     android:textSize="15sp"
-                    android:padding="5dp"
-                    android:background="@color/cardview_shadow_start_color"/>
+                    android:padding="10dp"
+                    android:background="@drawable/round_gradient"
+                    android:textColor="@color/white"
+                    android:layout_marginBottom="25dp"/>
             </LinearLayout>
 
 

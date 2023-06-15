@@ -105,15 +105,15 @@
         android:layout_marginTop="12dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
     <TextView
         android:id="@+id/errorText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:text="Error Message"
         android:textColor="@color/color_one"
-        android:visibility="gone"/>
+        />
     </LinearLayout>
 
     <Button

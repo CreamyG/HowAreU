@@ -4,23 +4,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/gradient_background2"
+    android:background="@drawable/lightformain"
     tools:layout_editor_absoluteX="-108dp"
     tools:layout_editor_absoluteY="0dp"
     tools:context=".activity.InspirationalQuotesActivity">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="436dp"
-        android:layout_height="516dp"
+    <LinearLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="357dp"
+        android:layout_height="359dp"
         android:layout_margin="20px"
-        android:background="@drawable/forquotes"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:background="@drawable/rounded_corner_white_darkbrownline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.204">
+        app:layout_constraintVertical_bias="0.443">
 
 
         <TextView
@@ -31,14 +33,11 @@
             android:fontFamily="@font/montserrat_medium"
             android:padding="50dp"
             android:text="Sample Lorem Impsum Hey soul Sister"
-            android:textSize="15sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="14sp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -50,5 +49,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/bgquotes" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/headquote" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
