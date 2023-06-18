@@ -33,8 +33,8 @@ public class LoggedOutActivity extends AppCompatActivity {
         mPrefs2 = getSharedPreferences(Strings.START_PREF_NAME, Context.MODE_PRIVATE);
         editTextName = findViewById(R.id.editTextName);
         editTextPasscode = findViewById(R.id.editTextPasscode);
-        btnLogInUser = findViewById(R.id.btnLogInUser);
-        errorText= findViewById(R.id.errorText);
+        btnLogInUser = findViewById(R.id.btnLogInUser2);
+        errorText= findViewById(R.id.errorText2);
         userLocalDB = new UserLocalRepository(getApplication());
 
         btnLogInUser.setOnClickListener(new View.OnClickListener() {

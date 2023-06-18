@@ -99,6 +99,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     public void setBroadcast(Context context){
         setAlarmManager(context,2008,NOTIFY, 20);
+        setAlarmManager(context,3010,"NOTIFY2", 22);
         setAlarmManager(context,4000,RESET, 0);
 
     }

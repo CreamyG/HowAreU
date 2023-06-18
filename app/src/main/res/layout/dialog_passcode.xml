@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:inputType="textPersonName"
+                android:inputType="textPassword"
                 android:textColor="@color/cardview_dark_background"
                 android:textColorLink="@color/white"
                 android:textSize="20dp" />

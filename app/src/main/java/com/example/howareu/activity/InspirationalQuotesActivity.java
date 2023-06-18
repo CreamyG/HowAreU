@@ -20,7 +20,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class InspirationalQuotesActivity extends AppCompatActivity {
-    private static final int SPLASH_TIME_OUT = 3000; // 3 seconds
+    private static final int SPLASH_TIME_OUT = 7000; // 7 seconds
     private SharedPreferences mPrefs;
     private  boolean isFirstTime;
     public TextView quoteText;
