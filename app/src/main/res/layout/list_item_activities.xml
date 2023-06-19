@@ -17,13 +17,16 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
-            android:background="#00000000">
+            android:background="#00000000"
+            android:weightSum="3"
+            android:layout_marginLeft="10dp">
             <LinearLayout
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:orientation="vertical"
                 android:background="@drawable/rounded_border"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/btnRateMoodActivity"
@@ -41,13 +44,16 @@
                 android:layout_marginLeft="10dp"
                 android:background="@drawable/rounded_border"
                 android:gravity="center"
+                android:layout_weight="2"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
                 >
                 <EditText
                     android:id="@+id/editTextActivity"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:ems="10"
                     android:textSize="15sp"
+                    android:gravity="center"
                     android:inputType="textPersonName"
                     android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
                     android:hint="Enter Activity" />
@@ -58,7 +64,8 @@
             <LinearLayout
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_weight="1">
                 <ImageView
                     android:id="@+id/btnDeleteMoodActivity"
                     android:layout_height="40dp"
