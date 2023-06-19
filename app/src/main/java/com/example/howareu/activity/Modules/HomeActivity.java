@@ -770,7 +770,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAdapt
                 errorMessage +="-Please Rate Every Activity\n\n" ;
             }
             if(!hasNoEmptyTodoRate){
-                errorMessage +="-Please Rate Every in To do Activity\n" ;
+                errorMessage +="-Please Rate Every Activity in To do \n" ;
 
             }
             AlertDialog.Builder builder = new AlertDialog.Builder(context,R.style.RoundedDialogTheme);

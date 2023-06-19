@@ -67,8 +67,9 @@ public class MainMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main_menu);
-        NotificationReceiver receiver = new NotificationReceiver();
 
+
+        NotificationReceiver receiver = new NotificationReceiver();
         receiver.setBroadcast(this);
 
 

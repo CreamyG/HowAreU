@@ -14,6 +14,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.howareu.activity.MainMenuActivity;
 import com.example.howareu.activity.SplashScreenActivity;
 import com.example.howareu.constant.Strings;
 
@@ -26,14 +27,16 @@ public class NotificationReceiver extends BroadcastReceiver {
     private static final String RESET = "RESET";
     private static final int NOTIFICATION_ID = 1;
 
+
     @Override
     public void onReceive(Context context, Intent intent) {
         mPrefs= context.getSharedPreferences(Strings.PREF_NOTIF, Context.MODE_PRIVATE);
 
         boolean isDayDone =mPrefs.getBoolean(Strings.IS_DAY_DONE, false); // Get the login status (e.g., from shared preferences or database)
 
-        Log.e("BROADCASTED===:",isDayDone+"");
-        Log.e("getAction===:",intent.getAction()+"");
+        Log.e("Broadcasted==:",isDayDone+"");
+        Log.e("Broadcasted==:",intent.getAction()+"");
+
         if(intent.getAction() != null) {
             switch (intent.getAction()) {
                 case NOTIFY:
@@ -46,11 +49,13 @@ public class NotificationReceiver extends BroadcastReceiver {
                     editor.putBoolean(Strings.IS_DAY_DONE, false);
                     editor.apply();
                     break;
+
                 default:
                     Log.d("No Action","Default case");
                     break;
             }
         }
+        setBroadcast(context);
     }
 
 
@@ -99,7 +104,7 @@ public class NotificationReceiver extends BroadcastReceiver {
 
     public void setBroadcast(Context context){
         setAlarmManager(context,2008,NOTIFY, 20);
-        setAlarmManager(context,3010,"NOTIFY2", 22);
+        //setAlarmManager(context,3010,"NOTIFY2", 22);
         setAlarmManager(context,4000,RESET, 0);
 
     }
