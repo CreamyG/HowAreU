@@ -7,7 +7,7 @@
     <!-- Home Fragment -->
     <string name="home_to_do_list">To do:</string>
     <string name="home_activity">Activity:</string>
-    <string name="home_journal">Journal(optional):</string>
+    <string name="home_journal">Journal (optional): </string>
 
 
     <string name="very_sad">Very Sad</string>

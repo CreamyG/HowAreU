@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.Modules.StatisticsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/back_ground_plant">
 
 
     <ScrollView

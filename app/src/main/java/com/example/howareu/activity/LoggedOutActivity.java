@@ -69,7 +69,7 @@ public class LoggedOutActivity extends AppCompatActivity {
                             updateUI(userModel);
                         }
                         else{
-                            errorText.setText("Wrong name or passcode");
+                            errorText.setText("Wrong username or passcode");
                             errorText.setVisibility(View.VISIBLE);
                         }
                     }

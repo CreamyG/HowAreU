@@ -89,9 +89,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Activity Page"
-                        android:textSize="23sp"
+                        android:textSize="30sp"
                         android:gravity="center"
-
                         android:textColor="#664F38"
                         android:textStyle="bold"/>
 
@@ -137,8 +136,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Statistics"
-                        android:textSize="23sp"
-
+                        android:textSize="30sp"
                         android:textColor="#664F38"
                         android:gravity="center"
                         android:textStyle="bold"/>
@@ -187,8 +185,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Journal History"
-                        android:textSize="23sp"
-
+                        android:textSize="30sp"
                         android:textColor="#664F38"
                         android:gravity="center"
                         android:textStyle="bold"/>

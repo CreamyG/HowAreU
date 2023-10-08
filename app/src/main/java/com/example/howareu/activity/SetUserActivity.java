@@ -21,7 +21,7 @@ import com.example.howareu.model.UserLocal;
 import java.util.regex.Pattern;
 
 public class SetUserActivity extends AppCompatActivity {
-    EditText editTextName, editTextPasscode, editTextPasscodeConfirm;
+    EditText editTextName, editTextPasscode;
     TextView errorText;
     Button btnLogInUser;
     UserLocalRepository userLocalDB;
@@ -35,7 +35,6 @@ public class SetUserActivity extends AppCompatActivity {
         mPrefs2 = getSharedPreferences(Strings.START_PREF_NAME, Context.MODE_PRIVATE);
         editTextName = findViewById(R.id.editTextName);
         editTextPasscode = findViewById(R.id.editTextPasscode);
-        editTextPasscodeConfirm = findViewById(R.id.editTextPasscodeConfirm);
         btnLogInUser = findViewById(R.id.btnLogInUser);
         errorText= findViewById(R.id.errorText);
         userLocalDB = new UserLocalRepository(getApplication());
@@ -47,25 +46,14 @@ public class SetUserActivity extends AppCompatActivity {
                 boolean hasError= false;
                 String name = editTextName.getText().toString();
                 String pass = editTextPasscode.getText().toString();
-                String pass2 = editTextPasscodeConfirm.getText().toString();
                 String errorMessage = "";
 
 
 
-                if(name.isEmpty() ||pass.isEmpty() || pass2.isEmpty()){
+                if(name.isEmpty() ||pass.isEmpty()){
                     errorMessage="Check Empty Fields ";
                     hasError=true;
                 }
-                if(!pass.equals(pass2)){
-                    if(errorMessage.isEmpty()){
-                        errorMessage="PassCode Not the same";
-                    }
-                    else{
-                        errorMessage="Check Fields";
-                    }
-                    hasError=true;
-                }
-
                 if (pass.length()<8 ) {
                     errorMessage="PassCode size must be atleast 8 ";
                     hasError=true;

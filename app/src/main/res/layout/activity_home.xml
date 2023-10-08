@@ -76,11 +76,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home_activity"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="40dp"
                     android:textColor="#664F38"
+                    android:fontFamily="@font/charlotte"
                     />
 
 
@@ -120,11 +121,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/home_to_do_list"
-                    android:textSize="20sp"
+                    android:textSize="30sp"
                     android:textStyle="bold"
                     android:textColor="#664F38"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/charlotte"
                     />
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/todo_recycler"
@@ -165,11 +167,11 @@
                     android:orientation="horizontal"
                     >
                     <TextView
-
+                        android:fontFamily="@font/charlotte"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/home_journal"
-                        android:textSize="20sp"
+                        android:textSize="30sp"
                         android:textStyle="bold"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"
@@ -180,6 +182,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Private"
+                        android:textSize="20sp"
                         android:layout_marginBottom="10dp"
                         android:layout_marginTop="10dp"/>
 

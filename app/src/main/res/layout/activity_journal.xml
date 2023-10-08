@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".activity.Modules.JournalActivity"
     android:orientation="vertical"
-    android:background="@drawable/lightformain">
+    android:background="@drawable/back_ground_plant">
 
     <ScrollView
         android:layout_width="match_parent"

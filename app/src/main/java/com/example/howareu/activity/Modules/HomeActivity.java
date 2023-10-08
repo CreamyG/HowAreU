@@ -329,7 +329,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityAdapt
         // Get the month name
         SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", Locale.getDefault());
         String monthName = monthFormat.format(cal.getTime());
-        if(monthName.length()>3){
+        if(monthName.length()>4){
             monthName = monthName.substring(0,3)+".";
         }
         textMonth.setText(monthName);

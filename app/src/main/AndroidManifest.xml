@@ -58,6 +58,7 @@
 
 
 
+
         </activity>
         <activity
             android:name=".activity.InspirationalQuotesActivity"
@@ -68,7 +69,6 @@
             android:name=".activity.MainMenuActivity"
             android:exported="true"
             android:windowSoftInputMode="adjustPan">
-
 
 
         </activity>
